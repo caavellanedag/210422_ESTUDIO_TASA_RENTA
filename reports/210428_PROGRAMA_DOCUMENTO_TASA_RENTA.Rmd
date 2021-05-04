@@ -39,7 +39,7 @@ options(tinytex.verbose = TRUE)
 Your abstract.
 \end{abstract}
 
-\section{Introducción}\label{section1}
+\section{Introducción}\label{section_int}
 
 En la Unidad Administrativa Especial de Catastro Distrital (UAECD) se cuenta con información de ofertas de fuentes secundarias y de fuentes primarias. Las fuentes primarias corresponden a información recolectada en campo por cuenta de la UAECD, mientras que la secundaría corresponde a información que se recolecta a partir de otras fuentes con las cuales se establecen convenios. 
 
@@ -48,8 +48,10 @@ Para diferentes procesos de la Unidad se hace uso de la información recolectada
 Denotando como $Z_i$ y $X_i$ al valor comercial y el valor de arriendo del $i$-ésimo predio, respectivamente, se busca obtener un coeficiente $\beta$, tal que se pueda obtener una ecuación que relacione a $Z_i$ y $X_i$ como se muestra en la ecuación \eqref{eq1}. De esta manera, de una forma natural se puede pensar en el uso de los rudimientos correspondientes a las metodologías de modelos lineales \citep{Melo} que permitan estimar el coeficiente $\beta$. Este ejercicio se debe realizar para diferentes desagregaciones de predios en la ciudad, tales como usos, estratos y/o desagregaciones geográficas (localidad, upz, sectores catastrales, entre otros). El nivel de desagregación depende de la cantidad de registros correspondiente a cada caso. 
 
 \begin{equation}\label{eq1}
-    Z_i=\beta X_i 
+    Z_i=\beta X_i +\epsilon_{i}  
 \end{equation}
+
+
 
 En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas por la UAECD tanto de fuentes primarias como secundarias en los años, 2017, 2018, 2019 y 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. 
 
@@ -59,7 +61,8 @@ Dentro de la literatura se encuentran diversos ejemplos de este tipo de datos do
  
 Por ende, dado que no se tienen mediciones de arriendo y venta sobre los mismos predios, se propone el uso de un modelo lineal, agregando de acuerdo a "cohortes", de tal manera que se pueda emular la propuesta de \citet{deaton1985panel}. En este caso, la propuesta es agrupar por agregaciones geográficas tales como sectores catastrales, considerando que desagregar a nivel de lote puede llegar a ser demasiado fino y pueda presentar problemas a la hora de hacer la estimación de parámetros en el modelo lineal, y por otro lado a nivel de agregaciones como localidad puede generar agrupaciones muy grandes, considerando los objetivos del estudio.
 
-El presente documento contiene en la sección \label{section_int} la introducción, seguido de la sección \label{section_obj} donde se presentan los objetivos del estudio. En la sección \ref{section_marco} se hace una revisión metodológica de las metodologías estadísticas a utilizar. Por otro lado, la sección
+El presente documento contiene en la sección \ref{section_int} la introducción, seguido de la sección \ref{section_obj} donde se presentan los objetivos del estudio. En la sección \ref{section_marco} se hace una revisión metodológica de los procedimientos estadísticos a utilizar. Por otro lado, la sección \ref{section_base} muestra una breve revisión de la base de datos.
+
 \section{Objetivos}\label{section_obj}
 
 \subsection{Objetivo general}
@@ -98,7 +101,18 @@ En términos matriciales, según \citet[p. 58]{bates2000mixed}, el modelo lineal
 
 \noindent donde $\boldsymbol{y}_i$ es el vector de respuestas, $\boldsymbol{X}_i$ y $\boldsymbol{Z}_i$ son las matrices de diseño de los efectos fijos y aleatorios  asociadas al $i$-ésimo individuo, respectivamente. Los vectores $\boldsymbol{\beta}$ y $\boldsymbol{b}_{i}$ de dimensiones $a$ y $q$, que contienen los coeficientes asociados a los efectos fijos y aleatorios considerados en la $i$-ésima UE, respectivamente, mientras que $\boldsymbol{\epsilon}_i$ es el vector de errores de mediciones dentro de cada UE. Como supuestos distribucionales sobre este modelo se asume que $\boldsymbol{b}_i \sim \boldsymbol{N}_q(\boldsymbol{0}_q,\boldsymbol{\Psi}_{q \times q})$ y $\boldsymbol{\epsilon}_i \sim \boldsymbol{N}_t(\boldsymbol{0}_t,\boldsymbol{\Sigma}_{t \times t})$. A su vez los vectores $\boldsymbol{\epsilon}_i$ y $\boldsymbol{b}_i$ se asumen independientes, es decir $Cov(\boldsymbol{\epsilon}_i,\boldsymbol{b}_i)=0$. La matriz $\boldsymbol{\Sigma}$ asociada a los residuales dentro de las mediciones de la misma unidad puede considerar diferentes situaciones, es decir que se puede asociar a procesos autocorrelacionados, por ejemplo los que se encuentran en la literatura relacionada con series de tiempo, como los modelos \textit{ARIMA} \citep{wei2006time}, o como los que se estudian en la estadística espacial, que se caracterizan mediante su función de variograma \citep{schabenberger2017statistical}. En este documento únicamente aborda el contexto de datos longitudinales o datos panel, por lo cual únicamente se tendrán en cuenta aquellos procesos relacionados con series temporales en cuanto a la matriz de errores $\boldsymbol{\Sigma}$.
 
-\section{Revisión de la base de ofertas}
+
+\subsection{Modelos para datos pseudo-panel }\label{marco:pseudo}
+
+Muchos tipos de modelos pueden ser estimados a partir del supuesto de independencia de los modelos de regresión estándar, mientras que otros consideran datos de tipo panel, generando la necesidad de inclusión de efectos que permitan incluir los efectos individuales como variables independientes adicionales. De acuerdo con \citet{verbeek2008pseudo} la mayor limitación de datos con secciones transversales repetidas es que la totalidad de los individuos no son seguidos en el tiempo, por lo cual las historias individuales no están disponibles para su inclusión en un modelo estadístico, la construcción de instrumentos o para transformar un modelo a uno que considere desviaciones sobre efectos grupales. Según \citet{deaton1985panel} si hay una relación entre dos variables (una explicativa y una respuesta) entre los individuos de una población, existirá una versión grupal de esta relación del mismo tipo al caso individual. Esto quiere decir que por ejemplo considerando el modelo dado en la ecuación \eqref{eq1}, calculando los promedios por UE, se mantendrá la misma relación lineal, es decir mediante el modelo descrito en la ecuación \eqref{marco:linreg3}.
+
+\begin{equation}\label{marco:linreg3}
+    \bar{Z}_{k.}=\beta \bar{X}_{k.}+\bar{\epsilon}_{k.}.  
+\end{equation}
+
+El modelo usado por \cite{deaton1985panel} es usado en la literatura, construyendo grupos de individuos de manera adecuada los cuales denominan \textit{``cohortes"}, donde cada individuo solo puede pertenecer a una de éstas. Un ejemplo de estas agrupaciones es a partir del año de nacimiento de los individuos, de esta manera las cohortes pueden ser los nacidos en los 70's, en los 80's, en los 90's y así sucesivamente. \citet{propper2001demand} realiza un análisis que examina los factores principales que determinan la demanda de los seguros de salud privados en el Reino Unido desde 1978 hasta 1996 mediante un modelo lineal que incluye una muestra que denominan de pseudo-panel. \citet{gardes2005panel} investiga los sesgos en las elasticidades de ingresos y gastos estimados a partir de metodologías utilizadas sobre diferentes tipos de muestra dentro de las cuales consideran datos de pseudo-panel, datos transversales y paneles verdaderos. \citet{verbeek2008pseudo} hace una revisión exhaustiva de modelos lineales, su identificación y estimación desde una aproximación a datos de tipo panel a partir de mediciones repetidas en secciones transversales, adicionando rezagos de la variable respuesta a las variables explicativas como es usual en metodologías de series temporales. \citet{sprietsma2012computers} realiza una revisión de la influencia del acceso a centros de computo y al internet en los efectos como herramientas pedagogicas para la adquisición de habilidades en matemáticas a partir de muestras que consisten en secciones transversales de estudiantes de colegio en los años 1999, 2001 y 2003 en Brasil. La estimación del modelo se lleva a cabo mediante el estimador propuesto por \citet{deaton1985panel} junto con una corrección propuesta por \citet{verbeek1993minimum} para el caso en que se tiene un número pequeño de tiempos de medición. De manera análoga a los contextos anteriores   \citet{tovar2012analysis} considera el caso en que las muestras seleccionadas en diferentes tiempos comparten algunos individuos, es decir que las diferentes secciones transversales tienen personas en común, por lo cual el modelo ajustado es el considerado por \citet{deaton1985panel} incluyendo una autocorrelación temporal en los residuales al tener mediciones provenientes sobre algunos individuos, lo que se realiza para modelar la fuerza laboral en el país Vasco desde 1993 hasta 1999. En la literatura se pueden encontrar numerosos casos adicionales a los mencionados previamente donde a partir de efectos fijos asociados a cohortes modelan el comportamiento de una variable respuesta medida en diferentes tiempos (ver \citet{himaz2016returns,canavire2017non,urdinola2015long}, entre otros).
+
+\section{Revisión de la base de ofertas}\label{section_base}
 
 ```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
 require(pacman)
@@ -106,9 +120,10 @@ p_load(tidyverse,openxlsx,here,haven,data.table,knitr,flextable,officer)
 
 options(scipen=999)
 
-source("/media/caavellanedag/MONI&CAMI/Trabajo/Catastro/210422_TASA_DE_RENTA/src/Funciones.R")
+source("Z:/Trabajo/Catastro/210422_TASA_DE_RENTA/src/Funciones.R")
 #names(base)
-base <-  fread("/media/caavellanedag/MONI&CAMI/Trabajo/Catastro/210422_TASA_DE_RENTA/input/BASE_HIST_17_20_CONSOLI_FINAL_25022021.tab", header = T, sep = "\t")
+
+base <-  fread("Z:/Trabajo/Catastro/210422_TASA_DE_RENTA/input/BASE_HIST_17_20_CONSOLI_FINAL_25022021.tab", header = T, sep = "\t")
 base$PRECIO <- as.numeric(as.character(str_replace_all(base$PRECIO,c("\\$"="",","=""))))
 base$IDENTIFICADOR <- as.character(base$IDENTIFICADOR)
 base<-base %>% mutate_at(c("IDENTIFICADOR","CODIGO_UPZ","NOMBRE_UPZ","CODIGO_BARRIO","NOMBRE_BARRIO",
@@ -119,7 +134,7 @@ base$YEAR<-base[,"A\xd1O"]
 ```
 
 ```{r include=FALSE,echo=FALSE,warning=FALSE,message=FALSE}
-n_fail <- sum(base$IDENTIFICADOR=="" | is.na(base$IDENTIFICADOR) | is.na(base$PRECIO) | base$BARMANPRE=="" | is.na(base$BARMANPRE))
+n_fail <- sum(base$BARMANPRE=="" | is.na(base$BARMANPRE))
 base_filtrada <- base[!(base$IDENTIFICADOR=="" | is.na(base$IDENTIFICADOR) | is.na(base$PRECIO) | base$BARMANPRE=="" | is.na(base$BARMANPRE)),]
 base_filtrada <- as.data.table(base_filtrada)
 
@@ -140,7 +155,7 @@ theme_box(autofit(flextable(base[,.N,by=.(NOMBRE_FUENTE)])))
 ```
 
 
-Inicialmente se filtraron aquellos registros que no cuentan con identificador, precio o barmanpre. Posterior a esta revisión se excluyeron los registros que no tenían área construida (`r labels(N_AC)`) y aquellos casos que no tenían área de terreno cuando el tipo de inmueble es diferente a apartamentos (`r labels(N_AT)`). A partir de esta base depurada se realizaron los siguientes conteos y gráficos de tipo descriptivo. Luego de estas exclusiones, se tiene un restante de `r labels(nrow(base_filtrada))` ofertas, las cuales son tenidas en cuenta dentro de los siguientes gráficos y tablas descriptivas.
+Inicialmente se filtraron aquellos registros que no cuentan con identificador, precio o barmanpre. El número de ofertas sin asignación de barmapre es (`r labels(n_fail)`). Posterior a esta revisión se excluyeron los registros que no tenían área construida (`r labels(N_AC)`) y aquellos casos que no tenían área de terreno cuando el tipo de inmueble es diferente a apartamentos (`r labels(N_AT)`). A partir de esta base depurada se realizaron los siguientes conteos y gráficos de tipo descriptivo. Luego de estas exclusiones, se tiene un restante de `r labels(nrow(base_filtrada))` ofertas, las cuales son tenidas en cuenta dentro de los siguientes gráficos y tablas descriptivas.
 
 
 
@@ -150,7 +165,7 @@ Inicialmente se filtraron aquellos registros que no cuentan con identificador, p
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[,.N,by=.(TIPO_INMUEBLE)][order(TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
   ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
-  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
+  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1),size=2.5,angle = 90)+ylab("Número de ofertas")+xlab("AÑO")+
   scale_y_continuous(labels=labels)+
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
@@ -158,7 +173,7 @@ base_filtrada[,.N,by=.(TIPO_INMUEBLE)][order(TIPO_INMUEBLE),LABELS:=labels(N)][N
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[TIPO_INMUEBLE %in% c("APARTAMENTO","CASA"),.N,by=.(TIPO_INMUEBLE,ESTRATO)][order(TIPO_INMUEBLE,ESTRATO),LABELS:=labels(N)] %>% 
   ggplot()+geom_col(aes(x=ESTRATO,y=N),fill="red",position="dodge")+
-  geom_text(aes(x=ESTRATO,y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("ESTRATO")+
+  geom_text(aes(x=ESTRATO,y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1),size=2.5,)+ylab("Número de ofertas")+xlab("ESTRATO")+
   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+
   scale_x_continuous(breaks=0:6)+
   facet_wrap(~TIPO_INMUEBLE,scales="free")
@@ -171,27 +186,27 @@ base_filtrada[TIPO_INMUEBLE %in% c("APARTAMENTO","CASA"),.N,by=.(TIPO_INMUEBLE,E
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[,.N,by=.(YEAR,NOMBRE_FUENTE)][order(YEAR,NOMBRE_FUENTE),LABELS:=labels(N)] %>% 
   ggplot()+geom_col(aes(x=YEAR,y=N,fill=NOMBRE_FUENTE),position="dodge")+
-  geom_text(aes(x=YEAR,y=N,label=LABELS,group=NOMBRE_FUENTE),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+  geom_text(aes(x=YEAR,y=N,label=LABELS,group=NOMBRE_FUENTE),vjust=-0.6,position = position_dodge(width = 1),size=2.5)+ylab("Número de ofertas")+xlab("Año")+
 scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
 ```
 
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[,.N,by=.(YEAR,TIPO_OFERTA)][order(YEAR,TIPO_OFERTA),LABELS:=labels(N)] %>% 
   ggplot()+geom_col(aes(x=YEAR,y=N,fill=TIPO_OFERTA),position="dodge")+
-  geom_text(aes(x=YEAR,y=N,label=LABELS,group=TIPO_OFERTA),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+  geom_text(aes(x=YEAR,y=N,label=LABELS,group=TIPO_OFERTA),vjust=-0.6,position = position_dodge(width = 1),size=2.5)+ylab("Número de ofertas")+xlab("Año")+
   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
 ```
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[,.N,by=.(YEAR,CLASE_PREDIO)][order(YEAR,CLASE_PREDIO),LABELS:=labels(N)] %>% 
   ggplot()+geom_col(aes(x=YEAR,y=N,fill=CLASE_PREDIO),position="dodge")+
-  geom_text(aes(x=YEAR,y=N,label=LABELS,group=CLASE_PREDIO),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+  geom_text(aes(x=YEAR,y=N,label=LABELS,group=CLASE_PREDIO),vjust=-0.6,position = position_dodge(width = 1),size=2.5)+ylab("Número de ofertas")+xlab("Año")+
   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
 ```
 
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 base_filtrada[,.N,by=.(YEAR,TIPO_INMUEBLE)][order(YEAR,TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
   ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
-  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
+  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1),size=2.5)+ylab("Número de ofertas")+xlab("AÑO")+
   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+facet_wrap(~YEAR,scales="free")+
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
