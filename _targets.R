@@ -2,7 +2,10 @@ library(targets)
 library(tarchetypes)
 tar_option_set(packages = c("janitor", "tidyverse", "openxlsx", "here", "haven", 
                             "data.table", "RecordLinkage",  "qcc", "nlme", 
-                            "haven", "sf", "lme4", "influence.ME"))
+                            "haven", "sf", "lme4", "influence.ME",
+                            "janitor", "tidyverse", "openxlsx",  "haven", 
+                            "RecordLinkage", "qcc", "sf", "lme4", 
+                            "influence.ME"))
 
 source("src/Funciones.R")
 
