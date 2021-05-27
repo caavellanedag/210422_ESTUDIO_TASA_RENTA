@@ -1,0 +1,122 @@
+---
+title: "Revisión de bd - Tasa de renta inmobiliaria"
+date: "23/04/2021"
+output: 
+  prettydoc::html_pretty:
+    theme: tactile
+    highlight: github
+    math: katex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
+require(pacman)
+p_load(tidyverse,openxlsx,here,haven,data.table,knitr,flextable,officer)
+
+options(scipen=999)
+
+source("E:/Trabajo/Catastro/210422_TASA_DE_RENTA/src/Funciones.R")
+#names(base)
+base <-  fread("E:/Trabajo/Catastro/210422_TASA_DE_RENTA/input/BASE_HIST_17_20_CONSOLI_FINAL_25022021.tab", header = T, sep = "\t")
+base$PRECIO <- as.numeric(as.character(str_replace_all(base$PRECIO,c("\\$"="",","=""))))
+base$IDENTIFICADOR <- as.character(base$IDENTIFICADOR)
+base<-base %>% mutate_at(c("IDENTIFICADOR","CODIGO_UPZ","NOMBRE_UPZ","CODIGO_BARRIO","NOMBRE_BARRIO",
+                     "NOMBRE_LOCALIDAD","CODIGO_LOCALIDAD","BARMANPRE"),as.character) 
+base$FECHA<-as.Date(base$FECHA,format="%d/%m/%Y")
+base<-as.data.table(base)
+```
+
+```{r include=FALSE,echo=FALSE,warning=FALSE,message=FALSE}
+n_fail <- sum(base$IDENTIFICADOR=="" | is.na(base$IDENTIFICADOR) | is.na(base$PRECIO) | base$BARMANPRE=="" | is.na(base$BARMANPRE))
+base_filtrada <- base[!(base$IDENTIFICADOR=="" | is.na(base$IDENTIFICADOR) | is.na(base$PRECIO) | base$BARMANPRE=="" | is.na(base$BARMANPRE)),]
+base_filtrada <- as.data.table(base_filtrada)
+
+
+N_AC <- sum(is.na(base_filtrada$AREA_CONSTRUIDA))
+N_AT <- sum((base_filtrada$TIPO_INMUEBLE!="APARTAMENTO" & is.na(base_filtrada$AREA_DE_TERRENO)))
+base_filtrada <- base_filtrada[!(base_filtrada$TIPO_INMUEBLE!="APARTAMENTO" & is.na(base_filtrada$AREA_DE_TERRENO)) & !is.na(base_filtrada$AREA_CONSTRUIDA),]
+```
+
+
+## Resultados de la revisión
+
+La base de datos consta originalmente con `r labels(nrow(base))` registros. El resumen del número de registros, antes de realizar ciertas exclusiones se presenta en la siguiente tabla, la cual muestra el número de ofertas por fuente.
+
+
+```{r echo=FALSE}
+theme_box(autofit(flextable(base[,.N,by=.(NOMBRE_FUENTE)])))
+```
+
+
+Inicialmente se filtraron aquellos registros que no cuentan con identificador, precio o barmanpre. Posterior a esta revisión se excluyeron los registros que no tenían área construida (`r labels(N_AC)`) y aquellos casos que no tenían área de terreno cuando el tipo de inmueble es diferente a apartamentos (`r labels(N_AT)`). A partir de esta base depurada se realizaron los siguientes conteos y gráficos de tipo descriptivo. Luego de estas exclusiones, se tiene un restante de `r labels(nrow(base_filtrada))` ofertas, las cuales son tenidas en cuenta dentro de los siguientes gráficos y tablas descriptivas.
+
+
+
+
+
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[,.N,by=.(TIPO_INMUEBLE)][order(TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
+  ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
+  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
+  scale_y_continuous(labels=labels)+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[TIPO_INMUEBLE %in% c("APARTAMENTO","CASA"),.N,by=.(TIPO_INMUEBLE,ESTRATO)][order(TIPO_INMUEBLE,ESTRATO),LABELS:=labels(N)] %>% 
+  ggplot()+geom_col(aes(x=ESTRATO,y=N),fill="red",position="dodge")+
+  geom_text(aes(x=ESTRATO,y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("ESTRATO")+
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+
+  scale_x_continuous(breaks=0:6)+
+  facet_wrap(~TIPO_INMUEBLE,scales="free")
+```
+
+  
+
+
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[,.N,by=.(AÑO,NOMBRE_FUENTE)][order(AÑO,NOMBRE_FUENTE),LABELS:=labels(N)] %>% 
+  ggplot()+geom_col(aes(x=AÑO,y=N,fill=NOMBRE_FUENTE),position="dodge")+
+  geom_text(aes(x=AÑO,y=N,label=LABELS,group=NOMBRE_FUENTE),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[,.N,by=.(AÑO,TIPO_OFERTA)][order(AÑO,TIPO_OFERTA),LABELS:=labels(N)] %>% 
+  ggplot()+geom_col(aes(x=AÑO,y=N,fill=TIPO_OFERTA),position="dodge")+
+  geom_text(aes(x=AÑO,y=N,label=LABELS,group=TIPO_OFERTA),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
+```
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[,.N,by=.(AÑO,CLASE_PREDIO)][order(AÑO,CLASE_PREDIO),LABELS:=labels(N)] %>% 
+  ggplot()+geom_col(aes(x=AÑO,y=N,fill=CLASE_PREDIO),position="dodge")+
+  geom_text(aes(x=AÑO,y=N,label=LABELS,group=CLASE_PREDIO),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+base_filtrada[,.N,by=.(AÑO,TIPO_INMUEBLE)][order(AÑO,TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
+  ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
+  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+facet_wrap(~AÑO,scales="free")+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+```
+
+```{r echo=FALSE}
+theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_INMUEBLE)][order(AÑO,TIPO_INMUEBLE)])))
+```
+
+```{r echo=FALSE}
+theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_OFERTA,NOMBRE_FUENTE)][order(AÑO,TIPO_OFERTA,NOMBRE_FUENTE),])))
+```
+
+
+
+
+
