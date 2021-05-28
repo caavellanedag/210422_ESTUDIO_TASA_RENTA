@@ -1,31 +1,21 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
-raw_bd_catastral|stem|9695d970a27ad429|1b8e5f5468581d0f|ef46db3751d8e999|-182396996|input/base_predial_resumen_17_20.sas7bdat|t18768.0378997009s|9be58b867302be70|458752|file|vector|||3.37||
-raw_data_file|stem|c0a2cd801f55e278|2d041914dbbbf519|ef46db3751d8e999|2110307107|input/BASE_HIST_RENTAS.tab|t18759.6829678176s|e506d231dcbce24c|335779458|file|vector|||0.01||
-resumen_base_catastral|stem|8851d90ed0d42ebf|aca0b635dd647c3b|25fa83c8cef2dcdb|1792539533||t18773.8854109093s|ca5a408df4742118|161421|rds|vector|||0.01||
-base|stem|95b02e4e9fa49ad5|82c0a7ded2c2e3b8|8719bb5caa84359c|1155669136||t18773.8856403796s|223ea436c16a733a|39201707|rds|vector|||3.54||
-base_apto_casa|stem|c32d549b1b2920c3|cfb624d200b781c4|95a5d9c3a871c368|1547348365||t18773.8857747138s|c9549825d72925be|25036605|rds|vector|||1.49||
-base_filtrada|stem|cc693c26c09ebaec|9b0ff4665c01ed06|81888d0ec0ba6481|1883483490||t18773.9907868398s|9d992db01d9b59fd|21201138|rds|vector|||10.92||
-df_clean|stem|0722b6f843726edf|7f54416446a4f322|fd89a49fd14c8103|675326638||t18773.993723121s|dcd14d0b7c521902|17343303|rds|vector|||246.94|la condición tiene longitud  1 y sólo el primer elemento será usado|
-df_clean_resumen|stem|a703f0b84ebe2d5c|c63a24f3714116fc|ecd8170760336711|-500550802||t18773.9937300189s|e9315d5024d164f7|172493|rds|vector|||0.48||
-df_clean_imputar|stem|d0188b77e8d57469|67e1e871aaaa70cc|dbbcd5b01428453a|634644076||t18773.9937315689s|3357ee0633888241|245070|rds|vector|||0.08||
 model_lmer|stem|176cb0eb290f368d|93fe332979128037|679c7618fb602aba|527432643||t18774.1282057149s|d4d3990710a15c5d|1207887|rds|vector|||4.18|Some predictor variables are on very different scales consider rescaling|
 make_lmer_model|function|e7b2670343bffb65||||||||||||||
 check_inf|function|72fc5798b37ec853||||||||||||||
 influences|stem||3563116bc85681e2|4260c2a0e7c7094a|1683435990||||0|rds|vector|||2.17||extensión matricial no numérica
-bd_pruned_to_model_PH|stem|95ea8da1c14f1b68|88546ed172bc3f76|7e7670c0309da8ba|-1739892285||t18774.1435628567s|51b1d580af35def6|214588|rds|vector|||3.61||
-final_model_PH|stem|0d5420881f1c6761|328d9031191d2445|12c7ddf7d5130ba9|-339899155||t18774.1435701787s|d6e7aa9da82ff5e8|689752|rds|vector|||0.51||
 ranef_df|stem|6305df1720c89d91|b19c6db19128b63f|a8096fd7d9980747|-1307703532||t18774.1471039495s|facb3e806c92eed6|9555|rds|vector|||3.66||
 df_fixed_coef|stem|7ff5cd85a4d34e7c|e4e81b0b989fa707|04ac93922339f6d6|-433021014||t18774.143585228s|1ecc754d1bb10203|697|rds|vector|||0.01||
-bd_pruned_to_model_NPH|stem|95ea8da1c14f1b68|78bc4b1f344b7ae6|52dfd10577b094c0|-437943529||t18774.1494486138s|51b1d580af35def6|214588|rds|vector|||0.1||
-final_model_NPH|stem|2f1fc3c06fe0a7fe|e0e5c508c9f17fe1|f6ea7961e5e6d8da|-1625093347||t18774.1494555746s|cee31b76e013ace2|689753|rds|vector|||0.47||
 list_plots_model|stem|5012617d3a917b5d|6e429b4a876173e0|ae2e9b2399dded82|-406100641||t18774.1772491467s|61850592e4edd90a|3858863|rds|vector|||3.75||
-list_plots_model_NPH|stem|aa3c4c6306294f8d|1ab4bccdca0ffccb|3f5fbcdb15f28704|-1860558142||t18774.5636354377s|007e05fb9757bcbe|4792779|rds|vector|||3.23||
-list_plots_model_PH|stem|9e78e184aab37e59|6e429b4a876173e0|b930eb0518260719|188371729||t18774.5636442334s|5d7421b1fc950b14|4792778|rds|vector|||0.05||
-df_clean_final|stem|7161339547409593|9533977cab4e8beb|6f6e15b3f0a3f412|-205768776||t18774.5952391019s|1b3931692545eb55|256104|rds|vector|||3.29||
-df_to_model_NPH|stem|e41d5f92b7bd5d58|915b61b58d7e2dba|4066b9f4958ec241|-2147439743||t18774.5952403285s|f81f8905b640afb7|223129|rds|vector|||0.05||
-df_to_model_PH|stem|e41d5f92b7bd5d58|42fb60438a8d2bb4|4066b9f4958ec241|1170715531||t18774.5952414974s|f81f8905b640afb7|223129|rds|vector|||0.05||
+raw_data_file|stem|c0a2cd801f55e278|2d041914dbbbf519|ef46db3751d8e999|2110307107|input/BASE_HIST_RENTAS.tab|t18759.6829678176s|e506d231dcbce24c|335779458|file|vector|||0.01||
+raw_bd_catastral|stem|69c78907eb851fd3|1b8e5f5468581d0f|ef46db3751d8e999|-182396996|input/base_predial_resumen_17_20.sas7bdat|t18775.7396724229s|dafdc1c261cefa48|1376256|file|vector|||0||
+base|stem|95b02e4e9fa49ad5|82c0a7ded2c2e3b8|8719bb5caa84359c|1155669136||t18774.6304495869s|223ea436c16a733a|39201707|rds|vector|||3.54||
+resumen_base_catastral|stem|128c9685bb6a4553|aca0b635dd647c3b|1f805a7ca72b1835|1792539533||t18775.7475061299s|a145fd6d73314e86|418539|rds|vector|||0.05||
+base_apto_casa|stem|c32d549b1b2920c3|cfb624d200b781c4|95a5d9c3a871c368|1547348365||t18775.7477119895s|c9549825d72925be|25036605|rds|vector|||1.03||
+base_filtrada|stem|a8958379d6f3e795|9b0ff4665c01ed06|75f2ae1e48baac66|1883483490||t18775.7478783231s|c748e7f040a3e3de|21404679|rds|vector|||6.66||
+df_clean|stem|f440b6bfd917b7a3|7f54416446a4f322|7f25b8f494bde620|675326638||t18775.7511041452s|d5d76c9b90d1b34a|17329178|rds|vector|||271.98|la condición tiene longitud  1 y sólo el primer elemento será usado|
+df_clean_resumen|stem|68c8ead9b4a3f48a|c63a24f3714116fc|22a31c8db88c1b89|-500550802||t18775.7511155559s|09e8f0bea1fd986f|283721|rds|vector|||0.84||
 check_all_equal|function|cca92258816ecfb3||||||||||||||
-make_model_matrix|function|b142881e81ea38b0||||||||||||||
+make_model_matrix|function|d841b756a36b9e26||||||||||||||
 Encuentra_barrio|function|ec27656a72c5d11a||||||||||||||
 replace_na_zero|function|82977d3678fcc14e||||||||||||||
 get_summary_tables|function|d51a60a9bee35abe||||||||||||||
@@ -37,27 +27,38 @@ make_plot_qcc|function|22220d346228b3f4||||||||||||||
 final_model|function|8e6a5176b1ae781d||||||||||||||
 replace_na_mean|function|01d6bc5596a7b720||||||||||||||
 get_anova_table|function|89916bc170a85ef6||||||||||||||
-resumen_mean_bd|function|ab9cbf4553fae13b||||||||||||||
+resumen_mean_bd|function|3f10e175bfc5212a||||||||||||||
 prune_df_to_model|function|347656cc01175d5c||||||||||||||
 excluir_tasa_arriendo|function|d24d553dec18d34e||||||||||||||
-imputar_venta_arriendo|function|abdbac33d019cb42||||||||||||||
-depura_base|function|63cffbf910271d90||||||||||||||
-make_control_chart|function|e55b1e589d0cc00c||||||||||||||
+.Random.seed|object|0191a872b1b5f2a3||||||||||||||
+imputar_venta_arriendo|function|297ec37022ac6289||||||||||||||
+depura_base|function|0ebb11ddce23f39f||||||||||||||
+make_control_chart|function|a748fee0e0dbb5f4||||||||||||||
 Agrupa_barrios|function|faea1589aeee4323||||||||||||||
 Tabla_final_tasas|function|e8663d100751636d||||||||||||||
-Check_residuals|function|ffeca00045c3acf2||||||||||||||
+Check_residuals|function|b769a260e4804034||||||||||||||
 export_requirements|function|1208303d3dd3fac4||||||||||||||
 Fill_na|function|ab8326fda257e52e||||||||||||||
-clean_bd|function|ca116720d9983112||||||||||||||
-anova_table_PH|stem|457b8780efb5a04a|a5b27c7c3ede275d|744fbe5beecc70e5|2146693278||t18774.1435844876s|bde23be09f63ad3e|757|rds|vector|||1.22|fitted objects with different fixed effects. REML comparisons are not meaningful.|
-anova_table_NPH|stem|457b8780efb5a04a|c3d14f5bd8f57bbe|911887593e147533|433810760||t18774.1494694128s|bde23be09f63ad3e|757|rds|vector|||1.18|fitted objects with different fixed effects. REML comparisons are not meaningful.|
-ranef_df_PH|stem|6305df1720c89d91|b19c6db19128b63f|a8096fd7d9980747|-836512737||t18774.1494709628s|facb3e806c92eed6|9555|rds|vector|||0.02||
-df_fixed_coef_PH|stem|7ff5cd85a4d34e7c|e4e81b0b989fa707|04ac93922339f6d6|-913967328||t18774.1494712636s|1ecc754d1bb10203|697|rds|vector|||0||
-ranef_df_NPH|stem|6305df1720c89d91|46dc8cf8cbbe1024|ed623a48096bcc6f|-545685462||t18774.1494702109s|facb3e806c92eed6|9555|rds|vector|||0||
-df_fixed_coef_NPH|stem|7ff5cd85a4d34e7c|886c302152cddcb7|7b9564aa78782ddc|924546609||t18774.1494700374s|1ecc754d1bb10203|697|rds|vector|||0.05||
-table_taxes_PH_final|stem|ef54f25b771d301d|4268444aaf0ca0b2|d37e587da9931198|-1813932522||t18774.1494736958s|d46f540366497793|66641|rds|vector|||0.05||
-table_taxes_NPH_final|stem|ef54f25b771d301d|078c49a41ddbf8a6|66dd5aaf987cee85|-191594821||t18774.149472536s|d46f540366497793|66641|rds|vector|||0.09||
-list_whole_tables_PH|stem|fa313aad579b08ef|7f141fa261ac2c97|9e837cfa26d51b90|-1914979828||t18774.5540795388s|9222d46e0a922315|1086|rds|vector|||0||
-list_whole_tables_NPH|stem|fa313aad579b08ef|9c6a4d4bcd2df42f|a0e4bd9afee57c0e|-2146670701||t18774.5540792034s|9222d46e0a922315|1086|rds|vector|||3.16||
-export|stem|6809b9bd895689c3|fc2ccd230a98a84e|da4faa7383b54734|677160269||t18774.6084053175s|a05626eeb81ea279|51|rds|vector|||153.47|ningun argumento finito para max retornando Inf|
-report|stem|3deb9a484ab0819c|79b1f60a93b69b39|ac78afd7fadae9d0|-237041703|reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf*reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.Rmd|t18774.6116485057s|9d70d851eefb496a|1323694|file|vector|||35.95|LaTeX Warning Label section_obj multiply defined.LaTeX Warning There were multiplydefined labels.|
+clean_bd|function|576e8b8de53e076d||||||||||||||
+df_clean_imputar|stem|114a95a0ed618fb9|67e1e871aaaa70cc|fe3e5131d2baeba4|634644076||t18775.7974305031s|fb5ab54eb5f6bb16|351126|rds|vector|||0.58||
+df_clean_final|stem|6c6123f2b3119736|9533977cab4e8beb|b39fc10ff829e1f8|-205768776||t18775.7974314516s|870e88059ebcf5b8|362372|rds|vector|||0||
+df_to_model_PH|stem|208149f91deed452|4241a8d05aa9d3db|e4ced1ee2cdeda69|1170715531||t18775.7974334054s|515326c35d62812a|210249|rds|vector|||0.12||
+df_to_model_NPH|stem|06462c91fc9b9667|227939e585e5dfe0|e4ced1ee2cdeda69|-2147439743||t18775.7974342672s|be8ba900e23ee67f|117920|rds|vector|||0.03||
+bd_pruned_to_model_PH|stem|7c3a2364cd6851b9|88546ed172bc3f76|09436c7ad06e71a0|-1739892285||t18775.7974355164s|e6335abfab9dc78b|199966|rds|vector|||0.06||
+bd_pruned_to_model_NPH|stem|1d71286b5bf02078|78bc4b1f344b7ae6|28d4aea3d0d246c0|-437943529||t18775.7974402359s|50fa3d03b4611734|114793|rds|vector|||0.37||
+final_model_PH|stem|d4b57642fa6024c3|328d9031191d2445|9baf18aefdfc4ed1|-339899155||t18775.7974456422s|29285d3b742b1fa3|650240|rds|vector|||0.38||
+anova_table_PH|stem|d829131ee649f07f|a5b27c7c3ede275d|0d223c1fb21a8526|2146693278||t18775.7974571076s|e4a71b2c4715d0d4|758|rds|vector|||0.97|fitted objects with different fixed effects. REML comparisons are not meaningful.|
+final_model_NPH|stem|2ed3a519998ab5d4|e0e5c508c9f17fe1|5182777655fad817|-1625093347||t18775.7974605084s|c1224c74d6e2e756|375814|rds|vector|||0.23||
+anova_table_NPH|stem|f87e7d092ce2ff12|c3d14f5bd8f57bbe|903996b25a8664a2|433810760||t18775.7974692881s|bde23be09f63ad3e|757|rds|vector|||0.74|fitted objects with different fixed effects. REML comparisons are not meaningful.|
+ranef_df_PH|stem|c39b9dae3274ed81|b19c6db19128b63f|a5452828ffa6154c|-836512737||t18775.7974695038s|569948119d1b64b1|7909|rds|vector|||0.02||
+df_fixed_coef_PH|stem|1c6045d631697e38|e4e81b0b989fa707|14fe3bfb8cc09888|-913967328||t18775.797470001s|8546ebc01b7c25d3|698|rds|vector|||0.03||
+list_plots_model_PH|stem|e1ac9d87116de6ad|6e429b4a876173e0|31d5c81b48e2708e|188371729||t18775.7974791855s|0e5801efdd17e3a5|4667190|rds|vector|||0.11||
+ranef_df_NPH|stem|ee2546ed5d31d633|46dc8cf8cbbe1024|01502be1776319b9|-545685462||t18775.7974798102s|3bff3ced76b4e9dd|7704|rds|vector|||0.03||
+df_fixed_coef_NPH|stem|864d1e15acb90cfc|886c302152cddcb7|42f0c248b615e41e|924546609||t18775.7974800531s|1ecc754d1bb10203|697|rds|vector|||0||
+list_plots_model_NPH|stem|a9dc2230586d7430|1ab4bccdca0ffccb|10f3e589f1636ea6|-1860558142||t18775.7974861028s|e2aa8683bbf44b48|2759193|rds|vector|||0.05||
+table_taxes_PH_final|stem|7656c037dc013f91|4268444aaf0ca0b2|b00e26f447045a4b|-1813932522||t18775.7974873753s|ae0c703199f17c3a|51679|rds|vector|||0.08||
+table_taxes_NPH_final|stem|55b35ba81bcd5f84|078c49a41ddbf8a6|ad8693874f65e7d8|-191594821||t18775.7974880346s|c4fd119092ad3b5c|38474|rds|vector|||0.03||
+list_whole_tables_PH|stem|3f5e9f2005a323e7|7f141fa261ac2c97|297f3a40e5f9805a|-1914979828||t18775.7974885436s|71e0c699e6c63c61|988|rds|vector|||0.03||
+list_whole_tables_NPH|stem|e58cffdae6d8ba25|9c6a4d4bcd2df42f|e2845e7ae7112317|-2146670701||t18775.7974888212s|3308972633987d45|1155|rds|vector|||0||
+export|stem|6809b9bd895689c3|fc2ccd230a98a84e|54ccf8d9d6c6e247|677160269||t18775.7996972889s|a05626eeb81ea279|51|rds|vector|||190.8|ningun argumento finito para max retornando Inf|
+report|stem|502202bc3aa7b651|79b1f60a93b69b39|66bfba6f54cd131e|-237041703|reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf*reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.Rmd|t18775.8002714843s|f98903852ca91906|1084210|file|vector|||38.61|LaTeX Warning Label section_obj multiply defined.LaTeX Warning There were multiplydefined labels.|

@@ -18,7 +18,7 @@ list(
   tar_target(df_clean_imputar, imputar_venta_arriendo(df_clean_resumen, df_clean, resumen_base_catastral)),
   tar_target(df_clean_final, excluir_tasa_arriendo(df_clean_imputar)),
   
-  tar_target(df_to_model_PH, make_model_matrix(df_clean_final$bd_in, CLASE_PREDIO == "P")),
+  tar_target(df_to_model_PH, make_model_matrix(df_clean_final$bd_in, CLASE = "P")),
   tar_target(bd_pruned_to_model_PH, prune_df_to_model(df_to_model_PH)),
   tar_target(anova_table_PH, get_anova_table(bd_pruned_to_model_PH)),
   tar_target(final_model_PH, final_model(bd_pruned_to_model_PH)),
@@ -28,7 +28,7 @@ list(
   tar_target(table_taxes_PH_final, Tabla_final_tasas(bd_pruned_to_model_PH, df_fixed_coef_PH, ranef_df_PH)),
   tar_target(list_whole_tables_PH, get_summary_tables(table_taxes_PH_final)),
   
-  tar_target(df_to_model_NPH, make_model_matrix(df_clean_final$bd_in, CLASE_PREDIO == "N")),
+  tar_target(df_to_model_NPH, make_model_matrix(df_clean_final$bd_in, CLASE = "N")),
   tar_target(bd_pruned_to_model_NPH, prune_df_to_model(df_to_model_NPH)),
   tar_target(anova_table_NPH, get_anova_table(bd_pruned_to_model_NPH)),
   tar_target(final_model_NPH, final_model(bd_pruned_to_model_NPH)),

@@ -1,3 +1,9 @@
+if(!require('pacman')){install.packages('pacman')}
+p_load(janitor, tidyverse, openxlsx, here, haven, 
+  data.table, RecordLinkage,  qcc, nlme, 
+  haven, sf, lme4, influence.ME)
+
+
 labels <- function(x)format(x, big.mark = ".", scientific = FALSE) 
 
 check_all_equal <- function(.x){return(all(.x == mean(.x)))}
@@ -21,10 +27,10 @@ Sheet<-function(.x, .y, wb){
 
 make_control_chart <- function(.x){
   #if(unique(.x$CLASE_PREDIO) == "P"){
-    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "NUMERO_ALCOBAS", 
+    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", "ANTIGUEDAD_INMUEBLE", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "NUMERO_ALCOBAS", 
                   "AREA_CONSTRUIDA")
   
-    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "AREA_DE_TERRENO","NUMERO_ALCOBAS", 
+    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", "ANTIGUEDAD_INMUEBLE",#"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "AREA_DE_TERRENO","NUMERO_ALCOBAS", 
                   "AREA_CONSTRUIDA")
   
   
@@ -183,11 +189,13 @@ depura_base <- function(base){
   base <- base %>% mutate_at(c("IDENTIFICADOR","CODIGO_UPZ","NOMBRE_UPZ","CODIGO_BARRIO","NOMBRE_BARRIO",
                                "NOMBRE_LOCALIDAD","CODIGO_LOCALIDAD","BARMANPRE"),as.character) 
   base$FECHA <- as.Date(base$FECHA,format="%d/%m/%Y")
+  base$CAT_EDAD <- cut(base$ANTIGUEDAD_INMUEBLE, breaks = c(0, 5, 10, 20, max(base$ANTIGUEDAD_INMUEBLE)), include.lowest = TRUE)
   base_filtrada <- base[,CODIGO_BARRIO := str_pad(CODIGO_BARRIO, width = 6, side = "left", pad = "0")]
   base_filtrada <- base_filtrada[,BARMANPRE := str_pad(BARMANPRE, width = 10, side = "left", pad = "0")]
   base_filtrada <- base_filtrada[substring(base_filtrada$CODIGO_BARRIO,1,1) == "0", ]
   base_filtrada <- base_filtrada[AREA_CONSTRUIDA > 0 & !(is.na(base_filtrada$AREA_CONSTRUIDA))]
   base_filtrada <- base_filtrada[!(base_filtrada$BARMANPRE=="" | is.na(base_filtrada$BARMANPRE)),]
+  
   return(base_filtrada)
 }
 
@@ -243,14 +251,14 @@ clean_bd <- function(base){
 resumen_mean_bd <- function(bd){
   df_clean <- bd
   df_clean_2 <- df_clean[,c("CODIGO_BARRIO", "NOMBRE_BARRIO", "CODIGO_LOCALIDAD", "NOMBRE_LOCALIDAD",
-                            "CLASE_PREDIO", "ESTRATO", "ANO", "TIPO_OFERTA", "VALOR_M2_INTEGRAL", "PRECIO")]
+                            "CLASE_PREDIO", "ESTRATO", "ANO", "TIPO_OFERTA", "CAT_EDAD", "VALOR_M2_INTEGRAL", "PRECIO")]
   
   df_clean_3 <- df_clean_2[, list(N = .N, PRECIO_MEAN =  mean(VALOR_M2_INTEGRAL)),
                            by = .(CODIGO_BARRIO, NOMBRE_BARRIO, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD,
-                                  CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA)]
+                                  CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA, CAT_EDAD)]
   
   df_clean_4 <- df_clean_3 %>% data.table::dcast(formula = CODIGO_BARRIO + NOMBRE_BARRIO + CODIGO_LOCALIDAD + 
-                                                   NOMBRE_LOCALIDAD + CLASE_PREDIO + ESTRATO + ANO ~ TIPO_OFERTA, 
+                                                   NOMBRE_LOCALIDAD + CLASE_PREDIO + ESTRATO + ANO + CAT_EDAD ~ TIPO_OFERTA, 
                                                  value.var = c("PRECIO_MEAN", "N"), fun.aggregate = mean, fill = NA)
   
   df_clean_4 <- df_clean_4[!is.na(PRECIO_MEAN_ARRIENDO) | N_VENTA > 5]
@@ -260,8 +268,8 @@ resumen_mean_bd <- function(bd){
 imputar_venta_arriendo <- function(bd, bd_completa, resumen_base_catastral){
   df_clean_4 <- bd
   df_clean_5 <- merge(df_clean_4, resumen_base_catastral, 
-                      by.x = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "ANO"),
-                      by.y = c("CODIGO_BARRIO", "CLASE_PREDIO", "CODIGO_ESTRATO", "VIGENCIA"))
+                      by.x = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "ANO", "CAT_EDAD"),
+                      by.y = c("CODIGO_BARRIO", "CLASE_PREDIO", "CODIGO_ESTRATO", "VIGENCIA", "CAT_EDAD"))
   
   df_clean_5 <- df_clean_5[, PRECIO_MEAN_VENTA := ifelse(is.na(PRECIO_MEAN_VENTA), VALOR_INTEGRAL, PRECIO_MEAN_VENTA)]
   
@@ -269,14 +277,14 @@ imputar_venta_arriendo <- function(bd, bd_completa, resumen_base_catastral){
   
   df_input_1 <- bd_completa[TIPO_OFERTA == "ARRIENDO",
                             .(MEAN_NEW_ARRIENDO = mean(VALOR_M2_INTEGRAL)),
-                            by = .(CODIGO_BARRIO, CLASE_PREDIO, ESTRATO)]
+                            by = .(CODIGO_BARRIO, CLASE_PREDIO, ESTRATO, CAT_EDAD)]
   
   df_input_2 <- bd_completa[TIPO_OFERTA == "ARRIENDO",
                             .(MEAN_ARRIENDO_LOC = mean(VALOR_M2_INTEGRAL)),
-                            by = .(CODIGO_LOCALIDAD, CLASE_PREDIO, ESTRATO)]
+                            by = .(CODIGO_LOCALIDAD, CLASE_PREDIO, ESTRATO, CAT_EDAD)]
   
-  df_clean_7 <- df_clean_5 %>% merge(df_input_1, by = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO"), all.x = TRUE) %>% 
-    merge(df_input_2, by = c("CODIGO_LOCALIDAD", "CLASE_PREDIO", "ESTRATO"), all.x = TRUE)
+  df_clean_7 <- df_clean_5 %>% merge(df_input_1, by = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "CAT_EDAD"), all.x = TRUE) %>% 
+    merge(df_input_2, by = c("CODIGO_LOCALIDAD", "CLASE_PREDIO", "ESTRATO", "CAT_EDAD"), all.x = TRUE)
   
   df_clean_8 <- df_clean_7[, PRECIO_MEAN_ARRIENDO := ifelse(is.na(PRECIO_MEAN_ARRIENDO) & is.na(MEAN_NEW_ARRIENDO),
                                                             MEAN_ARRIENDO_LOC, ifelse(is.na(PRECIO_MEAN_ARRIENDO), 
@@ -294,10 +302,10 @@ excluir_tasa_arriendo <- function(bd){
 }
 
 
-make_model_matrix <- function(bd, CLASE_PREDIO){
+make_model_matrix <- function(bd, CLASE){
   df_clean_9 <- bd
-  df_clean_apto <- df_clean_9[CLASE_PREDIO == CLASE_PREDIO]
-  model_matrix <- model.matrix(PRECIO_MEAN_VENTA ~  ESTRATO + CODIGO_LOCALIDAD + ANO, data = df_clean_apto) 
+  df_clean_apto <- df_clean_9[CLASE_PREDIO == CLASE]
+  model_matrix <- model.matrix(PRECIO_MEAN_VENTA ~  ESTRATO + CODIGO_LOCALIDAD + ANO + CAT_EDAD, data = df_clean_apto) 
   df_clean_apto_2 <- df_clean_apto %>% cbind(model_matrix)
   return(df_clean_apto_2)
 }
@@ -461,7 +469,7 @@ Check_residuals <- function(bd, fit_model){
     geom_histogram(aes(RAN_EFFECT), fill = "red2", alpha = 0.8, colour = "black") +
     theme_bw() + xlab("Efectos aleatorios") + ylab("Frecuencia")
   
-  scatterplot_estrato <- bd %>% ggplot(aes(PRECIO_MEAN_ARRIENDO, PRECIO_MEAN_VENTA, color = ANO)) + 
+  scatterplot_estrato <- bd %>% ggplot(aes(PRECIO_MEAN_VENTA, PRECIO_MEAN_ARRIENDO, color = ANO)) + 
     geom_point() +
     facet_wrap(~ ESTRATO, scales = "free_x") +
     geom_smooth(method = "lm", se = F) +
@@ -495,6 +503,7 @@ get_summary_tables <- function(tabla_tasa_final){
   
   tabla_tasa_final_loc <- tabla_tasa_final_loc[order(CODIGO_LOCALIDAD, A), c("A","CODIGO_LOCALIDAD", "TASA_RENTA", "TASA_RENTA_2")]
   
+
   return(list(tabla_tasa_final_loc = tabla_tasa_final_loc,
               tabla_tasa_final_est = tabla_tasa_final_est
   ))
