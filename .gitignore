@@ -4,3 +4,4 @@
 *.tab
 .RData
 input/*.tab
+_targets/

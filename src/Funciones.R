@@ -27,10 +27,10 @@ Sheet<-function(.x, .y, wb){
 
 make_control_chart <- function(.x){
   #if(unique(.x$CLASE_PREDIO) == "P"){
-    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", "ANTIGUEDAD_INMUEBLE", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "NUMERO_ALCOBAS", 
+    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL",  #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "NUMERO_ALCOBAS", 
                   "AREA_CONSTRUIDA")
   
-    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", "ANTIGUEDAD_INMUEBLE",#"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "AREA_DE_TERRENO","NUMERO_ALCOBAS", 
+    cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "AREA_DE_TERRENO","NUMERO_ALCOBAS", 
                   "AREA_CONSTRUIDA")
   
   
@@ -251,14 +251,14 @@ clean_bd <- function(base){
 resumen_mean_bd <- function(bd){
   df_clean <- bd
   df_clean_2 <- df_clean[,c("CODIGO_BARRIO", "NOMBRE_BARRIO", "CODIGO_LOCALIDAD", "NOMBRE_LOCALIDAD",
-                            "CLASE_PREDIO", "ESTRATO", "ANO", "TIPO_OFERTA", "CAT_EDAD", "VALOR_M2_INTEGRAL", "PRECIO")]
+                            "CLASE_PREDIO", "ESTRATO", "ANO", "TIPO_OFERTA", "VALOR_M2_INTEGRAL", "PRECIO")]
   
   df_clean_3 <- df_clean_2[, list(N = .N, PRECIO_MEAN =  mean(VALOR_M2_INTEGRAL)),
                            by = .(CODIGO_BARRIO, NOMBRE_BARRIO, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD,
-                                  CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA, CAT_EDAD)]
+                                  CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA)]
   
   df_clean_4 <- df_clean_3 %>% data.table::dcast(formula = CODIGO_BARRIO + NOMBRE_BARRIO + CODIGO_LOCALIDAD + 
-                                                   NOMBRE_LOCALIDAD + CLASE_PREDIO + ESTRATO + ANO + CAT_EDAD ~ TIPO_OFERTA, 
+                                                   NOMBRE_LOCALIDAD + CLASE_PREDIO + ESTRATO + ANO  ~ TIPO_OFERTA, 
                                                  value.var = c("PRECIO_MEAN", "N"), fun.aggregate = mean, fill = NA)
   
   df_clean_4 <- df_clean_4[!is.na(PRECIO_MEAN_ARRIENDO) | N_VENTA > 5]
@@ -268,8 +268,8 @@ resumen_mean_bd <- function(bd){
 imputar_venta_arriendo <- function(bd, bd_completa, resumen_base_catastral){
   df_clean_4 <- bd
   df_clean_5 <- merge(df_clean_4, resumen_base_catastral, 
-                      by.x = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "ANO", "CAT_EDAD"),
-                      by.y = c("CODIGO_BARRIO", "CLASE_PREDIO", "CODIGO_ESTRATO", "VIGENCIA", "CAT_EDAD"))
+                      by.x = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "ANO"), #, "CAT_EDAD"
+                      by.y = c("CODIGO_BARRIO", "CLASE_PREDIO", "CODIGO_ESTRATO", "VIGENCIA")) # , "CAT_EDAD"
   
   df_clean_5 <- df_clean_5[, PRECIO_MEAN_VENTA := ifelse(is.na(PRECIO_MEAN_VENTA), VALOR_INTEGRAL, PRECIO_MEAN_VENTA)]
   
@@ -277,14 +277,14 @@ imputar_venta_arriendo <- function(bd, bd_completa, resumen_base_catastral){
   
   df_input_1 <- bd_completa[TIPO_OFERTA == "ARRIENDO",
                             .(MEAN_NEW_ARRIENDO = mean(VALOR_M2_INTEGRAL)),
-                            by = .(CODIGO_BARRIO, CLASE_PREDIO, ESTRATO, CAT_EDAD)]
+                            by = .(CODIGO_BARRIO, CLASE_PREDIO, ESTRATO)] #, CAT_EDAD
   
   df_input_2 <- bd_completa[TIPO_OFERTA == "ARRIENDO",
                             .(MEAN_ARRIENDO_LOC = mean(VALOR_M2_INTEGRAL)),
-                            by = .(CODIGO_LOCALIDAD, CLASE_PREDIO, ESTRATO, CAT_EDAD)]
+                            by = .(CODIGO_LOCALIDAD, CLASE_PREDIO, ESTRATO)] #, CAT_EDAD
   
-  df_clean_7 <- df_clean_5 %>% merge(df_input_1, by = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO", "CAT_EDAD"), all.x = TRUE) %>% 
-    merge(df_input_2, by = c("CODIGO_LOCALIDAD", "CLASE_PREDIO", "ESTRATO", "CAT_EDAD"), all.x = TRUE)
+  df_clean_7 <- df_clean_5 %>% merge(df_input_1, by = c("CODIGO_BARRIO", "CLASE_PREDIO", "ESTRATO"), all.x = TRUE) %>% 
+    merge(df_input_2, by = c("CODIGO_LOCALIDAD", "CLASE_PREDIO", "ESTRATO"), all.x = TRUE)
   
   df_clean_8 <- df_clean_7[, PRECIO_MEAN_ARRIENDO := ifelse(is.na(PRECIO_MEAN_ARRIENDO) & is.na(MEAN_NEW_ARRIENDO),
                                                             MEAN_ARRIENDO_LOC, ifelse(is.na(PRECIO_MEAN_ARRIENDO), 
@@ -305,7 +305,7 @@ excluir_tasa_arriendo <- function(bd){
 make_model_matrix <- function(bd, CLASE){
   df_clean_9 <- bd
   df_clean_apto <- df_clean_9[CLASE_PREDIO == CLASE]
-  model_matrix <- model.matrix(PRECIO_MEAN_VENTA ~  ESTRATO + CODIGO_LOCALIDAD + ANO + CAT_EDAD, data = df_clean_apto) 
+  model_matrix <- model.matrix(PRECIO_MEAN_VENTA ~  ESTRATO + CODIGO_LOCALIDAD + ANO, data = df_clean_apto) 
   df_clean_apto_2 <- df_clean_apto %>% cbind(model_matrix)
   return(df_clean_apto_2)
 }
