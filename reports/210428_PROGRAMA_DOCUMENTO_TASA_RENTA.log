@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.5.10)  27 MAY 2021 14:42
+=======
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.3)  28 MAY 2021 14:12
+>>>>>>> check
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1172,6 +1176,7 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
+<<<<<<< HEAD
  24795 strings out of 483121
  439168 string characters out of 5964354
  718907 words of memory out of 5000000
@@ -1191,6 +1196,34 @@ f/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi1
 re/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb>
 Output written on 210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf (23 pages, 1265180 b
+=======
+ 24523 strings out of 479321
+ 445956 string characters out of 2856107
+ 784290 words of memory out of 3000000
+ 41243 multiletter control sequences out of 15000+600000
+ 499949 words of font info for 174 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 87i,7n,88p,1775b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
+nc}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}
+{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc
+}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C
+:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><
+C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb>
+<C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx9.pfb>
+<C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb
+><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb
+><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pf
+b><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.
+pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.
+pfb>
+Output written on 210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf (23 pages, 1066642 b
+>>>>>>> check
 ytes).
 PDF statistics:
  398 PDF objects out of 1000 (max. 8388607)
