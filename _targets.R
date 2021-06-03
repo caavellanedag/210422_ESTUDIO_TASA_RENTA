@@ -2,7 +2,7 @@ library(targets)
 library(tarchetypes)
 tar_option_set(packages = c("janitor", "tidyverse", "openxlsx", "here", "haven", 
                             "data.table", "RecordLinkage",  "qcc", "nlme", 
-                            "haven", "sf", "lme4", "influence.ME"))
+                            "haven", "sf", "lme4", "influence.ME", "scales"))
 
 source("src/Funciones.R")
 
@@ -15,7 +15,9 @@ list(
   tar_target(base_filtrada, depura_base(base_apto_casa)),
   tar_target(df_clean, clean_bd(base_filtrada)),
   tar_target(df_clean_resumen, resumen_mean_bd(df_clean)),
-  tar_target(df_clean_imputar, imputar_venta_arriendo(df_clean_resumen, df_clean, resumen_base_catastral)),
+  tar_target(df_clean_imputar, imputar_venta_arriendo(df_clean_resumen,
+                                                      df_clean, 
+                                                      resumen_base_catastral)),
   tar_target(df_clean_final, excluir_tasa_arriendo(df_clean_imputar)),
   
   tar_target(df_to_model_PH, make_model_matrix(df_clean_final$bd_in, CLASE = "P")),
@@ -38,7 +40,10 @@ list(
   tar_target(table_taxes_NPH_final, Tabla_final_tasas(bd_pruned_to_model_NPH, df_fixed_coef_NPH, ranef_df_NPH)),
   tar_target(list_whole_tables_NPH, get_summary_tables(table_taxes_NPH_final)),
   tar_render(report, "reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.Rmd"),
-  tar_target(export, export_requirements(df_clean, df_clean_final, table_taxes_PH_final, table_taxes_NPH_final))
+  tar_target(export, export_requirements(df_clean, df_clean_final, 
+                                         table_taxes_PH_final, 
+                                         table_taxes_NPH_final,
+                                         df_clean_resumen, df_clean_imputar))
 )
 
 

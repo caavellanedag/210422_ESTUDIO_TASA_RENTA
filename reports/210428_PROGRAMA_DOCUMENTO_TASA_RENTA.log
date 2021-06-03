@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.3)  28 MAY 2021 15:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (MiKTeX 21.3) (preloaded format=pdflatex 2021.5.3)  2 JUN 2021 20:09
 entering extended mode
 **./210428_PROGRAMA_DOCUMENTO_TASA_RENTA.tex
 (210428_PROGRAMA_DOCUMENTO_TASA_RENTA.tex
@@ -6,8 +6,8 @@ LaTeX2e <2020-10-01> patch level 4
 L3 programming layer <2021-02-18> (C:\Users\Camilo\AppData\Local\Programs\MiKTe
 X\tex/latex/base\article.cls
 Document Class: article 2020/04/10 v1.4m Standard LaTeX document class
-(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/base\size12.clo
+File: size12.clo 2020/04/10 v1.4m Standard LaTeX file (size option)
 )
 \c@part=\count179
 \c@section=\count180
@@ -835,119 +835,109 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibsep=\skip69
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count320
+) (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.st
+y
+Package: fancyhdr 2021/01/28 v4.0.1 Extensive control of page headers and foote
+rs
+\f@nch@headwidth=\skip70
+\f@nch@O@elh=\skip71
+\f@nch@O@erh=\skip72
+\f@nch@O@olh=\skip73
+\f@nch@O@orh=\skip74
+\f@nch@O@elf=\skip75
+\f@nch@O@erf=\skip76
+\f@nch@O@olf=\skip77
+\f@nch@O@orf=\skip78
+) (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.sty
+Package: babel 2021/04/26 3.58 The Babel package
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/generic/babel\babel.def
+File: babel.def 2021/04/26 3.58 Babel common definitions
+\babel@savecnt=\count321
+\U@D=\dimen298
+\l@unhyphenated=\language79
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/generic/babel\txtbabel.def)
+\bbl@readstream=\read3
 )
-(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\multicol.s
-ty
-Package: multicol 2019/12/09 v1.8y multicolumn formatting (FMi)
-\c@tracingmulticols=\count321
-\mult@box=\box71
-\multicol@leftmargin=\dimen298
-\c@unbalance=\count322
-\c@collectmore=\count323
-\doublecol@number=\count324
-\multicoltolerance=\count325
-\multicolpretolerance=\count326
-\full@width=\dimen299
-\page@free=\dimen300
-\premulticols=\dimen301
-\postmulticols=\dimen302
-\multicolsep=\skip70
-\multicolbaselineskip=\skip71
-\partial@page=\box72
-\last@line=\box73
-\maxbalancingoverflow=\dimen303
-\mult@rightbox=\box74
-\mult@grightbox=\box75
-\mult@gfirstbox=\box76
-\mult@firstbox=\box77
-\@tempa=\box78
-\@tempa=\box79
-\@tempa=\box80
-\@tempa=\box81
-\@tempa=\box82
-\@tempa=\box83
-\@tempa=\box84
-\@tempa=\box85
-\@tempa=\box86
-\@tempa=\box87
-\@tempa=\box88
-\@tempa=\box89
-\@tempa=\box90
-\@tempa=\box91
-\@tempa=\box92
-\@tempa=\box93
-\@tempa=\box94
-\@tempa=\box95
-\@tempa=\box96
-\@tempa=\box97
-\@tempa=\box98
-\@tempa=\box99
-\@tempa=\box100
-\@tempa=\box101
-\@tempa=\box102
-\@tempa=\box103
-\@tempa=\box104
-\@tempa=\box105
-\@tempa=\box106
-\@tempa=\box107
-\@tempa=\box108
-\@tempa=\box109
-\@tempa=\box110
-\@tempa=\box111
-\@tempa=\box112
-\@tempa=\box113
-\@tempa=\box114
-\c@minrows=\count327
-\c@columnbadness=\count328
-\c@finalcolumnbadness=\count329
-\last@try=\dimen304
-\multicolovershoot=\dimen305
-\multicolundershoot=\dimen306
-\mult@nat@firstbox=\box115
-\colbreak@box=\box116
-\mc@col@check@num=\count330
+\bbl@dirlevel=\count322
+*************************************
+* Local config file bblopts.cfg used
+*
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/arabi\bblopts.cfg
+File: bblopts.cfg 2005/09/08 v0.1 add Arabic and Farsi to "declared" options of
+ babel
 )
-(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/latex-tools\hhline.sty
-Package: hhline 2020/01/04 v2.04 Table rule package (DPC)
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/babel-spanish\spanish.
+ldf
+Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
+\es@quottoks=\toks44
+\es@quotdepth=\count323
+Package babel Info: Making " an active character on input line 561.
+Package babel Info: Making . an active character on input line 662.
+Package babel Info: Making < an active character on input line 707.
+Package babel Info: Making > an active character on input line 707.
 )
+(C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/babel-spanish\spanish.
+ldf
+Language: spanish.ldf 2016/03/03 v5.0p Spanish support from the babel system
+))
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pd
 ftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count331
-\l__pdf_internal_box=\box117
+\l__color_backend_stack_int=\count324
+\l__pdf_internal_box=\box71
 ) (210428_PROGRAMA_DOCUMENTO_TASA_RENTA.aux
+LaTeX Info: Redefining \. on input line 28.
+LaTeX Info: Redefining \% on input line 28.
 
 LaTeX Warning: Label `section_obj' multiply defined.
+
+
+LaTeX Warning: Label `tab:resumenbase' multiply defined.
+
+
+LaTeX Warning: Label `tab:locph' multiply defined.
+
+
+LaTeX Warning: Label `tab:locph' multiply defined.
+
+
+LaTeX Warning: Label `tab:estnph' multiply defined.
+
+
+LaTeX Warning: Label `tab:locnph' multiply defined.
+
+
+LaTeX Warning: Label `tab:locnph' multiply defined.
 
 )
 \openout1 = `210428_PROGRAMA_DOCUMENTO_TASA_RENTA.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 104.
-LaTeX Font Info:    ... okay on input line 104.
-LaTeX Info: Redefining \microtypecontext on input line 104.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 121.
+LaTeX Font Info:    ... okay on input line 121.
+LaTeX Info: Redefining \microtypecontext on input line 121.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 104.
+LaTeX Info: Redefining \showhyphens on input line 121.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -958,19 +948,19 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.m
 kii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count332
-\scratchdimen=\dimen307
-\scratchbox=\box118
-\nofMPsegments=\count333
-\nofMParguments=\count334
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count335
-\MPscratchDim=\dimen308
-\MPnumerator=\count336
-\makeMPintoPDFobject=\count337
-\everyMPtoPDFconversion=\toks45
+\scratchcounter=\count325
+\scratchdimen=\dimen299
+\scratchbox=\box72
+\nofMPsegments=\count326
+\nofMParguments=\count327
+\everyMPshowfont=\toks45
+\MPscratchCnt=\count328
+\MPscratchDim=\dimen300
+\MPnumerator=\count329
+\makeMPintoPDFobject=\count330
+\everyMPtoPDFconversion=\toks46
 )
-Package hyperref Info: Link coloring OFF on input line 104.
+Package hyperref Info: Link coloring OFF on input line 121.
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -980,11 +970,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 tlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count338
+\c@section@level=\count331
 )
-LaTeX Info: Redefining \ref on input line 104.
-LaTeX Info: Redefining \pageref on input line 104.
-LaTeX Info: Redefining \nameref on input line 104.
+LaTeX Info: Redefining \ref on input line 121.
+LaTeX Info: Redefining \pageref on input line 121.
+LaTeX Info: Redefining \nameref on input line 121.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1004,12 +994,12 @@ LaTeX Info: Redefining \nameref on input line 104.
 * \topmargin=-37.0pt
 * \headheight=12.0pt
 * \headsep=25.0pt
-* \topskip=10.0pt
+* \topskip=12.0pt
 * \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \marginparwidth=44.0pt
+* \marginparsep=10.0pt
 * \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \skip\footins=10.8pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
@@ -1019,307 +1009,787 @@ LaTeX Info: Redefining \nameref on input line 104.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+LaTeX Info: Redefining \. on input line 121.
+LaTeX Info: Redefining \% on input line 121.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-06.
+23.
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-06.
+23.
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-106.
+123.
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-106.
+123.
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 106.
+(Font)              <14.4> on input line 123.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 106.
+(Font)              <10> on input line 123.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 106.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 106
+(Font)              <7> on input line 123.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 123
 .
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 106
+LaTeX Font Info:    Trying to load font information for U+msb on input line 123
 .
 (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\Camilo\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) (210428_PROGRAMA_DOCUMENTO_TASA_RENTA.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 3.
+(Font)              <12> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 3.
+(Font)              <8> on input line 4.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 3.
+(Font)              <6> on input line 4.
 )
 \tf@toc=\write4
 \openout4 = `210428_PROGRAMA_DOCUMENTO_TASA_RENTA.toc'.
 
+<../input/logo.png, id=17, 355.3275pt x 142.5325pt>
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 141.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
 [1
 
-{C:/Users/Camilo/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] [3] [4] [5
-] [6] [7]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-1.pdf,
- id=120, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-1
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-1.
-pdf>
+{C:/Users/Camilo/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <../input/logo.
+png>]
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 153.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[2]
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 176.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[3]
+LaTeX Info: Redefining \. on input line 210.
+LaTeX Info: Redefining \% on input line 210.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 210.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[4]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/plt-1.pdf, id=110, 469
+.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/plt-1.pdf Graphic
+ file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/plt-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-7-1.pdf  used on input line 527.
+x/plt-1.pdf  used on input line 217.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-2.pdf,
- id=121, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-2
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-2.
-pdf>
+LaTeX Info: Redefining \. on input line 222.
+LaTeX Info: Redefining \% on input line 222.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 222.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[5]
+LaTeX Info: Redefining \. on input line 222.
+LaTeX Info: Redefining \% on input line 222.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 222.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[6pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.222 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/plt-1.pdf>]
+LaTeX Info: Redefining \. on input line 299.
+LaTeX Info: Redefining \% on input line 299.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 299.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[7]
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 304.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[8]
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 326.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[9]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scph-1.pdf, id=160, 46
+9.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scph-1.pdf Graphi
+c file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-7-2.pdf  used on input line 527.
+x/scph-1.pdf  used on input line 335.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-3.pdf,
- id=122, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-3
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-3.
-pdf>
+LaTeX Info: Redefining \. on input line 386.
+LaTeX Info: Redefining \% on input line 386.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 386.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[10]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphest-1.pdf, id=17
+3, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphest-1.pdf G
+raphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphest-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-7-3.pdf  used on input line 527.
+x/tasaphest-1.pdf  used on input line 390.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-4.pdf,
- id=123, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-4
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-4.
-pdf>
+LaTeX Info: Redefining \. on input line 480.
+LaTeX Info: Redefining \% on input line 480.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 480.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[11]
+LaTeX Info: Redefining \. on input line 500.
+LaTeX Info: Redefining \% on input line 500.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 500.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[12]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphloc-1.pdf, id=18
+2, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphloc-1.pdf G
+raphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphloc-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-7-4.pdf  used on input line 527.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-5.pdf,
- id=124, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-5
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-5.
-pdf>
-Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-7-5.pdf  used on input line 527.
+x/tasaphloc-1.pdf  used on input line 504.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
+LaTeX Warning: Reference `fig:resfittedph' on page 13 undefined on input line 5
+10.
+
+
+LaTeX Warning: Reference `fig:resboxph' on page 13 undefined on input line 510.
+
+
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittedph-1.pdf, id=
+185, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittedph-1.pdf
+ Graphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittedph-1.pdf>
+
+Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
+x/resfittedph-1.pdf  used on input line 512.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxph-1.pdf, id=186
+, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxph-1.pdf Gr
+aphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxph-1.pdf>
+Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
+x/resboxph-1.pdf  used on input line 513.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 512--514
 [][]
  []
 
+LaTeX Info: Redefining \. on input line 514.
+LaTeX Info: Redefining \% on input line 514.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 514.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
-[]
- []
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
-[]
- []
+[13]
+LaTeX Info: Redefining \. on input line 514.
+LaTeX Info: Redefining \% on input line 514.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 514.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
 
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-Underfull \hbox (badness 10000) in paragraph at lines 527--528
-[]
- []
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
 
-[8 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-1
-.pdf>] [9 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-ch
-unk-7-2.pdf>] [10 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/un
-named-chunk-7-3.pdf>] [11 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-
-latex/unnamed-chunk-7-4.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-1.pdf,
- id=175, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-1
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-1.
-pdf>
+[14pdfTeX warning (ext4): destination with the same identifier (name{figure.2})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.514 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scph-1.pdf>]
+LaTeX Info: Redefining \. on input line 514.
+LaTeX Info: Redefining \% on input line 514.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 514.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[15pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.514 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphest-1.p
+df>]
+LaTeX Info: Redefining \. on input line 514.
+LaTeX Info: Redefining \% on input line 514.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 514.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[16pdfTeX warning (ext4): destination with the same identifier (name{figure.4})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.514 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasaphloc-1.p
+df>]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefph-1.pdf, id=224,
+ 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefph-1.pdf Gra
+phic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-8-1.pdf  used on input line 529.
+x/ranefph-1.pdf  used on input line 517.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-2.pdf,
- id=176, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-2
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-2.
-pdf>
+LaTeX Info: Redefining \. on input line 519.
+LaTeX Info: Redefining \% on input line 519.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 519.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[17 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittedph-1.pd
+f>]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resph-1.pdf, id=237, 4
+69.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resph-1.pdf Graph
+ic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-8-2.pdf  used on input line 529.
+x/resph-1.pdf  used on input line 523.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-3.pdf,
- id=177, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-3
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-3.
-pdf>
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scnph-1.pdf, id=240, 4
+69.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scnph-1.pdf Graph
+ic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scnph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-8-3.pdf  used on input line 529.
+x/scnph-1.pdf  used on input line 533.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-4.pdf,
- id=178, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-4
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-4.
-pdf>
+LaTeX Info: Redefining \. on input line 584.
+LaTeX Info: Redefining \% on input line 584.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 584.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[18 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxph-1.pdf>]
+LaTeX Info: Redefining \. on input line 648.
+LaTeX Info: Redefining \% on input line 648.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 648.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[19]
+LaTeX Info: Redefining \. on input line 692.
+LaTeX Info: Redefining \% on input line 692.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 692.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[20]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphest-1.pdf, id=2
+69, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphest-1.pdf 
+Graphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphest-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-8-4.pdf  used on input line 529.
+x/tasanphest-1.pdf  used on input line 696.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-5.pdf,
- id=179, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-5
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-5.
-pdf>
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphloc-1.pdf, id=2
+70, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphloc-1.pdf 
+Graphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphloc-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-8-5.pdf  used on input line 529.
+x/tasanphloc-1.pdf  used on input line 702.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--530
+LaTeX Warning: Reference `fig:resfittednph' on page 21 undefined on input line 
+708.
+
+
+LaTeX Warning: Reference `fig:resboxnph' on page 21 undefined on input line 708
+.
+
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittednph-1.pdf, id
+=273, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittednph-1.pd
+f Graphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittednph-1.pdf
+>
+Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
+x/resfittednph-1.pdf  used on input line 710.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxnph-1.pdf, id=27
+4, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxnph-1.pdf G
+raphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxnph-1.pdf>
+Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
+x/resboxnph-1.pdf  used on input line 711.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 710--712
 [][]
  []
 
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--530
-[]
- []
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--530
-[]
- []
+[21]
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
 
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--530
-[]
- []
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
 
-[12 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-7-
-5.pdf>] [13 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-
-chunk-8-1.pdf>] [14 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/
-unnamed-chunk-8-2.pdf>] [15 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figur
-e-latex/unnamed-chunk-8-3.pdf>] [16 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_fil
-es/figure-latex/unnamed-chunk-8-4.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-9-1.pdf,
- id=239, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-9-1
-.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-9-1.
-pdf>
+[22pdfTeX warning (ext4): destination with the same identifier (name{figure.5})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.712 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefph-1.pdf
+>]
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[23pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.712 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resph-1.pdf>]
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[24pdfTeX warning (ext4): destination with the same identifier (name{figure.7})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.712 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/scnph-1.pdf>]
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[25pdfTeX warning (ext4): destination with the same identifier (name{figure.8})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.712 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphest-1.
+pdf>]
+LaTeX Info: Redefining \. on input line 712.
+LaTeX Info: Redefining \% on input line 712.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 712.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[26pdfTeX warning (ext4): destination with the same identifier (name{figure.9})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.712 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/tasanphloc-1.
+pdf>]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefnph-1.pdf, id=336
+, 469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefnph-1.pdf Gr
+aphic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefnph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-9-1.pdf  used on input line 533.
+x/ranefnph-1.pdf  used on input line 715.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[17 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-8-
-5.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-10-1.pdf
-, id=249, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-10-
-1.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-10-1
-.pdf>
-Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-10-1.pdf  used on input line 535.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[18 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-9-
-1.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-11-1.pdf
-, id=259, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-11-
-1.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-11-1
-.pdf>
-Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-11-1.pdf  used on input line 537.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-[19 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-10
--1.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-12-1.pdf
-, id=270, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-12-
-1.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-12-1
-.pdf>
-Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-12-1.pdf  used on input line 539.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-13-1.pdf
-, id=271, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-13-
-1.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-13-1
-.pdf>
-Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-13-1.pdf  used on input line 540.
-(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
+LaTeX Info: Redefining \. on input line 717.
+LaTeX Info: Redefining \% on input line 717.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 717.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 539--541
-[][]
- []
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
-[20 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-11
--1.pdf>] [21 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed
--chunk-12-1.pdf>]
-<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-14-1.pdf
-, id=290, 469.755pt x 325.215pt>
-File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-14-
-1.pdf Graphic file (type pdf)
-<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-14-1
-.pdf>
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[27 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resfittednph-1.p
+df>]
+<210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resnph-1.pdf, id=349, 
+469.755pt x 325.215pt>
+File: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resnph-1.pdf Grap
+hic file (type pdf)
+<use 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resnph-1.pdf>
 Package pdftex.def Info: 210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-late
-x/unnamed-chunk-14-1.pdf  used on input line 542.
+x/resnph-1.pdf  used on input line 721.
 (pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
-(210428_PROGRAMA_DOCUMENTO_TASA_RENTA.bbl [22 <./210428_PROGRAMA_DOCUMENTO_TASA
-_RENTA_files/figure-latex/unnamed-chunk-13-1.pdf>]) [23 <./210428_PROGRAMA_DOCU
-MENTO_TASA_RENTA_files/figure-latex/unnamed-chunk-14-1.pdf>] (210428_PROGRAMA_D
-OCUMENTO_TASA_RENTA.aux)
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 735.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[28 <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resboxnph-1.pdf>
+]
+LaTeX Info: Redefining \. on input line 735.
+LaTeX Info: Redefining \% on input line 735.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 735.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[29pdfTeX warning (ext4): destination with the same identifier (name{figure.10}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.735 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/ranefnph-1.pd
+f>]
+LaTeX Info: Redefining \. on input line 735.
+LaTeX Info: Redefining \% on input line 735.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 735.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[30pdfTeX warning (ext4): destination with the same identifier (name{figure.11}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  
+l.735 
+       <./210428_PROGRAMA_DOCUMENTO_TASA_RENTA_files/figure-latex/resnph-1.pdf>
+] (210428_PROGRAMA_DOCUMENTO_TASA_RENTA.bbl
+LaTeX Info: Redefining \. on input line 48.
+LaTeX Info: Redefining \% on input line 48.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 48.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[31])
+LaTeX Info: Redefining \. on input line 748.
+LaTeX Info: Redefining \% on input line 748.
+File: ../input/logo.png Graphic file (type png)
+<use ../input/logo.png>
+Package pdftex.def Info: ../input/logo.png  used on input line 748.
+(pdftex.def)             Requested size: 141.8628pt x 56.90541pt.
+
+Package fancyhdr Warning: \headheight is too small (40.45274pt): 
+(fancyhdr)                Make it at least 61.25545pt, for example:
+(fancyhdr)                \setlength{\headheight}{61.25545pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-20.8027pt}.
+
+[32] (210428_PROGRAMA_DOCUMENTO_TASA_RENTA.aux
+LaTeX Info: Redefining \. on input line 28.
+LaTeX Info: Redefining \% on input line 28.
+)
+
+LaTeX Warning: There were undefined references.
+
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 24523 strings out of 479321
- 445956 string characters out of 2856107
- 784290 words of memory out of 3000000
- 41243 multiletter control sequences out of 15000+600000
- 499949 words of font info for 174 fonts, out of 8000000 for 9000
+ 25811 strings out of 479321
+ 462818 string characters out of 2856107
+ 828670 words of memory out of 3000000
+ 42446 multiletter control sequences out of 15000+600000
+ 499443 words of font info for 190 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,7n,88p,1775b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,15n,88p,1761b,544s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.e
 nc}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}
 {C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc
-}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<C
-:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><
-C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb>
-<C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx9.pfb>
-<C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb
-><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb
-><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10.p
-fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.p
-fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.p
-fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.p
-fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pf
-b><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.p
-fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.
-pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.
-pfb>
-Output written on 210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf (23 pages, 858877 by
+}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.en
+c}{C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}<
+C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb>
+<C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb
+><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pf
+b><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.p
+fb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmib10
+.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10
+.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12
+.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17
+.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.
+pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri12
+.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmro1
+2.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy
+10.pfb><C:/Users/Camilo/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lms
+y8.pfb>
+Output written on 210428_PROGRAMA_DOCUMENTO_TASA_RENTA.pdf (32 pages, 909466 by
 tes).
 PDF statistics:
- 393 PDF objects out of 1000 (max. 8388607)
- 57 named destinations out of 1000 (max. 500000)
- 53397 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 528 PDF objects out of 1000 (max. 8388607)
+ 96 named destinations out of 1000 (max. 500000)
+ 51381 words of extra memory for PDF output out of 51595 (max. 10000000)
 

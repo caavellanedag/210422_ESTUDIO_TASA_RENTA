@@ -1,6 +1,13 @@
 ---
 title: "Metodología para la estimación de la tasa de capitalización"
-author: "Grupo estadístico - Observatorio técnico catastral (UAECD)"
+subtitle: Unidad Administrativa Especial de Catastro Distrital
+author: "Grupo estadístico - Observatorio técnico catastral"
+date: "01 de Junio de 2021"
+site: "bookdown::bookdown_site"
+lang: es-CO
+fig_width: 4
+fig_height: 2.5
+fontsize: 12pt
 header-includes:
    - \usepackage{amsmath}
    - \usepackage{graphics}
@@ -17,11 +24,19 @@ header-includes:
    - \usepackage{bm}
    - \usepackage{color, colortbl}
    - \usepackage{natbib}
+   - \usepackage{hyperref}
+   - \usepackage{booktabs}
+   - \usepackage{float}
+   - \usepackage{fancyhdr}
 output:
   bookdown::pdf_document2:
     citation_package: natbib
 bibliography: references.bib
 ---
+
+\addtolength{\headheight}{1.0cm} <!--% make more space for the header-->
+\pagestyle{fancyplain} <!--use fancy for all pages except chapter start-->
+\rhead{\includegraphics[height=2.0cm]{../input/logo.png}} <!-- right logo-->
 
 
 ```{r setup, include=FALSE}
@@ -41,46 +56,430 @@ Your abstract.
 
 \section{Introducción}\label{section1}
 
-En la Unidad Administrativa Especial de Catastro Distrital (UAECD) se cuenta con información de ofertas de fuentes secundarias y de fuentes primarias. Las fuentes primarias corresponden a información recolectada en campo por cuenta de la UAECD, mientras que la secundaría corresponde a información que se recolecta a partir de otras fuentes con las cuales se establecen convenios. 
+En la Unidad Administrativa Especial de Catastro Distrital (UAECD) se cuenta con información de ofertas de fuentes secundarias y de fuentes primarias. Las fuentes primarias corresponden a información recolectada en campo por cuenta de la UAECD, mientras que las secundarías corresponden a información que se recolecta a partir de otras fuentes con las cuales se establecen convenios. 
 
-Para diferentes procesos de la Unidad se hace uso de la información recolectada con respecto a ofertas de venta de predios en la ciudad, como por ejemplo en la estimación de parámetros de algunos modelos econométricos para estimar el valor integral de predios en propiedad horizontal. Sin embargo dentro de estos procesos no se tiene en cuenta la información recolectada de ofertas de arriendo, por lo cual este documento tiene como objetivo estimar la tasa de renta inmobiliaria que establezca una relación entre los valores de arriendo y los valores comerciales de los predios en la ciudad de Bogotá, de tal forma que se pueda utilizar la información de ofertas de arriendo en procesos donde se requieren valores comerciales totales de los predios. 
+Para diferentes procesos de la Unidad se hace uso de la información recolectada con respecto a ofertas de venta de predios en la ciudad, como por ejemplo en la estimación de parámetros de algunos modelos econométricos que estiman el valor integral de predios en propiedad horizontal. Sin embargo dentro de estos procesos no se tiene en cuenta la información recolectada de ofertas de arriendo, por lo cual este documento tiene como objetivo estimar la tasa de renta inmobiliaria que establezca una relación entre los valores de arriendo y los valores comerciales de los predios en la ciudad de Bogotá, de tal forma que se pueda utilizar la información de ofertas de arriendo en procesos donde se requieren valores comerciales totales de los predios. 
 
-Denotando como $Z_i$ y $X_i$ al valor comercial y el valor de arriendo del $i$-ésimo predio, respectivamente, se busca obtener un coeficiente $\beta$, tal que se pueda obtener una ecuación que relacione a $Z_i$ y $X_i$ como se muestra en la ecuación \eqref{eq1}. De esta manera, de una forma natural se puede pensar en el uso de los rudimientos correspondientes a las metodologías de modelos lineales \citep{Melo} que permitan estimar el coeficiente $\beta$. Este ejercicio se debe realizar para diferentes desagregaciones de predios en la ciudad, tales como usos, estratos y/o desagregaciones geográficas (localidad, upz, sectores catastrales, entre otros). El nivel de desagregación depende de la cantidad de registros correspondiente a cada caso. 
+Denotando como $Z_i$ y $X_i$ al valor comercial y el valor de arriendo del $i$-ésimo predio, respectivamente, se busca obtener un coeficiente $\beta$, tal que se pueda obtener una ecuación que relacione a $Z_i$ y $X_i$ como se muestra en la ecuación \eqref{eq1}. De esta manera, de una forma natural se puede pensar en el uso de los rudimientos correspondientes a las metodologías de modelos lineales (Ver \cite{Melo}) que permitan estimar el coeficiente $\beta$. Este ejercicio se debe realizar para diferentes desagregaciones de predios en la ciudad, tales como usos, estratos y/o desagregaciones geográficas como lo son las localidades y sectores catastrales.
 
 \begin{equation}\label{eq1}
     Z_i=\beta X_i 
 \end{equation}
 
-En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas por la UAECD tanto de fuentes primarias como secundarias en los años, 2017, 2018, 2019 y 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. 
+En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas por la UAECD tanto de fuentes primarias como secundarias (Finca Raíz, Galería Inmobiliaria y Properati) desde el primero de enero de 2017 hasta el 31 de diciembre de 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. En este documento únicamente se tendrán en cuenta las ofertas correspondientes a predios residenciales, es decir apartamentos y casas.
 
-Dentro de la literatura se encuentran diversos ejemplos de este tipo de datos donde se hacen mediciones o encuestas a grupos de individuos periódicamente, pero no necesariamente a las mismas personas, lo cual imposibilita hacer seguimientos sobre unidades en particular. \cite{deaton1985panel} propone un modelo para una muestra \textit{``pseudo-panel"}, que se construye con lo que denomina como cohortes, las cuales representan grupos de individuos con características similares, con la condición que cada individuo pertenezca únicamente a una cohorte durante todo el análisis y mediante estos grupos se ajustan efectos fijos correspondientes a cada una de las diferentes cohortes. El ejemplo que se trabaja allí es la creación de las agrupaciones mediante la fecha de nacimiento de las personas, de tal forma que cada uno pertenece únicamente a un grupo en el análisis realizado. Muchas publicaciones que abordan diferentes contextos se han elaborado a partir del modelo propuesto por  \citet{deaton1985panel} (Ver \citet{tsai2014review, tovar2012analysis,sprietsma2012computers,antman2007earnings}, entre otros).
+Dentro de la literatura se encuentran diversos ejemplos de datos donde se hacen mediciones o encuestas a grupos de individuos periódicamente, pero no necesariamente a las mismas personas, lo cual imposibilita hacer seguimientos sobre unidades en particular, de manera similar a la problemática presentada, donde no se cuenta con información de arriendo y venta en los mismos predios. \cite{deaton1985panel} propone un modelo para una muestra \textit{``pseudo-panel"}, que se construye con lo que denomina como cohortes, las cuales representan grupos de individuos con características similares, con la condición que cada individuo pertenezca únicamente a una cohorte durante todo el análisis y mediante estos grupos se ajustan efectos dentro de la regresión correspondientes a cada una de las diferentes cohortes. Muchas publicaciones que abordan diferentes contextos se han elaborado a partir del modelo propuesto por  \citet{deaton1985panel} (Ver \citet{tsai2014review, tovar2012analysis,sprietsma2012computers,antman2007earnings}, entre otros). La propuesta utilizada en este documento se basa en el uso de estas cohortes, agregando la información a nivel de sector catastral, tomando el promedio o la mediana como medidas de resumen, tanto para valores de arriendo como para valores de venta.
 
- A partir de la propuesta de \citet{deaton1985panel} se particiona la población en las cohortes mencionadas y considerando que dichos segmentos abarcan todo el conjunto, los efectos incluidos en los modelos lineales de regresión son efectos fijos, a diferencia del caso que se trabaja en este documento donde se utiliza el modelo propuesto allí,   pero además se incluyen efectos aleatorios asociados a las diferentes cohortes, debido a que generalmente se trabaja únicamente con un subconjunto de UE pertenecientes a la población objetivo y no la totalidad de unidades. 
- 
-Por ende, dado que no se tienen mediciones de arriendo y venta sobre los mismos predios, se propone el uso de un modelo lineal, agregando de acuerdo a "cohortes", de tal manera que se pueda emular la propuesta de \citet{deaton1985panel}. En este caso, la propuesta es agrupar por agregaciones geográficas tales como sectores catastrales, considerando que desagregar a nivel de lote puede llegar a ser demasiado fino y pueda presentar problemas a la hora de hacer la estimación de parámetros en el modelo lineal, y por otro lado a nivel de agregaciones como localidad puede generar agrupaciones muy grandes, considerando los objetivos del estudio.
+Las metodologías de regresión ajustadas por mínimos cuadrados ordinarios tienen como supuestos la independencia entre mediciones, lo cual no se cumple en este caso, ya que un sector catastral puede tener información en las diferentes vigencias, por lo que se propone la inclusión de factores en la regresión que permitan captar el efecto de las medidas repetidas sobre la variable respuesta. De esta manera, la metodología a utilizar corresponde a los modelos de efectos mixtos, donde los efectos fijos van a ser el conjunto de factores asociados al estrato, localidad y el valor de arriendo, mientras que los efectos aleatorios corresponden a la relación entre el valor de arriendo y de venta, segmentada para cada uno de los sectores catastrales. 
+
+La programación realizada se realizó en el software R \citep{R}, en donde el procesamiento de información se llevo a cabo mediante los paquetes relacionados en el $tidyverse$ \citep{tidyverse}, mientras que los controles de calidad utilizaron funciones de la librería $qcc$ y $RecordLinkage$ (Ver \cite{qcc} y \cite{RecordLinkage}). Por último, la construcción del modelo se realizó mediante el paquete $nlme$ \cite{nlme}.
 
 El presente documento contiene en la sección \label{section_int} la introducción, seguido de la sección \label{section_obj} donde se presentan los objetivos del estudio. En la sección \ref{section_marco} se hace una revisión metodológica de las metodologías estadísticas a utilizar. Por otro lado, la sección
 \section{Objetivos}\label{section_obj}
+
+En esta sección se presentan los objetivos a tener en cuenta dentro del estudio, tanto de forma general, como de manera desagregada en los objetivos específicos. 
 
 \subsection{Objetivo general}
 
 Estimar un índice que permita relacionar los valores de arriendo de un inmueble con su valor comercial para las diferentes zonas, usos y estratos de la ciudad.
 
 
-\subsection{Objetivos especificos}
+\subsection{Objetivos específicos}
  
  \begin{enumerate}
   \item   Hacer una revisión de la literatura para obtener un estado del arte, con el objetivo de tener en cuenta posibles metodologías que puedan ayudar a completar los otros objetivos específicos y/o puedan servir como metodologías de referencia a la hora de realizar una comparación dentro del mismo estudio.
    \item Realizar un análisis descriptivo de la base de datos disponible para la realización del ejercicio.
     \item Realizar una validación de las ofertas contenidas dentro de la base de datos, con el objetivo de detectar aquellas ofertas atípicas que puedan sesgar los resultados del estudio.
     \item Depurar la base de datos compartida por el OTC.
-    \item Realizar el cálculo de las tasas de renta para diferentes desagregaciones de los predios en la ciudad (Uso-Estrato-Localidad/UPZ/Sector).
+    \item Realizar el cálculo de las tasas de renta para diferentes desagregaciones de los predios en la ciudad (Uso-Estrato-Localidad/Sector).
     \item Presentación y documentación metodológica de resultados.
     \item Evaluar la consistencia de los resultados para calcular cifras en vigencias futuras.
  \end{enumerate}
-\section{Marco teórico}\label{section_marco}
+\section{Revisión de la base de ofertas}
 
-\section{Modelo lineal mixto}
+
+
+```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
+require(pacman)
+
+source("src/Funciones.R")
+p_load(tidyverse, openxlsx, here, haven, data.table, knitr, flextable, 
+       officer, targets, kableExtra, targets, captioner, scales)
+
+options(scipen=999)
+
+tar_load(base)
+tar_load(base_filtrada)
+tar_load(df_clean)
+tar_load(df_clean_final)
+tar_load(list_whole_tables_PH)
+tar_load(list_whole_tables_NPH)
+tar_load(list_plots_model_PH)
+tar_load(list_plots_model_NPH)
+```
+
+
+
+
+La base de datos consta originalmente con `r labels(nrow(base))` registros, incluyendo todos los tipos de predios. 
+Un primer filtro realizado corresponde a dejar aquellas ofertas de predios residenciales, es decir, cuyo tipo de inmueble es apartamento o casa. El total de registros residenciales es `r labels(sum(base$TIPO_INMUEBLE %in% c("APARTAMENTO","CASA")))`. Por otro lado, se tuvo en cuenta diferentes exclusiones para eliminar inconsistencias, dentro de las cuales se incluyen los casos que no tienen estrato, sin área construida, sin identificador del lote (barmanpre) y ofertas rurales. Es importante tener en cuenta que las exclusiones no son excluyentes, lo que quiere decir que un predio puede tener estar en dos o más exclusiones. Luego de estas exclusiones, el número de predios en la base para trabajar es `r labels(nrow(base_filtrada))`. En el cuadro \@ref(tab:exclusiones) se muestran el número de predios excluidos en cada caso. 
+
+```{r exclusiones, echo = FALSE, warning = FALSE, message = FALSE}
+Exclusiones <- data.frame("Exclusión" = c("Rurales", "Sin área", "Sin Barmanpre", "Sin estrato"),
+N = labels(c(sum(substring(base$CODIGO_BARRIO,1,1) %in% c("1", "2")),
+nrow(base[AREA_CONSTRUIDA == 0 | is.na(base$AREA_CONSTRUIDA)]),
+nrow(base[base$BARMANPRE=="" | is.na(base$BARMANPRE)]),
+nrow(base[base$ESTRATO == 0])) ))
+
+Exclusiones %>%
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Número de predios en cada una de las exclusiones.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+\subsection{Controles de calidad sobre la base}
+
+Debido a que la base de datos tiene información de diferentes fuentes y estas contienen información reportada directamente por los usuarios de plataformas digitales, puede darse el caso en que se tengan valores mal digitados o ciertas inconsistencias. Para evitar estos casos se propone realizar controles sobre esta información, con el objetivo de que la información utilizada por el modelo lineal sea lo más depurada posible. 
+
+La información a utilizar dentro de los diferentes modelos consiste en las áreas de construcción, precios reportados y los valores integrales. Considerando que se cuenta con datos, por un lado de ventas y arriendo, mientras que por otra parte predios en propiedad horizontal (PH) y no propiedad horizontal (NPH), además de diferentes estratos, se van a conformar diferentes agrupaciones de manera inicial. Las agrupaciones dependen del año de recolección del dato, clase de predio (PH y NPH), estrato y tipo de oferta (arriendo y venta). Es decir que, por ejemplo, las ofertas de arriendo en PH no se van a comparar con ofertas en arriendo en NPH, ni entre vigencias o entre estratos, ya que de antemano se espera que tengan un comportamiento diferente. Una vez se conforman estas agrupaciones, lo ideal es realizar comparaciones entre ofertas que sean próximas desde una perspectiva geográfica. Estas comparaciones se realizan con el objetivo de determinar si la oferta es similar en sus características a ofertas, debido a que en otro caso la información recolectada en ese registro presentaría anomalías y debería reportarse como atípica, al mismo tiempo que ser excluida de los análisis a desarrollar. 
+
+Una manera de determinar registros próximos geográficamente, es seleccionando todos los que se encuentren en el mismo sector catastral, pero un primer inconveniente surge cuando en un sector solamente se encuentre una oferta o un número insuficiente de ofertas para realizar la comparación. Por este motivo, se observa la necesidad de realizar aglomeraciones más grandes de tal forma que se tengan grupos con un número suficiente de información para realizar la validación. Es importante mencionar que si el número de registros supera el umbral determinado, no se requiere una agrupación más grande y se va a aplicar el protocolo de comparación únicamente con las ofertas que se encuentran en ese barrio. 
+
+Con el objetivo de tener agrupaciones de ofertas lo suficientemente grandes para tener información y realizar la comparación, pero de tal forma que no se agregue demasiado, considerando la singularidad de cada sector, en este documento se propone agrupar los sectores de acuerdo a su codificación. Se esperaría que los sectores cuya codificación es igual a diferencia del último dígito son más cercanos que dos sectores que tienen diferencias en sus dos últimos dígitos. Por ejemplo, se esperaría que los sectores "001101" y "001102" sean próximos geográficamente hablando. De esta manera, el algoritmo propuesto busca estas coincidencias a partir de la distancia de Levenshtein \citep{RecordLinkage}, la cual es un valor entre 0 y 1. Esta distancia toma un valor de 0 cuando las dos codificaciones no tienen dígitos en común en las mismas posiciones y toma el valor de 1 cuando son exactamente iguales. El algoritmo realiza la búsqueda iterativa de sectores similares, iniciando por los últimos dígitos, de forma que si no encuentra sectores con el mismo código y último dígito diferente, procede a buscar coincidencias exceptuando los dos últimos dígitos y así sucesivamente hasta superar el umbral definido. Una vez el algoritmo encuentra agrupaciones tal que todas superan dicho valor predefinido se detiene y no continua con el proceso de agregación. El número de predios determinado, como umbral es 10, lo cual quiere decir que si un sector catastral cuenta con menos de 10 registros a nivel de tipo de oferta, estrato, clase de predio y año, se buscarán opciones de colapso, de tal forma que se encuentren ofertas próximas para poder realizar la comparación.
+
+Una vez se conforman las diferentes agrupaciones se procede a utilizar una carta de control multivariada \citep{montgomery2020introduction}, lo que se debe a que se están controlando diferentes características, es decir un proceso multivariado, al involucrar el área construida, precio y el valor integral de las diferentes ofertas. Al considerar una carta de control multivariada se hace uso de la relación implícita dentro de las variables, lo cual no sucede con métodos univariados. Los métodos de control de calidad usualmente consideran dos etapas, lo que no se tiene en cuenta dentro de este ejercicio ya que no se tendrán en cuenta ofertas adicionales en este ejercicio y a por otra parte, el objetivo del estudio no se enfoca en el control de calidad, si no que éste es un paso adicional para lograr el objetivo, el cual radica en la estimación de la tasa de capitalización. La figura \@ref(fig:plt) muestra un ejemplo de una carta de control multivariada, donde las ofertas se ilustran a partir de puntos, las bandas determinan límites de tal forma que una oferta que está fuera de ellos será marcada como atípica y se muestran en el gráfico en color rojo.
+
+```{r plt, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Ilustración de la carta de control multivariada."}
+lista_separada <- base_filtrada %>% split(.$key) %>% map(Fill_na) 
+lista_2 <- map(lista_separada, ~Agrupa_barrios(.x, cutoff = 10))
+
+lista_2[[1]] %>%
+  filter(CODIGO_BARRIO_NEW == lista_2[[1]]$CODIGO_BARRIO_NEW[1]) %>% 
+  make_control_chart() %>% make_plot_qcc() + ylab("Estadística calculada")
+```
+
+Luego de este control de calidad, la base de datos tiene un total de `r labels(nrow(df_clean))` registros, con lo cual se procede a realizar los diferentes cálculos de promedios por sector, de tal manera que en cada uno de ellos se tendrá un promedio de venta y de arriendo, por estrato, vigencia y clase de predio (apartamento o casa). Al realizar este cálculo se tuvo un inconveniente, ya que un sector puede tener ofertas de arriendo, más no de ventas o viceversa. Para remediar esto, en el caso en que se tenga información de arriendo y no de ventas, se toma el promedio de valor integral de la base catastral, de acuerdo a la misma desagregación. Mientras que en el recíproco, cuando se tiene el valor de venta, pero no en el de arriendo se utiliza el promedio de la localidad respectivo para imputar este valor y proceder con la construcción del modelo estadístico.
+
+
+Considerando que se surtio una serie de procedimientos, controles de calidad, depuraciones e imputaciones se realizó un análisis para excluir registros que tuvieran tasas de renta atipicas, que puedan sesgar los resultados del estudio. Para esta situación, se excluyeron aquellos casos con una tasa de capitalización superior al $1\%$ e inferiores al $0.33\%$.
+Luego de este proceso, la tabla \@ref{tab:resumenbase} muestra el número de sectores resultantes, la cantidad de registros de ofertas y de ventas utilizadas en cada caso, respectivamente, donde se observa que la cantidad de ofertas de venta es mayor a la de arriendo y se encuentran cantidades mayores en estratos del 2 al 4. 
+
+```{r resumenbase, echo = FALSE, message = FALSE, warning = FALSE}
+df_clean_final$bd_in %>%
+  mutate(ESTRATO = as.character(ESTRATO), ANO = as.character(ANO)) %>% 
+  dplyr::select(ESTRATO, ANO, CLASE_PREDIO, N_ARRIENDO, N_VENTA) %>% 
+  group_by(CLASE_PREDIO, ANO, ESTRATO) %>% 
+  summarise("N de sectores" = n(),
+            "N de ofertas de arriendo" = sum(N_ARRIENDO, na.rm = TRUE), 
+            "N de ofertas de venta" = sum(N_VENTA, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  rbind(c("Total", "Total", "Total",
+                   df_clean_final$bd_in %>% nrow(),
+                   df_clean_final$bd_in$N_ARRIENDO %>% sum(na.rm = TRUE),
+                   df_clean_final$bd_in$N_VENTA %>% sum(na.rm = TRUE))
+  ) %>% as.data.frame() %>% rename("AÑO" = ANO) %>% 
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Cantidad de predios y sectores según clase de predio, estrato y año, luego de la depuración de la base.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"), full_width = F) %>% 
+  column_spec(4, width = "3em") %>% 
+  column_spec(5, width = "5em") %>% 
+  column_spec(6, width = "5em")
+```
+
+
+\section{Modelo aplicado}
+
+El objetivo de esta sección es ilustrar el modelo estadístico aplicado junto con una breve justificación de su uso y respectivos resultados. Para eliminar el efecto que pueda tener el área construida sobre los valores de venta y de arriendo totales se va a tomar el valor integral, que se calcula dividiendo los valores totales sobre el área construida, es decir, lo que se muestra en la ecuación \eqref{eq_int}. En este modelo la variable respuesta es el valor integral de venta, mientras que una de las variables independientes es el valor integral de arriendo. 
+
+\begin{equation}\label{eq_int}
+Valor\_integral = \frac{Valor\_total}{Area\_construida}
+\end{equation}
+
+Considerando que no se cuenta con información de ventas y arriendo de manera simultánea en un solo predio, se toma la propuesta dada en \citet{deaton1985panel}, cuyas cohortes van a estar representadas por los diferentes sectores catastrales. De esta manera, el modelo estimado se presenta en la ecuación \eqref{eq_mod}, donde $Z_{ij}$ y $X_{ij}$ representan los valores integrales de venta y arriendo promedio, respectivamente, en el $i$-ésimo sector catastral en el $j$-ésimo tiempo,  $\alpha$ es el efecto global del valor integral de arriendo sobre el valor integral de venta. Por otro lado, $\beta_k$ es el efecto del $k$-ésimo estrato sobre el efecto general de la relación entre valores integrales, denotado como $\alpha$, $\eta_l$ es el efecto de la $l$-ésima localidad sobre el efecto general de la relación entre integrales y $\delta_m$ es el efecto del $m$-ésimo sector catastral sobre el efecto global, de manera análoga a los otros coeficientes. Por último $\epsilon_{ij}$ representa a los errores de la regresión. 
+
+\begin{equation}\label{eq_mod}
+Z_{ij} = \alpha X_{ij} + \beta_k X_{ij} + \eta_l X_{ij} + \delta_m X_{ij} + \epsilon_{ij}
+\end{equation}
+
+En el caso del modelo \eqref{eq_mod}, los factores relacionados al estrato y localidad son efectos fijos, ya que en la base de ofertas utilizada se tiene información de todos los sectores y de todas las localidades, mientras que los efectos relacionados con los sectores catastrales son efectos aleatorios, debido a que no se tienen mediciones de todos los sectores en la ciudad de Bogotá, pero la inferencia a realizar se puede generalizar a la población de sectores. Como en el modelo \eqref{eq_mod} se incluyen efectos fijos y aleatorios, el modelo se denomina de efectos mixtos.
+
+En el modelo \eqref{eq_mod} se supone lo siguiente
+
+$$
+\sum_k \beta_k = \sum_l \eta_l = 0,
+$$
+
+\noindent lo cual se debe a temas relacionados con la estimabilidad de los parámetros. Por otro lado, en cuanto a los factores aleatorios, se supone que los coeficientes y errores son independientes e idénticamente distribuidos y a su vez $\delta_m \sim N(0, \sigma_\delta^2)$ y $\epsilon_m \sim N(0, \sigma_\epsilon^2)$. Es necesario tener en cuenta que el modelo no incluye intercepto, considerando los objetivos del estudio. El valor integral de arriendo, denotado por $X_{ij}$ se incluye en todas las covariables, ya que el objetivo del estudio es determinar la relación entre los valores totales y de arriendo.
+
+Una vez se realizó la estimación de los coeficientes del modelo, se realizó un análisis para determinar puntos de apalancamiento o de influencia, con el fin de encontrar aquellos casos donde un solo registro pueda influir y cambiar los coeficientes del modelo de manera importante. Para ello se realizó el cálculo de la distancia de $Cook$ y de los $DFBETAS$, que son medidas de diagnóstico del modelo. Detalles adicionales relacionados con modelos lineales de efectos mixtos o estas medidas de diagnóstico se pueden consultar en el anexo de este documento, en \citet{montgomery2012introduction}, \citet{hinkelmann2011design} o \citet{Melo}.
+
+A partir de este modelo se estima un coeficiente, mayor a 1, que nos permite conocer la razón entre el valor integral de venta y el valor integral o dicho de otra manera un valor que al multiplicarlo por el valor de arriendo, nos permita estimar el valor total de venta, pero para temas interpretativos con otras áreas de la Unidad e inclusive con la literatura relacionada, en los resultados presentados se va a mostrar el inverso de ese coeficiente, que va a ser un valor entre 0 y 1. 
+
+\subsection{Apartamentos}
+
+A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en propiedad horizontal. La figura \@ref(fig:scph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de apartamentos. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta y un comportamiento similar año a través de los años.
+
+```{r scph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
+list_plots_model_PH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+\subsubsection{Resultados}
+
+
+
+La tabla \@ref(tab:estph) y la tabla \@ref(tab:locph)
+
+```{r estph, warning = FALSE, message = FALSE, echo = FALSE}
+Localidad <- read.xlsx("input/Localidad.xlsx")
+list_whole_tables_PH$tabla_tasa_final_est %>%
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para apartamentos según estratos y años.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+
+
+```{r tasaphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según estratos y años."}
+list_whole_tables_PH$tabla_tasa_final_est %>%  
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(ESTRATO,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.45, 0.565), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Año") +
+  xlab("Estrato") +
+  ylab("Tasa de renta en %")
+```
+
+
+```{r locph, warning = FALSE, message = FALSE, echo = FALSE}
+list_whole_tables_PH$tabla_tasa_final_loc %>%  
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  dplyr::select(A, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD, TASA_RENTA) %>% 
+  rename("AÑO" = A) %>%   
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para apartamentos según localidades y años.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+```{r tasaphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según localidades y años."}
+list_whole_tables_PH$tabla_tasa_final_loc %>%  
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(NOMBRE_LOCALIDAD,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.4, 0.6), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Año") +
+  xlab("Nombre de la localidad") +
+  ylab("Tasa de renta en %")
+```
+
+
+\subsubsection{Validación de supuestos}
+
+Las figuras \@ref(fig:resfittedph), \@ref(fig:resboxph), \@ref(fig:ranefph), \@ref(fig:resph), 
+
+```{r resfittedph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de apartamentos."}
+list_plots_model_PH$plot_fitted_residuals 
+```
+```{r resboxph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de apartamentos."}
+list_plots_model_PH$plot_boxplot_estrato_vigencia
+```
+
+```{r ranefph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de apartamentos."}
+list_plots_model_PH$plot_normal_ranef
+```
+
+```{r resph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales obtenidos en la regresión para el caso de apartamentos."}
+list_plots_model_PH$plot_normal_residuals
+```
+
+
+
+
+\subsection{Casas}
+
+A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en no propiedad horizontal. La figura \@ref(fig:scnph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de casas. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta y un comportamiento similar año a través de los años.
+
+```{r scnph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
+list_plots_model_NPH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+\subsubsection{Resultados}
+
+Las tablas \@ref(tab:estnph) y \@ref(tab:locnph) muestran los resultados para casas a nivel de estratos y localidades en las diferentes vigencias. Allí se observa, al igual que en el caso de la propiedad horizontal, que a medida que el estrato aumenta la tasa de rentabilidad es más baja. 
+
+```{r estnph, warning=FALSE,message=FALSE,echo=FALSE}
+list_whole_tables_NPH$tabla_tasa_final_est %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para casas según estrato y años.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+```{r locnph, warning=FALSE,message=FALSE,echo=FALSE}
+list_whole_tables_NPH$tabla_tasa_final_loc %>% 
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  dplyr::select(A, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD, TASA_RENTA) %>% 
+  rename("AÑO" = A) %>%   
+  kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para casas según localidades y años.") %>% 
+  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+
+
+
+
+
+```{r tasanphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según estratos y años."}
+list_whole_tables_NPH$tabla_tasa_final_est %>%  
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(ESTRATO,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.42, 0.62), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Año") +
+  xlab("Estrato") +
+  ylab("Tasa de renta en %")
+```
+
+
+```{r tasanphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según localidades y años."}
+list_whole_tables_NPH$tabla_tasa_final_loc %>%  
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(NOMBRE_LOCALIDAD,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.5, 0.95), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Año") +
+  xlab("Nombre de la localidad") +
+  ylab("Tasa de renta en %")
+```
+  
+
+
+
+
+
+\subsubsection{Validación de supuestos}
+
+Las figuras \@ref(fig:resfittednph), \@ref(fig:resboxnph), \@ref(fig:ranefnph), \@ref(fig:resnph),
+
+```{r resfittednph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de casas."}
+list_plots_model_NPH$plot_fitted_residuals 
+```
+```{r resboxnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de casas."}
+list_plots_model_NPH$plot_boxplot_estrato_vigencia
+```
+
+```{r ranefnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de casas."}
+list_plots_model_NPH$plot_normal_ranef
+```
+
+```{r resnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales del modelo en el grupo de ofertas referente a casas."}
+list_plots_model_NPH$plot_normal_residuals
+```
+
+
+
+
+
+
+<!-- La base de datos consta originalmente con `r labels(nrow(base))` registros. El resumen del número de registros, antes de realizar ciertas exclusiones se presenta en la siguiente tabla, la cual muestra el número de ofertas por fuente. -->
+
+
+<!-- ```{r echo=FALSE,message=FALSE,warning=FALSE} -->
+<!-- theme_box(autofit(flextable(base[,.N,by=.(NOMBRE_FUENTE)]))) -->
+<!-- ``` -->
+
+
+
+
+
+
+<!-- Inicialmente se filtraron aquellos registros que no cuentan con identificador, precio o barmanpre. Posterior a esta revisión se excluyeron los registros que no tenían área construida (2) y aquellos casos que no tenían área de terreno cuando el tipo de inmueble es diferente a apartamentos (2). A partir de esta base depurada se realizaron los siguientes conteos y gráficos de tipo descriptivo. Luego de estas exclusiones, se tiene un restante de `r labels(nrow(base_filtrada))` ofertas, las cuales son tenidas en cuenta dentro de los siguientes gráficos y tablas descriptivas. -->
+
+
+
+
+
+
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[,.N,by=.(TIPO_INMUEBLE)][order(TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>%  -->
+<!--   ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+ -->
+<!--   geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+ -->
+<!--   scale_y_continuous(labels=labels)+ -->
+<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[TIPO_INMUEBLE %in% c("APARTAMENTO","CASA"),.N,by=.(TIPO_INMUEBLE,ESTRATO)][order(TIPO_INMUEBLE,ESTRATO),LABELS:=labels(N)] %>%  -->
+<!--   ggplot()+geom_col(aes(x=ESTRATO,y=N),fill="red",position="dodge")+ -->
+<!--   geom_text(aes(x=ESTRATO,y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("ESTRATO")+ -->
+<!--   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+ -->
+<!--   scale_x_continuous(breaks=0:6)+ -->
+<!--   facet_wrap(~TIPO_INMUEBLE,scales="free") -->
+<!-- ``` -->
+
+
+
+
+
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[,.N,by=.(ANO,NOMBRE_FUENTE)][order(ANO,NOMBRE_FUENTE),LABELS:=labels(N)] %>%  -->
+<!--   ggplot()+geom_col(aes(x=ANO,y=N,fill=NOMBRE_FUENTE),position="dodge")+ -->
+<!--   geom_text(aes(x=ANO,y=N,label=LABELS,group=NOMBRE_FUENTE),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+ -->
+<!-- scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1") -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[,.N,by=.(ANO,TIPO_OFERTA)][order(ANO,TIPO_OFERTA),LABELS:=labels(N)] %>%  -->
+<!--   ggplot()+geom_col(aes(x=ANO,y=N,fill=TIPO_OFERTA),position="dodge")+ -->
+<!--   geom_text(aes(x=ANO,y=N,label=LABELS,group=TIPO_OFERTA),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+ -->
+<!--   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1") -->
+<!-- ``` -->
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[,.N,by=.(ANO,CLASE_PREDIO)][order(ANO,CLASE_PREDIO),LABELS:=labels(N)] %>%  -->
+<!--   ggplot()+geom_col(aes(x=ANO,y=N,fill=CLASE_PREDIO),position="dodge")+ -->
+<!--   geom_text(aes(x=ANO,y=N,label=LABELS,group=CLASE_PREDIO),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+ -->
+<!--   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1") -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE,warning=FALSE,message=FALSE} -->
+<!-- base_filtrada[,.N,by=.(ANO,TIPO_INMUEBLE)][order(ANO,TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>%  -->
+<!--   ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+ -->
+<!--   geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+ -->
+<!--   scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+facet_wrap(~ANO,scales="free")+ -->
+<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1))  -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_INMUEBLE)][order(AÑO,TIPO_INMUEBLE)]))) -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_OFERTA,NOMBRE_FUENTE)][order(AÑO,TIPO_OFERTA,NOMBRE_FUENTE),]))) -->
+<!-- ``` -->
+
+
+
+\section{Apéndice 1}\label{section_marco}
+
+En esta sección se presenta una descripción, de manera corta, del modelo lineal de efectos mixtos, el cual fue utilizado en el documento para realizar las estimaciones requeridas dentro de los objetivos. Adicional a esta descripción se adicionan algunos criterios de validación que también fueron utilizados.
+
+\subsection{Modelo lineal mixto}
 
 Los modelos lineales son una forma de explicar la dispersión de una o más respuestas aleatorias en términos de una serie de variables independientes (también conocidas como exógenas).
 En \citet[p. 5]{west2014linear}
@@ -96,144 +495,37 @@ En términos matriciales, según \citet[p. 58]{bates2000mixed}, el modelo lineal
 \end{equation}
 
 
-\noindent donde $\boldsymbol{y}_i$ es el vector de respuestas, $\boldsymbol{X}_i$ y $\boldsymbol{Z}_i$ son las matrices de diseño de los efectos fijos y aleatorios  asociadas al $i$-ésimo individuo, respectivamente. Los vectores $\boldsymbol{\beta}$ y $\boldsymbol{b}_{i}$ de dimensiones $a$ y $q$, que contienen los coeficientes asociados a los efectos fijos y aleatorios considerados en la $i$-ésima UE, respectivamente, mientras que $\boldsymbol{\epsilon}_i$ es el vector de errores de mediciones dentro de cada UE. Como supuestos distribucionales sobre este modelo se asume que $\boldsymbol{b}_i \sim \boldsymbol{N}_q(\boldsymbol{0}_q,\boldsymbol{\Psi}_{q \times q})$ y $\boldsymbol{\epsilon}_i \sim \boldsymbol{N}_t(\boldsymbol{0}_t,\boldsymbol{\Sigma}_{t \times t})$. A su vez los vectores $\boldsymbol{\epsilon}_i$ y $\boldsymbol{b}_i$ se asumen independientes, es decir $Cov(\boldsymbol{\epsilon}_i,\boldsymbol{b}_i)=0$. La matriz $\boldsymbol{\Sigma}$ asociada a los residuales dentro de las mediciones de la misma unidad puede considerar diferentes situaciones, es decir que se puede asociar a procesos autocorrelacionados, por ejemplo los que se encuentran en la literatura relacionada con series de tiempo, como los modelos \textit{ARIMA} \citep{wei2006time}, o como los que se estudian en la estadística espacial, que se caracterizan mediante su función de variograma \citep{schabenberger2017statistical}. En este documento únicamente aborda el contexto de datos longitudinales o datos panel, por lo cual únicamente se tendrán en cuenta aquellos procesos relacionados con series temporales en cuanto a la matriz de errores $\boldsymbol{\Sigma}$.
+\noindent donde $\boldsymbol{y}_i$ es el vector de respuestas, $\boldsymbol{X}_i$ y $\boldsymbol{Z}_i$ son las matrices de diseño de los efectos fijos y aleatorios  asociadas al $i$-ésimo individuo, respectivamente. Los vectores $\boldsymbol{\beta}$ y $\boldsymbol{b}_{i}$ de dimensiones $a$ y $q$, que contienen los coeficientes asociados a los efectos fijos y aleatorios considerados, respectivamente, mientras que $\boldsymbol{\epsilon}_i$ es el vector de errores de mediciones. Como supuestos distribucionales sobre este modelo se asume que $\boldsymbol{b}_i \sim \boldsymbol{N}_q(\boldsymbol{0}_q,\boldsymbol{\Psi}_{q \times q})$ y $\boldsymbol{\epsilon}_i \sim \boldsymbol{N}_t(\boldsymbol{0}_t,\boldsymbol{\Sigma}_{t \times t})$. A su vez los vectores $\boldsymbol{\epsilon}_i$ y $\boldsymbol{b}_i$ se asumen independientes, es decir que $Cov(\boldsymbol{\epsilon}_i,\boldsymbol{b}_i)=0$. La matriz $\boldsymbol{\Sigma}$ asociada a los residuales dentro de las mediciones de la misma unidad puede considerar diferentes estructuras, es decir que se puede asociar a procesos autocorrelacionados, por ejemplo los que se encuentran en la literatura relacionada con series de tiempo, como los modelos \textit{ARIMA} \citep{wei2006time}, o como los que se estudian en la estadística espacial, que se caracterizan mediante su función de variograma \citep{schabenberger2017statistical}.
 
-\section{Revisión de la base de ofertas}
+Las metodologías de estimación de los parámetros incluidos dentro del modelo son máxima verosimilitud o máxima verosimilitud restringida, a pesar de que en la literatura se encuentran diferentes propuestas. En este documento se utilizo la primera, ya que es la que se incluye por defecto dentro de la función $lme$ del paquete $nlme$ \citep{nlme} en R.
 
-```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
-require(pacman)
+<!-- \section{Apéndice 2} -->
 
+<!-- En esta sección se muestran las tablas resultantes de la estimación de la tasa de rentabilidad a nivel de sectores.  -->
+<!-- Las tablas \@ref{tab:tsectoresnph} y \@ref{tab:tsectoresph} muestran los resultados para casas y apartamentos, respectivamente.  -->
 
-p_load(tidyverse, openxlsx, here, haven, data.table, knitr, flextable, 
-       officer, targets, kableExtra)
-
-options(scipen=999)
-
-tar_load(base)
-tar_load(base_filtrada)
-tar_load(list_whole_tables_PH)
-tar_load(list_whole_tables_NPH)
-tar_load(list_plots_model_PH)
-tar_load(list_plots_model_NPH)
-```
-
-
-
-```{r warning=FALSE,message=FALSE,echo=FALSE}
-list_whole_tables_PH$tabla_tasa_final_est %>%
-  kbl(booktabs = TRUE, "latex", longtable = TRUE) %>% 
-  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
-```
-
-```{r warning=FALSE,message=FALSE,echo=FALSE}
-list_whole_tables_PH$tabla_tasa_final_loc %>% 
-  kbl(booktabs = TRUE, "latex", longtable = TRUE) %>% 
-  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
-```
-
-```{r warning=FALSE,message=FALSE,echo=FALSE}
-list_whole_tables_NPH$tabla_tasa_final_est %>% 
-  kbl(booktabs = TRUE, "latex", longtable = TRUE) %>% 
-  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
-```
-
-```{r warning=FALSE,message=FALSE,echo=FALSE}
-list_whole_tables_NPH$tabla_tasa_final_loc %>% 
-  kbl(booktabs = TRUE, "latex", longtable = TRUE) %>% 
-  kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
-```
-
-
-La base de datos consta originalmente con `r labels(nrow(base))` registros. El resumen del número de registros, antes de realizar ciertas exclusiones se presenta en la siguiente tabla, la cual muestra el número de ofertas por fuente.
-
-
-```{r echo=FALSE,message=FALSE,warning=FALSE}
-theme_box(autofit(flextable(base[,.N,by=.(NOMBRE_FUENTE)])))
-```
-
-
-```{r echo=FALSE,message=FALSE,warning=FALSE}
-list_plots_model_PH$plot_fitted_residuals 
-list_plots_model_PH$plot_boxplot_estrato_vigencia
-list_plots_model_PH$plot_normal_residuals
-list_plots_model_PH$plot_normal_ranef
-list_plots_model_PH$scatterplot_estrato
-```
-
-
-```{r echo=FALSE,message=FALSE,warning=FALSE}
-list_plots_model_NPH$plot_fitted_residuals 
-list_plots_model_NPH$plot_boxplot_estrato_vigencia
-list_plots_model_NPH$plot_normal_residuals
-list_plots_model_NPH$plot_normal_ranef
-list_plots_model_NPH$scatterplot_estrato
-```
-
-
-
-Inicialmente se filtraron aquellos registros que no cuentan con identificador, precio o barmanpre. Posterior a esta revisión se excluyeron los registros que no tenían área construida (2) y aquellos casos que no tenían área de terreno cuando el tipo de inmueble es diferente a apartamentos (2). A partir de esta base depurada se realizaron los siguientes conteos y gráficos de tipo descriptivo. Luego de estas exclusiones, se tiene un restante de `r labels(nrow(base_filtrada))` ofertas, las cuales son tenidas en cuenta dentro de los siguientes gráficos y tablas descriptivas.
-
-
-
-
-
-
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[,.N,by=.(TIPO_INMUEBLE)][order(TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
-  ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
-  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
-  scale_y_continuous(labels=labels)+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-```
-
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[TIPO_INMUEBLE %in% c("APARTAMENTO","CASA"),.N,by=.(TIPO_INMUEBLE,ESTRATO)][order(TIPO_INMUEBLE,ESTRATO),LABELS:=labels(N)] %>% 
-  ggplot()+geom_col(aes(x=ESTRATO,y=N),fill="red",position="dodge")+
-  geom_text(aes(x=ESTRATO,y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("ESTRATO")+
-  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+
-  scale_x_continuous(breaks=0:6)+
-  facet_wrap(~TIPO_INMUEBLE,scales="free")
-```
-
-  
-
-
-
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[,.N,by=.(ANO,NOMBRE_FUENTE)][order(ANO,NOMBRE_FUENTE),LABELS:=labels(N)] %>% 
-  ggplot()+geom_col(aes(x=ANO,y=N,fill=NOMBRE_FUENTE),position="dodge")+
-  geom_text(aes(x=ANO,y=N,label=LABELS,group=NOMBRE_FUENTE),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
-scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
-```
-
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[,.N,by=.(ANO,TIPO_OFERTA)][order(ANO,TIPO_OFERTA),LABELS:=labels(N)] %>% 
-  ggplot()+geom_col(aes(x=ANO,y=N,fill=TIPO_OFERTA),position="dodge")+
-  geom_text(aes(x=ANO,y=N,label=LABELS,group=TIPO_OFERTA),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
-  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
-```
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[,.N,by=.(ANO,CLASE_PREDIO)][order(ANO,CLASE_PREDIO),LABELS:=labels(N)] %>% 
-  ggplot()+geom_col(aes(x=ANO,y=N,fill=CLASE_PREDIO),position="dodge")+
-  geom_text(aes(x=ANO,y=N,label=LABELS,group=CLASE_PREDIO),vjust=-0.6,position = position_dodge(width = 1))+ylab("Número de ofertas")+xlab("Año")+
-  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+scale_fill_brewer(palette="Set1")
-```
-
-```{r echo=FALSE,warning=FALSE,message=FALSE}
-base_filtrada[,.N,by=.(ANO,TIPO_INMUEBLE)][order(ANO,TIPO_INMUEBLE),LABELS:=labels(N)][N>2000] %>% 
-  ggplot()+geom_col(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N),fill="red",position="dodge")+
-  geom_text(aes(x=fct_reorder(TIPO_INMUEBLE,N,.desc=TRUE),y=N,label=LABELS),vjust=-0.6,position = position_dodge(width = 1))+ylab("N?mero de ofertas")+xlab("AÑO")+
-  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))+facet_wrap(~ANO,scales="free")+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
-```
-
-<!-- ```{r echo=FALSE} -->
-<!-- theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_INMUEBLE)][order(AÑO,TIPO_INMUEBLE)]))) -->
+<!-- ```{r echo = FALSE, warning = FALSE, message = FALSE} -->
+<!-- tar_load(table_taxes_PH_final) -->
+<!-- tar_load(table_taxes_NPH_final) -->
+<!-- table_taxes_PH_final <- table_taxes_PH_final %>% mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>%  -->
+<!--     dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, CODIGO_BARRIO, TASA_RENTA) -->
+<!-- table_taxes_NPH_final <- table_taxes_NPH_final %>% mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>%  -->
+<!--     dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, CODIGO_BARRIO, TASA_RENTA) -->
 <!-- ``` -->
 
-<!-- ```{r echo=FALSE} -->
-<!-- theme_box(autofit(flextable(base_filtrada[,.N,by=.(AÑO,TIPO_OFERTA,NOMBRE_FUENTE)][order(AÑO,TIPO_OFERTA,NOMBRE_FUENTE),]))) -->
+<!-- ```{r tsectoresnph, echo = FALSE, warning = FALSE, message = FALSE} -->
+<!-- table_taxes_PH_final %>%  rename("AÑO" = ANO) %>%  -->
+<!--   kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para apartamentos, según los diferentes sectores catastrales y años.") %>%  -->
+<!--   kable_styling(latex_options = c("hold_position",  "repeat_header", "striped")) -->
 <!-- ``` -->
+
+<!-- ```{r tsectoresph, echo = FALSE, warning = FALSE, message = FALSE} -->
+<!-- table_taxes_NPH_final %>% rename("AÑO" = ANO) %>%    -->
+<!--   kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para casas, según los diferentes sectores catastrales y años.") %>%  -->
+<!--   kable_styling(latex_options = c("hold_position",  "repeat_header", "striped")) -->
+<!-- ``` -->
+
+
 
 
 
