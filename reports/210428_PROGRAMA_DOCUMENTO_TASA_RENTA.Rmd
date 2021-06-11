@@ -160,8 +160,8 @@ lista_2[[1]] %>%
 Luego de este control de calidad, la base de datos tiene un total de `r labels(nrow(df_clean))` registros, con lo cual se procede a realizar los diferentes cálculos de promedios por sector, de tal manera que en cada uno de ellos se tendrá un promedio de venta y de arriendo, por estrato, vigencia y clase de predio (apartamento o casa). Al realizar este cálculo se tuvo un inconveniente, ya que un sector puede tener ofertas de arriendo, más no de ventas o viceversa. Para remediar esto, en el caso en que se tenga información de arriendo y no de ventas, se toma el promedio de valor integral de la base catastral, de acuerdo a la misma desagregación. Mientras que en el recíproco, cuando se tiene el valor de venta, pero no en el de arriendo se utiliza el promedio de la localidad respectivo para imputar este valor y proceder con la construcción del modelo estadístico.
 
 
-Considerando que se surtio una serie de procedimientos, controles de calidad, depuraciones e imputaciones se realizó un análisis para excluir registros que tuvieran tasas de renta atipicas, que puedan sesgar los resultados del estudio. Para esta situación, se excluyeron aquellos casos con una tasa de capitalización superior al $1\%$ e inferiores al $0.33\%$.
-Luego de este proceso, la tabla \@ref{tab:resumenbase} muestra el número de sectores resultantes, la cantidad de registros de ofertas y de ventas utilizadas en cada caso, respectivamente, donde se observa que la cantidad de ofertas de venta es mayor a la de arriendo y se encuentran cantidades mayores en estratos del 2 al 4. 
+Considerando que se elaboró una serie de procedimientos, controles de calidad, depuraciones e imputaciones se realizó un análisis para excluir registros que tuvieran tasas de renta atipicas, que puedan sesgar los resultados del estudio. Para esta situación, se excluyeron aquellos casos con una tasa de capitalización superior al $1\%$ o inferiores al $0.33\%$.
+Luego de este proceso, la tabla \@ref(tab:resumenbase) muestra el número de sectores resultantes, la cantidad de registros de ofertas y de ventas utilizadas en cada caso, respectivamente, donde se observa que la cantidad de ofertas de venta es mayor a la de arriendo y se encuentran cantidades mayores en estratos del 2 al 4. 
 
 ```{r resumenbase, echo = FALSE, message = FALSE, warning = FALSE}
 df_clean_final$bd_in %>%
@@ -199,15 +199,18 @@ Considerando que no se cuenta con información de ventas y arriendo de manera si
 Z_{ij} = \alpha X_{ij} + \beta_k X_{ij} + \eta_l X_{ij} + \delta_m X_{ij} + \epsilon_{ij}
 \end{equation}
 
-En el caso del modelo \eqref{eq_mod}, los factores relacionados al estrato y localidad son efectos fijos, ya que en la base de ofertas utilizada se tiene información de todos los sectores y de todas las localidades, mientras que los efectos relacionados con los sectores catastrales son efectos aleatorios, debido a que no se tienen mediciones de todos los sectores en la ciudad de Bogotá, pero la inferencia a realizar se puede generalizar a la población de sectores. Como en el modelo \eqref{eq_mod} se incluyen efectos fijos y aleatorios, el modelo se denomina de efectos mixtos.
+En el caso del modelo \eqref{eq_mod}, los factores relacionados al estrato y localidad son efectos fijos, ya que en la base de ofertas utilizada se tiene información de todos los estratos y de todas las localidades, mientras que los efectos relacionados con los sectores catastrales son efectos aleatorios, debido a que no se tienen mediciones de todos los sectores en la ciudad de Bogotá, pero la inferencia a realizar se puede generalizar a la población de sectores. Como en el modelo \eqref{eq_mod} se incluyen efectos fijos y aleatorios, el modelo se denomina de efectos mixtos.
 
-En el modelo \eqref{eq_mod} se supone lo siguiente
+En este modelo se supone lo siguiente
 
 $$
 \sum_k \beta_k = \sum_l \eta_l = 0,
 $$
 
-\noindent lo cual se debe a temas relacionados con la estimabilidad de los parámetros. Por otro lado, en cuanto a los factores aleatorios, se supone que los coeficientes y errores son independientes e idénticamente distribuidos y a su vez $\delta_m \sim N(0, \sigma_\delta^2)$ y $\epsilon_m \sim N(0, \sigma_\epsilon^2)$. Es necesario tener en cuenta que el modelo no incluye intercepto, considerando los objetivos del estudio. El valor integral de arriendo, denotado por $X_{ij}$ se incluye en todas las covariables, ya que el objetivo del estudio es determinar la relación entre los valores totales y de arriendo.
+\noindent lo cual se debe a temas relacionados con la estimabilidad de los parámetros. Por otro lado, en cuanto a los factores aleatorios, se supone que los coeficientes y errores son independientes e idénticamente distribuidos y a su vez $\delta_m \sim N(0, \sigma_\delta^2)$ y $\epsilon_m \sim N(0, \sigma_\epsilon^2)$. Es necesario tener en cuenta que el modelo no incluye intercepto, considerando los objetivos del estudio. El valor integral de arriendo, denotado por $X_{ij}$ se incluye en todas las covariables, ya que el objetivo es determinar la relación entre los valores totales y de arriendo. Para esclarecer el proceso de estimación de la tasa de rentabilidad, el lector puede notar que la ecuación \eqref{eq_mod} se puede reexpresar como sigue
+
+$$Z_{ij} = \left[ \alpha + \beta_k + \eta_l  + \delta_m \right] X_{ij} + \epsilon_{ij},$$
+donde se observa que la tasa de renta, se va a calcular a partir de la suma de los respectivos coeficientes, según sea el caso.
 
 Una vez se realizó la estimación de los coeficientes del modelo, se realizó un análisis para determinar puntos de apalancamiento o de influencia, con el fin de encontrar aquellos casos donde un solo registro pueda influir y cambiar los coeficientes del modelo de manera importante. Para ello se realizó el cálculo de la distancia de $Cook$ y de los $DFBETAS$, que son medidas de diagnóstico del modelo. Detalles adicionales relacionados con modelos lineales de efectos mixtos o estas medidas de diagnóstico se pueden consultar en el anexo de este documento, en \citet{montgomery2012introduction}, \citet{hinkelmann2011design} o \citet{Melo}.
 
@@ -215,7 +218,7 @@ A partir de este modelo se estima un coeficiente, mayor a 1, que nos permite con
 
 \subsection{Apartamentos}
 
-A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en propiedad horizontal. La figura \@ref(fig:scph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de apartamentos. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta y un comportamiento similar año a través de los años.
+A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en propiedad horizontal. La figura \@ref(fig:scph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de apartamentos. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta, lo que se refleja en una tasa de renta más baja para estratos altos y un comportamiento similar año a tras año.
 
 ```{r scph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
 list_plots_model_PH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -225,7 +228,7 @@ list_plots_model_PH$scatterplot_estrato + theme(axis.text.x = element_text(angle
 
 
 
-La tabla \@ref(tab:estph) y la tabla \@ref(tab:locph)
+La tabla \@ref(tab:estph) y la tabla \@ref(tab:locph) muestran los resultados correspondientes a las tasas de renta a nivel de estrato y año, y a nivel de localidad y año. En el primer cuadro se observa que a medida que el estrato aumenta, la tasa de rentabilidad es menor. Las tasas de renta de los estratos 1 y 2 oscilan al rededor de $0.55\%$. En el estrato 3 se tienen valores cercanos al $0.51\%$, mientras que en el 4 y 5 se tienen valores cercanos al $0.49\%$ y por último en el 6 se tiene una tasa de renta cercana al $0.46\%$ a través de los diferentes años considerados.  En el cuadro \@ref(tab:locph) se observa que las localidades con mayores tasas de renta son Chapinero, La Candelaria y San Cristobal. Por otro lado, la localidad con menor tasa de rentabilidad es Puente Aranda. Las figuras \@ref(fig:tasaphest) y \@ref(fig:tasaphloc) muestran los mismos resultados de una manera gráfica.
 
 ```{r estph, warning = FALSE, message = FALSE, echo = FALSE}
 Localidad <- read.xlsx("input/Localidad.xlsx")
@@ -280,9 +283,6 @@ list_whole_tables_PH$tabla_tasa_final_loc %>%
 ```
 
 
-\subsubsection{Validación de supuestos}
-
-Las figuras \@ref(fig:resfittedph), \@ref(fig:resboxph), \@ref(fig:ranefph), \@ref(fig:resph), 
 
 ```{r resfittedph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de apartamentos."}
 list_plots_model_PH$plot_fitted_residuals 
@@ -300,11 +300,21 @@ list_plots_model_PH$plot_normal_residuals
 ```
 
 
+\subsubsection{Validación de supuestos}
+
+A manera de verificación de los supuestos del modelo para el grupo de ofertas de apartamentos, se realizó un análisis sobre los residuales del modelo. Las figuras \@ref(fig:resfittedph) y \@ref(fig:resboxph) son gráficos de dispersión y de cajas y bigotes, que ilustran la relación entre los residuales con los valores ajustrados, con los estratos y años, respectivamente. El objetivo de estas dos figuras es buscar patrones en los gráficos. Como se puede observar, no se encuentra una relación en los gráficos presentados. 
+
+Por otro lado, se validó el supuesto de normalidad incluido en los efectos aleatorios del modelo dado en la ecuación \eqref{eq_mod}. Para ello, las figuras  \@ref(fig:ranefph) y \@ref(fig:resph) muestran las densidades estimadas para los efectos aleatorios asociados a los sectores catastrales y a los residuales del modelo, respectivamente. En ambos casos se observa una forma acampanada, por lo cual se puede suponer que en ambos casos, los valores provienen de una distribución normal.
+
+
+
+
 
 
 \subsection{Casas}
 
 A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en no propiedad horizontal. La figura \@ref(fig:scnph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de casas. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta y un comportamiento similar año a través de los años.
+
 
 ```{r scnph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
 list_plots_model_NPH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -312,7 +322,8 @@ list_plots_model_NPH$scatterplot_estrato + theme(axis.text.x = element_text(angl
 
 \subsubsection{Resultados}
 
-Las tablas \@ref(tab:estnph) y \@ref(tab:locnph) muestran los resultados para casas a nivel de estratos y localidades en las diferentes vigencias. Allí se observa, al igual que en el caso de la propiedad horizontal, que a medida que el estrato aumenta la tasa de rentabilidad es más baja. 
+El procedimiento en esta sección es análogo a lo presentado en el caso de propiedad horizontal. 
+Las tablas \@ref(tab:estnph) y \@ref(tab:locnph) muestran los resultados para casas a nivel de estratos y localidades en las diferentes vigencias. Allí se observa, al igual que en el caso de la propiedad horizontal, que a medida que el estrato aumenta la tasa de rentabilidad es más baja. Las localidades con una mayor tasa de rentabilidad en casas son Chapinero, Los Mártires y Santa Fé, mientras que las de menor tasa son Bosa y Puente Aranda. Las figuras \@ref(fig:tasanphest) y \@ref(fig:tasanphloc) muestran los mismos resultados de una manera gráfica. Para el caso de casas, a diferencia del de apartamentos, en el 2020 se observa una diferencia más notoria con respecto a los otros años, ya que en dicho año se tiene una tasa de renta más baja en comparación con los otros, mientras que en 2019 se tuvo la tasa más alta, seguida de 2017 y de 2018.
 
 ```{r estnph, warning=FALSE,message=FALSE,echo=FALSE}
 list_whole_tables_NPH$tabla_tasa_final_est %>% 
@@ -375,7 +386,9 @@ list_whole_tables_NPH$tabla_tasa_final_loc %>%
 
 \subsubsection{Validación de supuestos}
 
-Las figuras \@ref(fig:resfittednph), \@ref(fig:resboxnph), \@ref(fig:ranefnph), \@ref(fig:resnph),
+
+A manera de verificación de los supuestos del modelo para el grupo de ofertas de apartamentos, se realizó un análisis sobre los residuales del modelo. Las figuras \@ref(fig:resfittednph) y \@ref(fig:resboxnph) son gráficos de dispersión y de cajas y bigotes, que ilustran la relación entre los residuales con los valores ajustrados, con los estratos y años, respectivamente. Por otro lado, se validó el supuesto de normalidad incluido en los efectos aleatorios del modelo dado en la ecuación \eqref{eq_mod}. Para ello, las figuras  \@ref(fig:ranefnph) y \@ref(fig:resnph) muestran las densidades estimadas para los efectos aleatorios asociados a los sectores catastrales y a los residuales del modelo, respectivamente. Las conclusiones de estos gráficos son las mismas a las presentadas para la validación de supuestos en apartamentos.
+
 
 ```{r resfittednph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de casas."}
 list_plots_model_NPH$plot_fitted_residuals 
@@ -392,8 +405,22 @@ list_plots_model_NPH$plot_normal_ranef
 list_plots_model_NPH$plot_normal_residuals
 ```
 
+Es importante mencionar que las tasas de rentabilidad obtenidas para las ofertas en propiedad horizontal son mayores, por lo general a las que corresponden a no propiedad horizontal. Por último, los resultados obtenidos a nivel como sector se calcularon y hacen parte de los resultados de este documento, pero teniendo en cuenta que son tablas con un número de filas considerable, se omiten en este escrito. 
+
+\section{Conclusiones}
+
+En este trabajo se realizó la estimación de la tasa de rentabilidad para predios residenciales a diferentes niveles de desagregación, a partir de métodos de regresión tradicionales. Dentro de los resultados de este documento, es importante resaltar las consideraciones realizadas en la depuración y limpieza de la información, con el fin de obtener una base de datos óptima, que permita realizar las estimaciones requeridas.
+
+Los resultados obtenidos son a nivel de sector, año, clase de predio, localidad y estrato. En este documento se omiten los resultados a nivel de sector, debido a su tamaño. Las tasas de rentabilidad obtenidas para casas (NPH) son menores que las calculadas para apartamentos (PH). Se observa una relación inversamente proporcional entre el estrato y las tasas. 
+
+Para el caso NPH, las localidades con una mayor tasa de rentabilidad en casas son Chapinero, Los Mártires y Santa Fé, mientras que las de menor tasa son Bosa y Puente Aranda, mientras que en el caso PH las localidades con mayores tasas de renta son Chapinero, La Candelaria y San Cristobal. Por otro lado, la localidad con menor tasa de rentabilidad es Puente Aranda.
 
 
+\section{Trabajo futuro}
+
+* A partir de una depuración de la información, en futuros ejercicios se podría incluir la edad de los inmuebles como una variable independiente adicional en los modelos para obtener su tasa de rentabilidad asociada. 
+
+* Realizar estimaciones para usos diferentes al residencial.
 
 
 
@@ -475,7 +502,7 @@ list_plots_model_NPH$plot_normal_residuals
 
 
 
-\section{Apéndice 1}\label{section_marco}
+\section{Anexo 1}\label{section_marco}
 
 En esta sección se presenta una descripción, de manera corta, del modelo lineal de efectos mixtos, el cual fue utilizado en el documento para realizar las estimaciones requeridas dentro de los objetivos. Adicional a esta descripción se adicionan algunos criterios de validación que también fueron utilizados.
 
