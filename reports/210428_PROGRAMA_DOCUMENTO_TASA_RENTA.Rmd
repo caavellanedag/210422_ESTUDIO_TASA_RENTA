@@ -1,5 +1,5 @@
 ---
-title: "Metodología para la estimación de la tasa de capitalización"
+title: "METODOLOGÍA PARA LA ESTIMACIÓN DE LAS TASAS DE CAPITALIZACIÓN DE RENTAS DE INMUEBLES RESIENCIALES, RESULTADOS PARA BOGOTÁ 2017-2021"
 subtitle: Unidad Administrativa Especial de Catastro Distrital
 author: "Grupo estadístico - Observatorio técnico catastral"
 date: "01 de Junio de 2021"
@@ -32,6 +32,8 @@ output:
   bookdown::pdf_document2:
     citation_package: natbib
 bibliography: references.bib
+link-citations: true
+urlcolor: blue
 ---
 
 \addtolength{\headheight}{1.0cm} <!--% make more space for the header-->
@@ -50,55 +52,138 @@ options(tinytex.verbose = TRUE)
 
 
 
-\begin{abstract}
-Your abstract.
-\end{abstract}
+<!-- \begin{abstract} -->
+<!-- Your abstract. -->
+<!-- \end{abstract} -->
 
 \section{Introducción}\label{section1}
 
-En la Unidad Administrativa Especial de Catastro Distrital (UAECD) se cuenta con información de ofertas de fuentes secundarias y de fuentes primarias. Las fuentes primarias corresponden a información recolectada en campo por cuenta de la UAECD, mientras que las secundarías corresponden a información que se recolecta a partir de otras fuentes con las cuales se establecen convenios. 
+La Unidad Administrativa Especial de Catastro Distrital -UAECD tiene por objeto responder por la recopilación e integración de la información georreferenciada de la propiedad inmueble del Distrito Capital en sus aspectos físico, jurídico y económico. Frente a esto, durante los últimos años la entidad ha enfocado esfuerzos para obtener datos del mercado inmobiliario que le permita apoyar el proceso de actualización catastral, afianzando el uso de métodos indirectos, y de manera general, para aportar conocimiento acerca del mismo. 
 
-Para diferentes procesos de la Unidad se hace uso de la información recolectada con respecto a ofertas de venta de predios en la ciudad, como por ejemplo en la estimación de parámetros de algunos modelos econométricos que estiman el valor integral de predios en propiedad horizontal. Sin embargo dentro de estos procesos no se tiene en cuenta la información recolectada de ofertas de arriendo, por lo cual este documento tiene como objetivo estimar la tasa de renta inmobiliaria que establezca una relación entre los valores de arriendo y los valores comerciales de los predios en la ciudad de Bogotá, de tal forma que se pueda utilizar la información de ofertas de arriendo en procesos donde se requieren valores comerciales totales de los predios. 
+ 
 
-Denotando como $Z_i$ y $X_i$ al valor comercial y el valor de arriendo del $i$-ésimo predio, respectivamente, se busca obtener un coeficiente $\beta$, tal que se pueda obtener una ecuación que relacione a $Z_i$ y $X_i$ como se muestra en la ecuación \eqref{eq1}. De esta manera, de una forma natural se puede pensar en el uso de los rudimientos correspondientes a las metodologías de modelos lineales (Ver \cite{Melo}) que permitan estimar el coeficiente $\beta$. Este ejercicio se debe realizar para diferentes desagregaciones de predios en la ciudad, tales como usos, estratos y/o desagregaciones geográficas como lo son las localidades y sectores catastrales.
+La UAECD recolecta ofertas de mercado de venta o arriendo, a través de recorridos sectorizados en la ciudad, que constituyen una importante fuente primaria. De manera complementaria y no menos importante, la entidad también obtiene ofertas de fuentes secundarias, gestionadas a través de convenios o acuerdos con entidades del sector público o privado. 
 
-\begin{equation}\label{eq1}
-    Z_i=\beta X_i 
-\end{equation}
+ 
 
-En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas por la UAECD tanto de fuentes primarias como secundarias (Finca Raíz, Galería Inmobiliaria y Properati) desde el primero de enero de 2017 hasta el 31 de diciembre de 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. En este documento únicamente se tendrán en cuenta las ofertas correspondientes a predios residenciales, es decir apartamentos y casas.
+Particularmente, en ejercicios realizados al interior de la entidad, tendientes a estimar el valor integral de predios en propiedad horizontal, se han identificado dificultades relacionadas con la escasa o nula información en algunas localizaciones de la ciudad. Para superar esta problemática, surge la propuesta de utilizar la información de ofertas de mercado para estimar las tasas de capitalización de renta (TCR). 
 
-Dentro de la literatura se encuentran diversos ejemplos de datos donde se hacen mediciones o encuestas a grupos de individuos periódicamente, pero no necesariamente a las mismas personas, lo cual imposibilita hacer seguimientos sobre unidades en particular, de manera similar a la problemática presentada, donde no se cuenta con información de arriendo y venta en los mismos predios. \cite{deaton1985panel} propone un modelo para una muestra \textit{``pseudo-panel"}, que se construye con lo que denomina como cohortes, las cuales representan grupos de individuos con características similares, con la condición que cada individuo pertenezca únicamente a una cohorte durante todo el análisis y mediante estos grupos se ajustan efectos dentro de la regresión correspondientes a cada una de las diferentes cohortes. Muchas publicaciones que abordan diferentes contextos se han elaborado a partir del modelo propuesto por  \citet{deaton1985panel} (Ver \citet{tsai2014review, tovar2012analysis,sprietsma2012computers,antman2007earnings}, entre otros). La propuesta utilizada en este documento se basa en el uso de estas cohortes, agregando la información a nivel de sector catastral, tomando el promedio o la mediana como medidas de resumen, tanto para valores de arriendo como para valores de venta.
+ 
+
+Las TCR para inmuebles son índices (usualmente expresados en tasa) que relacionan el canon de arrendamiento y el valor de venta de activos inmobiliarios; son útiles en el campo de la valuación inmobiliaria porque permiten estimar el valor de mercado de un inmueble a partir del valor de arriendo o alquiler\footnote{ En el sector inmobiliario, son un referente para medir el retorno potencial en aquellas inversiones enfocadas a la compra de un inmueble para el alquiler o cuando los inmuebles hacen parte de portafolios de inversión donde son los subyacentes. En una escala más amplia, la de ciudad, permiten hacer seguimiento a la dinámica urbana, dadas las diferencias que el índice puede presentar en términos de ubicación, usos, estratos y edades de los inmuebles que componen el inventario de la ciudad, análisis que se incorpora en un segundo documento con base en el resultado del presente documento.}. 
+
+Por lo anterior, este estudio tiene como objetivo principal proponer una metodología para la estimación de las TCR y hacer la estimación para inmuebles residenciales, según estratos y diferentes desagregaciones geográficas como lo son las localidades y sectores catastrales. 
+
+
+
+En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas\footnote{Las ofertas contenidas en la base consolidada por la UAECD, son capturadas en campo u obtenidas de fuentes secundarias (como portales inmobiliarios), las cuales son dispuestas por particulares o agencias inmobiliarias que proporcionan una valor de arriendo o de alquiler e información de ciertos atributos del inmueble. Teniendo en cuenta esto, los precios objeto de análisis corresponden a precios de expectativa y no a precios de transacción efectiva. Por tal razón no son comparables con resultados de ejercicios que trabajan con información de precios de cierre (en el caso de las ventas) o de alquiler neto al cual se descuentan valores puntuales de administración, impuesto predial, entre otros.} por la UAECD tanto de fuentes primarias como secundarias (Finca Raíz, Galería Inmobiliaria y Properati) desde el primero de enero de 2017 hasta el 31 de diciembre de 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. En este documento únicamente se tendrán en cuenta las ofertas correspondientes a predios residenciales, es decir apartamentos y casas.
+
+Dentro de la literatura se encuentran diversos ejemplos de datos donde se hacen mediciones o encuestas a grupos de individuos periódicamente, pero no necesariamente a las mismas personas, lo cual imposibilita hacer seguimientos sobre unidades en particular, de manera similar a la problemática presentada, donde no se cuenta con información de arriendo y venta en los mismos predios. \cite{deaton1985panel} propone un modelo para una muestra \textit{``pseudo-panel"}, que se construye con lo que denominan  cohortes, las cuales representan grupos de individuos con características similares, con la condición que cada individuo pertenezca únicamente a una cohorte durante todo el análisis y mediante estos grupos se ajustan efectos dentro de la regresión correspondientes a cada una de las diferentes cohortes. Muchas publicaciones que abordan diferentes contextos se han elaborado a partir del modelo propuesto por  \citet{deaton1985panel} (Ver \citet{tsai2014review, tovar2012analysis,sprietsma2012computers,antman2007earnings}, entre otros). La propuesta utilizada en este documento se basa en el uso de estas cohortes, agregando la información a nivel de sector catastral, tomando el promedio o la mediana como medidas de resumen, tanto para valores de arriendo como para valores de venta.
 
 Las metodologías de regresión ajustadas por mínimos cuadrados ordinarios tienen como supuestos la independencia entre mediciones, lo cual no se cumple en este caso, ya que un sector catastral puede tener información en las diferentes vigencias, por lo que se propone la inclusión de factores en la regresión que permitan captar el efecto de las medidas repetidas sobre la variable respuesta. De esta manera, la metodología a utilizar corresponde a los modelos de efectos mixtos, donde los efectos fijos van a ser el conjunto de factores asociados al estrato, localidad y el valor de arriendo, mientras que los efectos aleatorios corresponden a la relación entre el valor de arriendo y de venta, segmentada para cada uno de los sectores catastrales. 
 
-La programación realizada se realizó en el software R \citep{R}, en donde el procesamiento de información se llevo a cabo mediante los paquetes relacionados en el $tidyverse$ \citep{tidyverse}, mientras que los controles de calidad utilizaron funciones de la librería $qcc$ y $RecordLinkage$ (Ver \cite{qcc} y \cite{RecordLinkage}). Por último, la construcción del modelo se realizó mediante el paquete $nlme$ \cite{nlme}.
+La programación realizada se realizó en el software R \citep{R}, en donde el procesamiento de información se llevó a cabo mediante los paquetes relacionados en el $tidyverse$ \citep{tidyverse}, mientras que los controles de calidad utilizaron funciones de la librería $qcc$ y $RecordLinkage$ (Ver \cite{qcc} y \cite{RecordLinkage}). La estimación de los parámetros del modelo se realizó mediante el paquete $nlme$ \cite{nlme}.
 
-El presente documento contiene en la sección \label{section_int} la introducción, seguido de la sección \label{section_obj} donde se presentan los objetivos del estudio. En la sección \ref{section_marco} se hace una revisión metodológica de las metodologías estadísticas a utilizar. Por otro lado, la sección
-\section{Objetivos}\label{section_obj}
+La organización del documento es la siguiente: la primera sección corresponde a esta introducción. La segunda sección presenta los objetivos del estudio. La tercera sección plantea el marco conceptual en el que se soporta en estudio. La cuarta sección describe de manera detallada la base de datos utilizada y los controles de calidad aplicados. En la quinta sección se presenta de manera general el modelo seleccionado y los resultados desagregados por tipo de inmueble (apartamentos o casas), con la correspondiente validación de supuestos. Y en la sexta sección, se incluyen las principales conclusiones. Finalmente, en el apéndice 1 contiene una descripción más detallada del modelo lineal mixto. 
 
-En esta sección se presentan los objetivos a tener en cuenta dentro del estudio, tanto de forma general, como de manera desagregada en los objetivos específicos. 
+\section{Objetivos}
+
+Para el estudio, además del objetivo general, se definieron cinco objetivos específicos.  
 
 \subsection{Objetivo general}
 
-Estimar un índice que permita relacionar los valores de arriendo de un inmueble con su valor comercial para las diferentes zonas, usos y estratos de la ciudad.
+Proponer una metodología para la estimación de las TCR y hacer la estimación del índice para inmuebles residenciales de Bogotá, según estratos y diferentes desagregaciones geográficas como lo son las localidades y sectores catastrales. 
 
 
 \subsection{Objetivos específicos}
  
  \begin{enumerate}
-  \item   Hacer una revisión de la literatura para obtener un estado del arte, con el objetivo de tener en cuenta posibles metodologías que puedan ayudar a completar los otros objetivos específicos y/o puedan servir como metodologías de referencia a la hora de realizar una comparación dentro del mismo estudio.
-   \item Realizar un análisis descriptivo de la base de datos disponible para la realización del ejercicio.
-    \item Realizar una validación de las ofertas contenidas dentro de la base de datos, con el objetivo de detectar aquellas ofertas atípicas que puedan sesgar los resultados del estudio.
-    \item Depurar la base de datos compartida por el OTC.
-    \item Realizar el cálculo de las tasas de renta para diferentes desagregaciones de los predios en la ciudad (Uso-Estrato-Localidad/Sector).
-    \item Presentación y documentación metodológica de resultados.
-    \item Evaluar la consistencia de los resultados para calcular cifras en vigencias futuras.
+\item Identificar metodologías que sirvan de referencia para el desarrollo del estudio.
+
+\item Realizar un análisis descriptivo de la base de datos disponible para la realización del ejercicio.
+
+\item Detectar aquellas ofertas atípicas que puedan sesgar los resultados del estudio. 
+
+\item Calcular las tasas de capitalización de rentas para inmuebles de uso residencial en diferentes desagregaciones: estrato, localidad y sector catastral 
+
+ \item Presentar una documentación metodológica de los resultados 
  \end{enumerate}
-\section{Revisión de la base de ofertas}
+\section{Marco conceptual}
+
+\subsection{Universo de estudio}
+
+El Universo de estudio para este documento corresponde al conjunto de predios urbanos en la ciudad de Bogotá en los años 2017 al 2020.
+
+\subsection{Población objetivo}
+
+La población objetivo corresponde a los predios residenciales, tanto de propiedad horizontal (PH) como no propiedad horizontal (NPH) en la ciudad de Bogotá comprendidos en los años 2017 al 2020. 
 
 
+\subsection{Conceptos principales}
+De acuerdo con \citet{godinez}, la tasa de capitalización se relaciona con el rendimiento de un capital invertido. Este autor indica que en “*el caso del negocio de arrendamiento de inmuebles, a la tasa de capitalización se le llama tasa de capitalización de rentas y se obtiene de la relación de la renta anual entre el valor comercial*”. 
 
+Con el fin de no confundir el concepto de TCR con la rentabilidad total de la inversión con destino al alquiler, es de precisar que el primero está incorporado en el segundo. En otras palabras, la rentabilidad total tienes dos componentes: i) los ingresos por alquiler (capturados a través de las TCR) y el incremento nominal derivado de la diferencia en precios del inmueble (denominado valorización\footnote{Y que si se ajusta de acuerdo a la inflación, se obtiene la valorización real.}). 
+
+La expresión matemática de la que se deduce la TCR se muestra en la ecuación \label{eqref0}, donde $P_k$ es el precio del $k$-ésimo inmueble, $R_k$ es su tasa de renta o alquiler e $i$ representa la respectiva TCR.
+
+\begin{equation}\label{eqref0}
+P_k = \frac{R_k}{i}
+\end{equation}
+
+En cuanto al numerador, el alquiler, la tasa puede tomar en consideración la renta bruta del inmueble o la neta, esta última calculada a partir de los ingresos brutos menos los descuentos por concepto de vacíos y cobranzas, gastos de operación y cuotas de mantenimiento, y por descuentos del régimen tributario (Medrano, Perlaza y Fuentes 2011). Otros autores, como en \citet{lonja}, deducen el gasto de administración, predial, administración inmobiliaria, vacancia y mantenimiento. 
+
+ 
+
+Según \citet{borrero}, el alquiler opera como “un factor de ajuste entre la valorización del inmueble y la tasa media de ganancia de la economía más un factor de riesgo y un factor de liquidez.  En el caso de los inmuebles el factor de riesgo es casi nulo pero el factor de liquidez debe existir dado que no es fácil convertir el inmueble en dinero líquido”.  
+
+ 
+
+Respecto del denominador, el precio del inmueble es de precisar concepto de valor de mercado, el cual se define como el precio de venta más probable, o lo que un inversionista típico está dispuesto a pagar por una propiedad. Por lo cual, al momento de hacer la medición de las TCR, algunos autores como \citet{medrano} descuentan del precio, un porcentaje de tasa de negociación. 
+
+ 
+
+Conceptualmente, de la misma manera como una tasa de interés, que es el precio que tiene el dinero a través del tiempo en el mercado financiero, las TCR tienen periodicidades. Cuando el cálculo de la tasa de capitalización se estima a partir del flujo de interés de sólo un valor mensual de arrendamiento, se obtiene una tasa nominal mensual. Cuando se estima a partir de los flujos de renta en un año, corresponde a una tasa anual. 
+
+ 
+
+\citet{montoya} indica que las tasas de rentabilidad de la inversión en bienes inmuebles se relacionan con el precio del inmueble, su ubicación, edad y estado legal y con la demanda del activo y la oferta de inmuebles similares, y con los criterios liquidez, los flujos de caja, el riesgo y los impuestos. \citet{alzate} cita que, contrario a la rentabilidad de una acción, que es la misma para todo un país, la de los inmuebles depende del sector donde se ubica la vivienda, y puede mostrar grandes variaciones entre sectores de una misma ciudad. 
+
+ 
+
+En Colombia, la ley 820 de 2003 estipula los límites legales para la fijación de la renta de arrendamiento. Textualmente dice: “El precio mensual del arrendamiento será fijado por las partes en moneda legal pero no podrá exceder el uno por ciento ($1\%$) del valor comercial del inmueble o de la parte de él que se dé en arriendo”. 
+
+ 
+
+Al respecto \citet{borrero} afirma que: “*es razonable afirmar que la renta de los inmuebles tiende al 1% mensual en condiciones de baja y media inflación. La tasa de renta sale por diferencia entre la rentabilidad media nacional y la valorización de los inmuebles más un premio por la iliquidez del mercado inmobiliario. Naturalmente que esta tasa oscilará de acuerdo con el momento del ciclo económico, el mercado inmobiliario, el estrato y el uso del inmueble en la zona*” 
+
+ 
+
+ 
+
+Por su parte, la Resolución 620 de 2008, “Por la cual se establecen los procedimientos para los avalúos ordenados dentro del marco de la Ley 388 de 1997”, establece como parte de las técnicas valuatorias el método de capitalización de rentas\footnote{“ARTÍCULO 2o. MÉTODO DE CAPITALIZACIÓN DE RENTAS O INGRESOS. Es la técnica valuatoria que busca establecer el valor comercial de un bien, a partir de las rentas o ingresos que se puedan obtener del mismo bien, o inmuebles semejantes y comparables por sus características físicas, de uso y ubicación, trayendo a valor presente la suma de los probables ingresos o rentas generadas en la vida remanente del bien objeto de avalúo, con una tasa de capitalización o interés”.} los aspectos para tener en cuenta en la selección de la información y en la aplicación del método: 
+
+1. Que dichos contratos tengan menos de un (1) año de suscritos. 
+
+2. Que el canon de arrendamiento no sobrepase los topes legales. 
+
+3. Que los montos relacionados con el pago de servicios públicos y las cuotas de administración, no se incluyan en el cálculo correspondiente para la aplicación del método. 
+
+4. Los arrendamientos a comparar deben referirse a inmuebles que tengan rentas de acuerdo con la norma de uso del terreno o de las construcciones. 
+
+5. Las rentas a tener en cuenta para el cálculo del valor comercial de la propiedad deben estar asociadas exclusivamente al inmueble y no a la rentabilidad de la actividad económica que en él se realiza. 
+
+6. La tasa de capitalización (i) utilizada en este método debe proceder de la relación calculada entre el canon de renta y el valor comercial de las propiedades similares al inmueble objeto de avalúo, en función del uso o usos existentes en el predio y de localización comparable”.
+
+
+\subsection{Antecedentes}  
+
+ 
+
+Son pocas las metodologías documentadas de estimación de las TCR. El estudio de (Medrano, Perlaza, & Fuentes, 2011) propone como metodología para estimar la tasa de capitalización de la renta en vivienda en propiedad horizontal estrato 3 en PH en Bogotá un modelo de regresión lineal. Posteriormente, la publicación de \citet{valorar} que tiene como objetivo  la medición de inmuebles residenciales urbanos estrato 2, aunque no presenta de manera explícita la metodología, expone que, como resultado del ejercicio, las variables área de terreno, estado de conservación resultaron significativas y con mayor incidencia en la tasa de capitalización frente a las demás variables utilizadas, a saber, tipo de inmueble, área privada, ascensor, equipamiento, estado de conservación y edad. De manera general se concluye que, en este estrato, se observa una tasa mayor para apartamentos que para casas. 
+
+Por otra parte, la UAECD y Camacol Bogotá Cundinamarca, en el año 2018, realizaron un primer ejercicio conjunto para el cálculo de la Tasa de Renta Inmobiliaria, calculadas para las desagregaciones geográficas con información de ofertas disponibles en el periodo 2016 2018. Como parte de las recomendaciones y resultados de dicho estudio, se encontró que era necesario mejorar la georreferenciación de las ofertas y aumentar la muestra, toda vez que en ciertas áreas no se logró obtener la correspondiente TCR. 
+
+ 
 ```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
 require(pacman)
 
@@ -121,8 +206,10 @@ tar_load(list_plots_model_NPH)
 
 
 
-La base de datos consta originalmente con `r labels(nrow(base))` registros, incluyendo todos los tipos de predios. 
-Un primer filtro realizado corresponde a dejar aquellas ofertas de predios residenciales, es decir, cuyo tipo de inmueble es apartamento o casa. El total de registros residenciales es `r labels(sum(base$TIPO_INMUEBLE %in% c("APARTAMENTO","CASA")))`. Por otro lado, se tuvo en cuenta diferentes exclusiones para eliminar inconsistencias, dentro de las cuales se incluyen los casos que no tienen estrato, sin área construida, sin identificador del lote (barmanpre) y ofertas rurales. Es importante tener en cuenta que las exclusiones no son excluyentes, lo que quiere decir que un predio puede tener estar en dos o más exclusiones. Luego de estas exclusiones, el número de predios en la base para trabajar es `r labels(nrow(base_filtrada))`. En el cuadro \@ref(tab:exclusiones) se muestran el número de predios excluidos en cada caso. 
+
+\subsection{Controles de calidad sobre la base}
+
+La base de datos consta originalmente con `r labels(nrow(base))` registros, incluyendo todos los tipos de predios. Un primer filtro realizado corresponde a dejar aquellas ofertas de predios residenciales, es decir, cuyo tipo de inmueble es apartamento o casa. El total de registros residenciales es `r labels(sum(base$TIPO_INMUEBLE %in% c("APARTAMENTO","CASA")))`. Por otro lado, se tuvo en cuenta diferentes exclusiones para eliminar inconsistencias, dentro de las cuales se incluyen los casos que no tienen estrato, sin área construida, sin identificador del lote (barmanpre) y ofertas rurales. Es importante tener en cuenta que las exclusiones no son excluyentes, lo que quiere decir que un predio puede tener estar en dos o más exclusiones. Luego de estas exclusiones, el número de predios en la base para trabajar es `r labels(nrow(base_filtrada))`. En el cuadro \@ref(tab:exclusiones) se muestran el número de predios excluidos en cada caso. 
 
 ```{r exclusiones, echo = FALSE, warning = FALSE, message = FALSE}
 Exclusiones <- data.frame("Exclusión" = c("Rurales", "Sin área", "Sin Barmanpre", "Sin estrato"),
@@ -136,7 +223,6 @@ Exclusiones %>%
   kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
 ```
 
-\subsection{Controles de calidad sobre la base}
 
 Debido a que la base de datos tiene información de diferentes fuentes y estas contienen información reportada directamente por los usuarios de plataformas digitales, puede darse el caso en que se tengan valores mal digitados o ciertas inconsistencias. Para evitar estos casos se propone realizar controles sobre esta información, con el objetivo de que la información utilizada por el modelo lineal sea lo más depurada posible. 
 
@@ -148,7 +234,7 @@ Con el objetivo de tener agrupaciones de ofertas lo suficientemente grandes para
 
 Una vez se conforman las diferentes agrupaciones se procede a utilizar una carta de control multivariada \citep{montgomery2020introduction}, lo que se debe a que se están controlando diferentes características, es decir un proceso multivariado, al involucrar el área construida, precio y el valor integral de las diferentes ofertas. Al considerar una carta de control multivariada se hace uso de la relación implícita dentro de las variables, lo cual no sucede con métodos univariados. Los métodos de control de calidad usualmente consideran dos etapas, lo que no se tiene en cuenta dentro de este ejercicio ya que no se tendrán en cuenta ofertas adicionales en este ejercicio y a por otra parte, el objetivo del estudio no se enfoca en el control de calidad, si no que éste es un paso adicional para lograr el objetivo, el cual radica en la estimación de la tasa de capitalización. La figura \@ref(fig:plt) muestra un ejemplo de una carta de control multivariada, donde las ofertas se ilustran a partir de puntos, las bandas determinan límites de tal forma que una oferta que está fuera de ellos será marcada como atípica y se muestran en el gráfico en color rojo.
 
-```{r plt, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Ilustración de la carta de control multivariada."}
+```{r plt, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Ilustración de la carta de control multivariada.", fig.height = 3.7, fig.width = 3.5}
 lista_separada <- base_filtrada %>% split(.$key) %>% map(Fill_na) 
 lista_2 <- map(lista_separada, ~Agrupa_barrios(.x, cutoff = 10))
 
@@ -193,10 +279,10 @@ El objetivo de esta sección es ilustrar el modelo estadístico aplicado junto c
 Valor\_integral = \frac{Valor\_total}{Area\_construida}
 \end{equation}
 
-Considerando que no se cuenta con información de ventas y arriendo de manera simultánea en un solo predio, se toma la propuesta dada en \citet{deaton1985panel}, cuyas cohortes van a estar representadas por los diferentes sectores catastrales. De esta manera, el modelo estimado se presenta en la ecuación \eqref{eq_mod}, donde $Z_{ij}$ y $X_{ij}$ representan los valores integrales de venta y arriendo promedio, respectivamente, en el $i$-ésimo sector catastral en el $j$-ésimo tiempo,  $\alpha$ es el efecto global del valor integral de arriendo sobre el valor integral de venta. Por otro lado, $\beta_k$ es el efecto del $k$-ésimo estrato sobre el efecto general de la relación entre valores integrales, denotado como $\alpha$, $\eta_l$ es el efecto de la $l$-ésima localidad sobre el efecto general de la relación entre integrales y $\delta_m$ es el efecto del $m$-ésimo sector catastral sobre el efecto global, de manera análoga a los otros coeficientes. Por último $\epsilon_{ij}$ representa a los errores de la regresión. 
+Considerando que no se cuenta con información de ventas y arriendo de manera simultánea en un solo predio, se toma la propuesta dada en \citet{deaton1985panel}, cuyas cohortes van a estar representadas por los diferentes sectores catastrales. De esta manera, el modelo estimado se presenta en la ecuación \eqref{eq_mod}, donde $P_{ij}$ y $R_{ij}$ representan los valores integrales de venta y arriendo promedio, respectivamente, en el $i$-ésimo sector catastral en el $j$-ésimo tiempo,  $\alpha$ es el efecto global del valor integral de arriendo sobre el valor integral de venta. Por otro lado, $\beta_k$ es el efecto del $k$-ésimo estrato sobre el efecto general de la relación entre valores integrales, denotado como $\alpha$, $\eta_l$ es el efecto de la $l$-ésima localidad sobre el efecto general de la relación entre integrales y $\delta_m$ es el efecto del $m$-ésimo sector catastral sobre el efecto global, de manera análoga a los otros coeficientes. Por último $\epsilon_{ij}$ representa a los errores de la regresión. 
 
 \begin{equation}\label{eq_mod}
-Z_{ij} = \alpha X_{ij} + \beta_k X_{ij} + \eta_l X_{ij} + \delta_m X_{ij} + \epsilon_{ij}
+P_{ij} = \alpha R_{ij} + \beta_k R_{ij} + \eta_l R_{ij} + \delta_m R_{ij} + \epsilon_{ij}
 \end{equation}
 
 En el caso del modelo \eqref{eq_mod}, los factores relacionados al estrato y localidad son efectos fijos, ya que en la base de ofertas utilizada se tiene información de todos los estratos y de todas las localidades, mientras que los efectos relacionados con los sectores catastrales son efectos aleatorios, debido a que no se tienen mediciones de todos los sectores en la ciudad de Bogotá, pero la inferencia a realizar se puede generalizar a la población de sectores. Como en el modelo \eqref{eq_mod} se incluyen efectos fijos y aleatorios, el modelo se denomina de efectos mixtos.
@@ -207,9 +293,9 @@ $$
 \sum_k \beta_k = \sum_l \eta_l = 0,
 $$
 
-\noindent lo cual se debe a temas relacionados con la estimabilidad de los parámetros. Por otro lado, en cuanto a los factores aleatorios, se supone que los coeficientes y errores son independientes e idénticamente distribuidos y a su vez $\delta_m \sim N(0, \sigma_\delta^2)$ y $\epsilon_m \sim N(0, \sigma_\epsilon^2)$. Es necesario tener en cuenta que el modelo no incluye intercepto, considerando los objetivos del estudio. El valor integral de arriendo, denotado por $X_{ij}$ se incluye en todas las covariables, ya que el objetivo es determinar la relación entre los valores totales y de arriendo. Para esclarecer el proceso de estimación de la tasa de rentabilidad, el lector puede notar que la ecuación \eqref{eq_mod} se puede reexpresar como sigue
+\noindent lo cual se debe a temas relacionados con la estimabilidad de los parámetros. Por otro lado, en cuanto a los factores aleatorios, se supone que los coeficientes y errores son independientes e idénticamente distribuidos y a su vez $\delta_m \sim N(0, \sigma_\delta^2)$ y $\epsilon_m \sim N(0, \sigma_\epsilon^2)$. Es necesario tener en cuenta que el modelo no incluye intercepto, considerando los objetivos del estudio. El valor integral de arriendo, denotado por $R_{ij}$ se incluye en todas las covariables, ya que el objetivo es determinar la relación entre los valores totales y de arriendo. Para esclarecer el proceso de estimación de la tasa de rentabilidad, el lector puede notar que la ecuación \eqref{eq_mod} se puede reexpresar como sigue
 
-$$Z_{ij} = \left[ \alpha + \beta_k + \eta_l  + \delta_m \right] X_{ij} + \epsilon_{ij},$$
+$$P_{ij} = \left[ \alpha + \beta_k + \eta_l  + \delta_m \right] R_{ij} + \epsilon_{ij},$$
 donde se observa que la tasa de renta, se va a calcular a partir de la suma de los respectivos coeficientes, según sea el caso.
 
 Una vez se realizó la estimación de los coeficientes del modelo, se realizó un análisis para determinar puntos de apalancamiento o de influencia, con el fin de encontrar aquellos casos donde un solo registro pueda influir y cambiar los coeficientes del modelo de manera importante. Para ello se realizó el cálculo de la distancia de $Cook$ y de los $DFBETAS$, que son medidas de diagnóstico del modelo. Detalles adicionales relacionados con modelos lineales de efectos mixtos o estas medidas de diagnóstico se pueden consultar en el anexo de este documento, en \citet{montgomery2012introduction}, \citet{hinkelmann2011design} o \citet{Melo}.
@@ -220,7 +306,7 @@ A partir de este modelo se estima un coeficiente, mayor a 1, que nos permite con
 
 A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en propiedad horizontal. La figura \@ref(fig:scph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de apartamentos. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta, lo que se refleja en una tasa de renta más baja para estratos altos y un comportamiento similar año a tras año.
 
-```{r scph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
+```{r scph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos.", fig.height = 3.7}
 list_plots_model_PH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
@@ -242,7 +328,7 @@ list_whole_tables_PH$tabla_tasa_final_est %>%
 
 
 
-```{r tasaphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según estratos y años."}
+```{r tasaphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según estratos y años.", fig.height = 3.7}
 list_whole_tables_PH$tabla_tasa_final_est %>%  
   mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
   dplyr::select(-"TASA_RENTA_2") %>% 
@@ -267,7 +353,7 @@ list_whole_tables_PH$tabla_tasa_final_loc %>%
   kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
 ```
 
-```{r tasaphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según localidades y años."}
+```{r tasaphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según localidades y años.", fig.height = 3.7}
 list_whole_tables_PH$tabla_tasa_final_loc %>%  
   left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
   mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
@@ -284,18 +370,23 @@ list_whole_tables_PH$tabla_tasa_final_loc %>%
 
 
 
-```{r resfittedph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de apartamentos."}
+```{r resfittedph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de apartamentos.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_PH$plot_fitted_residuals 
 ```
-```{r resboxph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de apartamentos."}
+
+
+```{r resboxph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de apartamentos.", fig.height = 3.7}
 list_plots_model_PH$plot_boxplot_estrato_vigencia
 ```
 
-```{r ranefph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de apartamentos."}
+
+```{r ranefph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de apartamentos.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_PH$plot_normal_ranef
 ```
 
-```{r resph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales obtenidos en la regresión para el caso de apartamentos."}
+
+
+```{r resph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales obtenidos en la regresión para el caso de apartamentos.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_PH$plot_normal_residuals
 ```
 
@@ -316,7 +407,7 @@ Por otro lado, se validó el supuesto de normalidad incluido en los efectos alea
 A continuación se presentan los resultados de las diferentes tasas de rentabilidad para el caso de ofertas en no propiedad horizontal. La figura \@ref(fig:scnph) muestra diferentes diagramas de dispersión correspondientes a valores promedio de arriendo y de venta para los estratos en cada recuadro y diferentes años, representados por colores, para el caso de casas. Allí se observa una relación lineal, lo cual justifica el uso del modelo \eqref{eq_mod} para este grupo de ofertas, al igual que una pendiente más empinada a medida que el estrato aumenta y un comportamiento similar año a través de los años.
 
 
-```{r scnph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos."}
+```{r scnph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos.", fig.height = 3.7}
 list_plots_model_NPH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
@@ -350,7 +441,7 @@ list_whole_tables_NPH$tabla_tasa_final_loc %>%
 
 
 
-```{r tasanphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según estratos y años."}
+```{r tasanphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según estratos y años.", fig.height = 3.7}
 list_whole_tables_NPH$tabla_tasa_final_est %>%  
   mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
   dplyr::select(-"TASA_RENTA_2") %>% 
@@ -364,7 +455,7 @@ list_whole_tables_NPH$tabla_tasa_final_est %>%
 ```
 
 
-```{r tasanphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según localidades y años."}
+```{r tasanphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según localidades y años.", fig.height = 3.7}
 list_whole_tables_NPH$tabla_tasa_final_loc %>%  
   left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
   mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
@@ -387,29 +478,38 @@ list_whole_tables_NPH$tabla_tasa_final_loc %>%
 \subsubsection{Validación de supuestos}
 
 
-A manera de verificación de los supuestos del modelo para el grupo de ofertas de apartamentos, se realizó un análisis sobre los residuales del modelo. Las figuras \@ref(fig:resfittednph) y \@ref(fig:resboxnph) son gráficos de dispersión y de cajas y bigotes, que ilustran la relación entre los residuales con los valores ajustrados, con los estratos y años, respectivamente. Por otro lado, se validó el supuesto de normalidad incluido en los efectos aleatorios del modelo dado en la ecuación \eqref{eq_mod}. Para ello, las figuras  \@ref(fig:ranefnph) y \@ref(fig:resnph) muestran las densidades estimadas para los efectos aleatorios asociados a los sectores catastrales y a los residuales del modelo, respectivamente. Las conclusiones de estos gráficos son las mismas a las presentadas para la validación de supuestos en apartamentos.
 
-
-```{r resfittednph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de casas."}
+```{r resfittednph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagrama de dispersión de los residuales de la regresión versus los valores ajustados en el modelo de casas.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_NPH$plot_fitted_residuals 
 ```
-```{r resboxnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de casas."}
+
+
+```{r resboxnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Diagramas de cajas y bigotes de los residuales de la regresión versus los estratos para diferentes vigencias en el modelo de casas.", fig.height = 3.7}
 list_plots_model_NPH$plot_boxplot_estrato_vigencia
 ```
 
-```{r ranefnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de casas."}
+
+
+```{r ranefnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los efectos aleatorios asociados a los sectores en el modelo de casas.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_NPH$plot_normal_ranef
 ```
 
-```{r resnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales del modelo en el grupo de ofertas referente a casas."}
+
+
+```{r resnph, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Densidad estimada de los residuales del modelo en el grupo de ofertas referente a casas.", fig.width = 3.6, fig.height = 3.7}
 list_plots_model_NPH$plot_normal_residuals
 ```
+
+
+A manera de verificación de los supuestos del modelo para el grupo de ofertas de apartamentos, se realizó un análisis sobre los residuales del modelo. Las figuras \@ref(fig:resfittednph) y \@ref(fig:resboxnph)  son
+gráficos de dispersión y de cajas y bigotes, que ilustran la relación entre los residuales con los valores ajustrados, con los estratos y años, respectivamente. Por otro lado, se validó el supuesto de normalidad incluido en los efectos aleatorios del modelo dado en la ecuación \eqref{eq_mod}. Para ello, las figuras  \@ref(fig:ranefnph) y \@ref(fig:resnph) muestran las densidades estimadas para los efectos aleatorios asociados a los sectores catastrales y a los residuales del modelo, respectivamente. Las conclusiones de estos gráficos son las mismas a las presentadas para la validación de supuestos en apartamentos.
+
 
 Es importante mencionar que las tasas de rentabilidad obtenidas para las ofertas en propiedad horizontal son mayores, por lo general a las que corresponden a no propiedad horizontal. Por último, los resultados obtenidos a nivel como sector se calcularon y hacen parte de los resultados de este documento, pero teniendo en cuenta que son tablas con un número de filas considerable, se omiten en este escrito. 
 
 \section{Conclusiones}
 
-En este trabajo se realizó la estimación de la tasa de rentabilidad para predios residenciales a diferentes niveles de desagregación, a partir de métodos de regresión tradicionales. Dentro de los resultados de este documento, es importante resaltar las consideraciones realizadas en la depuración y limpieza de la información, con el fin de obtener una base de datos óptima, que permita realizar las estimaciones requeridas.
+En este trabajo se realizó la estimación de la tasa de rentabilidad para predios residenciales a diferentes niveles de desagregación, a partir de métodos de regresión tradicionales, utilizando la información de ofertas de mercado que han sido capturadas en los últimos años por la UAECD, superando la limitación de trabajar con fuentes con precios de venta y arriendo para un mismo predio. En consecuencia, se constituye en una herramienta alternativa para obtener tasas de capitalización de rentas. 
 
 Los resultados obtenidos son a nivel de sector, año, clase de predio, localidad y estrato. En este documento se omiten los resultados a nivel de sector, debido a su tamaño. Las tasas de rentabilidad obtenidas para casas (NPH) son menores que las calculadas para apartamentos (PH). Se observa una relación inversamente proporcional entre el estrato y las tasas. 
 
