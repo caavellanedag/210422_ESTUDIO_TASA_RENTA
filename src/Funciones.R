@@ -249,14 +249,20 @@ clean_bd <- function(base){
 
 
 
-resumen_mean_bd <- function(bd){
+resumen_mean_bd <- function(bd, fun_summarise = "mean"){
   df_clean <- bd
   df_clean_2 <- df_clean[,c("CODIGO_BARRIO", "NOMBRE_BARRIO", "CODIGO_LOCALIDAD", "NOMBRE_LOCALIDAD",
                             "CLASE_PREDIO", "ESTRATO", "ANO", "TIPO_OFERTA", "VALOR_M2_INTEGRAL", "PRECIO")]
   
-  df_clean_3 <- df_clean_2[, list(N = .N, PRECIO_MEAN =  mean(VALOR_M2_INTEGRAL)),
-                           by = .(CODIGO_BARRIO, NOMBRE_BARRIO, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD,
+  if(fun_summarise == "mean"){
+    df_clean_3 <- df_clean_2[, list(N = .N, PRECIO_MEAN =  mean(VALOR_M2_INTEGRAL)),
+                             by = .(CODIGO_BARRIO, NOMBRE_BARRIO, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD,
                                   CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA)]
+  }else{
+    df_clean_3 <- df_clean_2[, list(N = .N, PRECIO_MEAN =  median(VALOR_M2_INTEGRAL)),
+                             by = .(CODIGO_BARRIO, NOMBRE_BARRIO, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD,
+                                    CLASE_PREDIO, ESTRATO, ANO, TIPO_OFERTA)]
+  }
   
   df_clean_4 <- df_clean_3 %>% data.table::dcast(formula = CODIGO_BARRIO + NOMBRE_BARRIO + CODIGO_LOCALIDAD + 
                                                    NOMBRE_LOCALIDAD + CLASE_PREDIO + ESTRATO + ANO  ~ TIPO_OFERTA, 
@@ -524,20 +530,36 @@ export_requirements <- function(df_clean, df_clean_final,
   df_clean_final$bd_out <- df_clean_final$bd_out %>% mutate(ANO = as.numeric(as.character(ANO)), ESTRATO = as.numeric(as.character(ESTRATO)))
   df_clean_to_print <- df_clean %>% inner_join(df_clean_final$bd_out, by = c("CODIGO_BARRIO", "ANO", "CLASE_PREDIO", "ESTRATO"))
   #df_arriendo_to_print <- df_clean %>% inner_join(base_without_arriendo, by = c("CODIGO_BARRIO", "ANO", "CLASE_PREDIO", "ESTRATO"))
+
+  Table_taxes_NPH <- table_taxes_NPH_final %>% 
+    mutate(TASA_RENTA = round(1/(Coef_all + Coef_est + Coef_loc + Coef_year), 5),
+           CODIGO_LOCALIDAD = as.numeric(as.character(CODIGO_LOCALIDAD))) %>% 
+    dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, TASA_RENTA) %>% 
+    arrange( CODIGO_LOCALIDAD, ESTRATO, ANO) %>% unique()
+  
+  Table_taxes_PH <- table_taxes_PH_final %>% 
+    mutate(TASA_RENTA = round(1/(Coef_all + Coef_est + Coef_loc + Coef_year), 5),
+           CODIGO_LOCALIDAD = as.numeric(as.character(CODIGO_LOCALIDAD))) %>% 
+    dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, TASA_RENTA) %>% 
+    arrange( CODIGO_LOCALIDAD, ESTRATO, ANO) %>% unique()
   
   table_taxes_PH_final <- table_taxes_PH_final %>% mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
     dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, CODIGO_BARRIO, TASA_RENTA)
   table_taxes_NPH_final <- table_taxes_NPH_final %>% mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
     dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, CODIGO_BARRIO, TASA_RENTA)
+  
+
+  
   wb <- createWorkbook("Camilo Avellaneda")
   Sheet(df_clean_final$bd_out, "SECTORES_OUT", wb)
   Sheet(df_clean_to_print, "PREDIOS_SECTORES_OUT", wb)
   Sheet(base_without_arriendo, "SECTORES_SIN_ARR", wb)
-  Sheet(df_clean_imputar, "BASE_FINAL", wb)
+  Sheet(df_clean_imputar, "BASE_MODELO", wb)
   #Sheet(df_arriendo_to_print, "PREDIOS_SIN_ARR", wb)
-  Sheet(table_taxes_PH_final, "PH_Final", wb)
-  Sheet(table_taxes_NPH_final, "NPH_Final", wb)
-  
+  Sheet(table_taxes_PH_final, "PH_Sectores", wb)
+  Sheet(table_taxes_NPH_final, "NPH_Sectores", wb)
+  Sheet(Table_taxes_PH, "PH_Localidades", wb)
+  Sheet(Table_taxes_NPH, "NPH_Localidades", wb)
   
   saveWorkbook(wb, file = paste0("output/", str_replace_all(Sys.Date(), c("2021" = "21", "-" = "")), "_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx"), overwrite = TRUE)
 }

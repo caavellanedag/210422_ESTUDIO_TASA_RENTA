@@ -1,0 +1,356 @@
+---
+title: "METODOLOGÍA PARA LA ESTIMACIÓN DE LAS TASAS DE CAPITALIZACIÓN DE RENTAS DE INMUEBLES RESIDENCIALES, RESULTADOS PARA BOGOTÁ 2017-2021"
+subtitle: Unidad Administrativa Especial de Catastro Distrital
+author: "Grupo estadístico - Observatorio técnico catastral"
+date: Sys.Date()
+output: 
+  powerpoint_presentation:
+    reference_doc: template.pptx
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introducción
+
+La UAECD recolecta ofertas de mercado de venta o arriendo, a través de recorridos sectorizados en la ciudad, que constituyen una importante fuente primaria. De manera complementaria y no menos importante, la entidad también obtiene ofertas de fuentes secundarias, gestionadas a través de convenios o acuerdos con entidades del sector público o privado. 
+
+Particularmente, en ejercicios realizados al interior de la entidad, tendientes a estimar el valor integral de predios en propiedad horizontal, se han identificado dificultades relacionadas con la escasa o nula información en algunas localizaciones de la ciudad. Para superar esta problemática, surge la propuesta de utilizar la información de ofertas de mercado para estimar las tasas de capitalización de renta (TCR). 
+
+## Introducción 
+
+En la información disponible para la realización de este documento, se encuentran las ofertas recolectadas por la UAECD tanto de fuentes primarias como secundarias (Finca Raíz, Galería Inmobiliaria y Properati) desde el primero de enero de 2017 hasta el 31 de diciembre de 2020. Una limitante que se debe tener en cuenta es que los predios no tienen información de arriendo y venta de manera simultánea, lo que quiere decir que para cada oferta solamente se tiene una de las dos mediciones. En este documento únicamente se tendrán en cuenta las ofertas correspondientes a predios residenciales, es decir apartamentos y casas.
+
+## Introducción
+
+Dentro de la literatura se encuentran diversos ejemplos de datos donde se hacen mediciones o encuestas a grupos de individuos periódicamente, pero no necesariamente a las mismas personas, lo cual imposibilita hacer seguimientos sobre unidades en particular, de manera similar a la problemática presentada, donde no se cuenta con información de arriendo y venta en los mismos predios. @deaton1985panel propone un modelo para una muestra \textit{``pseudo-panel"}, que se construye con lo que denominan  cohortes.
+
+
+
+## Objetivo general
+
+Proponer una metodología para la estimación de las TCR y hacer la estimación del índice para inmuebles residenciales de Bogotá, según estratos y diferentes desagregaciones geográficas como lo son las localidades y sectores catastrales. 
+
+
+## Objetivos específicos
+ 
+* Identificar metodologías que sirvan de referencia para el desarrollo del estudio.
+
+* Realizar un análisis descriptivo de la base de datos disponible para la realización del ejercicio.
+
+* Detectar aquellas ofertas atípicas que puedan sesgar los resultados del estudio. 
+
+* Calcular las tasas de capitalización de rentas para inmuebles de uso residencial en diferentes desagregaciones: estrato, localidad y sector catastral 
+
+* Presentar una documentación metodológica de los resultados 
+ 
+
+## Marco conceptual
+
+### Universo de estudio
+
+El Universo de estudio para este documento corresponde al conjunto de predios urbanos en la ciudad de Bogotá en los años 2017 al 2020.
+
+### Población objetivo
+
+La población objetivo corresponde a los predios residenciales, tanto de propiedad horizontal (PH) como no propiedad horizontal (NPH) en la ciudad de Bogotá comprendidos en los años 2017 al 2020. 
+
+
+
+
+## Conceptos principales
+La expresión matemática de la que se deduce la TCR se muestra en la ecuación \label{eqref0}, donde $P_k$ es el precio del $k$-ésimo inmueble, $R_k$ es su tasa de renta o alquiler e $i$ representa la respectiva TCR.
+
+$$
+P_k = \frac{R_k}{i}
+$$
+
+
+## Antecedentes
+
+
+
+
+```{r include=TRUE,warning=FALSE,message=FALSE,echo=FALSE}
+require(pacman)
+
+source("src/Funciones.R")
+p_load(tidyverse, openxlsx, here, haven, data.table, knitr, flextable, 
+       officer, targets, kableExtra, targets, captioner, scales)
+
+options(scipen=999)
+
+tar_load(base)
+tar_load(base_filtrada)
+tar_load(df_clean)
+tar_load(df_clean_final)
+tar_load(list_whole_tables_PH)
+tar_load(list_whole_tables_NPH)
+tar_load(list_plots_model_PH)
+tar_load(list_plots_model_NPH)
+```
+
+
+## Controles de calidad sobre la base
+
+* La base de datos consta originalmente con `r labels(nrow(base))` registros
+* El total de registros residenciales es `r labels(sum(base$TIPO_INMUEBLE %in% c("APARTAMENTO","CASA")))`.
+
+* Por otro lado, se tuvo en cuenta diferentes exclusiones para eliminar inconsistencias, dentro de las cuales se incluyen los casos que no tienen estrato, sin área construida, sin identificador del lote (barmanpre) y ofertas rurales.
+
+* Luego de estas exclusiones, el número de predios en la base para trabajar es `r labels(nrow(base_filtrada))`.
+
+
+## Exclusiones
+
+
+```{r exclusiones, echo = FALSE, warning = FALSE, message = FALSE}
+Exclusiones <- data.frame("Exclusión" = c("Rurales", "Sin área", "Sin Barmanpre", "Sin estrato"),
+N = labels(c(sum(substring(base$CODIGO_BARRIO,1,1) %in% c("1", "2")),
+nrow(base[AREA_CONSTRUIDA == 0 | is.na(base$AREA_CONSTRUIDA)]),
+nrow(base[base$BARMANPRE=="" | is.na(base$BARMANPRE)]),
+nrow(base[base$ESTRATO == 0])) ))
+
+Exclusiones %>% flextable() %>%
+  fontsize(size = 18) %>% 
+  fontsize(size = 19, part = "header") %>% 
+  autofit() %>% 
+  set_caption(caption = "Número de predios en cada una de las exclusiones.") %>% 
+  font(fontname = "Calibri", part = "header")
+  #width(width = 1.5)
+
+#booktabs = TRUE, longtable = TRUE, caption = "Número de predios en cada una de las exclusiones." 
+  #kable_styling(latex_options = c("hold_position",  "repeat_header", "striped"))
+```
+
+## Control de calidad sobre la base
+
+* Para el control de calidad se segmenta por año, clase de predio (PH y NPH), estrato y tipo de oferta (venta y arriendo).
+* Lo ideal es realizar comparaciones entre ofertas que sean próximas desde una perspectiva geográfica (área, precio y valor integral).
+ 
+* Una manera de determinar registros próximos geográficamente, es seleccionando todos los que se encuentren en el mismo sector catastral.
+
+## Control de calidad sobre la base
+
+* Con el objetivo de tener agrupaciones de ofertas lo suficientemente grandes para tener información y realizar la comparación, pero de tal forma que no se agregue demasiado, considerando la singularidad de cada sector
+* Se esperaría que los sectores cuya codificación es igual a diferencia del último dígito son más cercanos que dos sectores que tienen diferencias en sus dos últimos dígitos.
+* De esta manera, el algoritmo propuesto busca estas coincidencias a partir de la distancia de Levenshtein @RecordLinkage, la cual es un valor entre 0 y 1.
+
+## Control de calidad sobre la base
+
+* El algoritmo realiza la búsqueda iterativa de sectores similares
+
+* Una vez el algoritmo encuentra agrupaciones tal que todas superan dicho valor predefinido se detiene y no continua con el proceso de agregación. El número de predios determinado, como umbral es 10.
+
+* Una vez se conforman las diferentes agrupaciones se procede a utilizar una carta de control multivariada.
+
+## Control de calidad sobre la base
+
+```{r plt, echo = FALSE, warning = FALSE, message = FALSE, fig.cap = "Ilustración de la carta de control multivariada.", fig.height = 3.7, fig.width = 3.5}
+lista_separada <- base_filtrada %>% split(.$key) %>% map(Fill_na) 
+lista_2 <- map(lista_separada, ~Agrupa_barrios(.x, cutoff = 10))
+
+lista_2[[1]] %>%
+  filter(CODIGO_BARRIO_NEW == lista_2[[1]]$CODIGO_BARRIO_NEW[1]) %>% 
+  make_control_chart() %>% make_plot_qcc() + ylab("Estadística calculada")
+```
+
+
+## Resumen de la base
+
+* Luego de este control de calidad, la base de datos tiene un total de `r labels(nrow(df_clean))`.
+* Con estos `r labels(nrow(df_clean))` registros, se procede a realizar el cálculo del promedio por sector catastral. 
+* Hay sectores que no tienen información de venta/arriendo.
+* Si el sector tiene información de arriendo y no de venta, se toma la información de la base catastral.
+* Viceversa, se toma el promedio de la localidad, clase de predio, año y estrato para imputar el valor promedio de arriendo. 
+* Una vez se tiene la base de datos a nivel de sectores, se excluyen aquellos casos con una TCR superior al 1% o menor al 0.33%.  
+
+
+## Modelo aplicado
+
+En este modelo la variable respuesta es el valor integral de venta, mientras que una de las variables independientes es el valor integral de arriendo. 
+
+$$Valor\_integral = \frac{Valor\_total}{Area\_construida}$$
+
+Considerando que no se cuenta con información de ventas y arriendo de manera simultánea en un solo predio, se toma la propuesta dada en @deaton1985panel, cuyas cohortes van a estar representadas por los diferentes sectores catastrales.
+
+
+## Modelo aplicado
+
+De esta manera, el modelo estimado es un modelo lineal mixto y se presenta a continuación 
+
+$$
+P_{ij} = \alpha R_{ij} + \beta_k R_{ij} + \eta_l R_{ij} + \kappa_p R_{ij} + \delta_m R_{ij}  + \epsilon_{ij}
+$$
+
+En este modelo se supone lo siguiente
+
+$$
+\sum_k \beta_k = \sum_l \eta_l = \sum_p \kappa_p = 0,
+$$
+
+La TCR se puede visualizar de la forma
+
+$$P_{ij} = \left[ \alpha + \beta_k + \eta_l  + \delta_m + \kappa_p \right] R_{ij} + \epsilon_{ij}$$
+donde se observa que la tasa de renta, se va a calcular a partir de la suma de los respectivos coeficientes, según sea el caso.
+
+## Resultados - PH
+
+```{r scph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos.",  fig.height = 4.8, fig.width = 10}
+list_plots_model_PH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Resultados - PH
+
+```{r estph, warning = FALSE, message = FALSE, echo = FALSE}
+Localidad <- read.xlsx("input/Localidad.xlsx")
+list_whole_tables_PH$tabla_tasa_final_est %>%
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  filter(ESTRATO %in% c(1,2,3)) %>% 
+  flextable() %>%
+  # fontsize(size = 18) %>% 
+  # fontsize(size = 19, part = "header") %>% 
+  autofit() %>% 
+  set_caption(caption = "Tasas de capitalización para apartamentos según estratos y años.")
+```
+
+```{r estph2, warning = FALSE, message = FALSE, echo = FALSE}
+Localidad <- read.xlsx("input/Localidad.xlsx")
+list_whole_tables_PH$tabla_tasa_final_est %>%
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  filter(ESTRATO %in% c(4,5,6)) %>% 
+  flextable() %>%
+  fontsize(size = 11) %>% 
+  fontsize(size = 12, part = "header") %>% 
+  autofit() %>% 
+  set_caption(caption = "Tasas de capitalización para apartamentos según estratos y años.")
+```
+
+
+
+## Resultados - PH
+
+```{r tasaphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según estratos y años.", fig.height = 4.8, fig.width = 10}
+list_whole_tables_PH$tabla_tasa_final_est %>%  
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(ESTRATO,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.45, 0.565), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Año") +
+  xlab("Estrato") +
+  ylab("Tasa de renta en %")
+```
+
+## Resultados - PH
+
+```{r tasaphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para apartamentos según localidades y años.", fig.height = 6, fig.width = 18}
+list_whole_tables_PH$tabla_tasa_final_loc %>%  
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(NOMBRE_LOCALIDAD,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.4, 0.6), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Año") +
+  xlab("Nombre de la localidad") +
+  ylab("Tasa de renta en %")
+```
+
+## Resultados - NPH
+
+```{r scnph, echo=FALSE, message=FALSE, warning=FALSE, fig.cap = "Diagrama de dispersión de los valores integrales de venta y de arriendo con sus respectivas rectas de regresión ajustadas por estrato y vigencia para apartamentos.",  fig.height = 4.8, fig.width = 10}
+list_plots_model_NPH$scatterplot_estrato + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+## Resultados - NPH
+
+```{r estnph, warning=FALSE,message=FALSE,echo=FALSE}
+list_whole_tables_NPH$tabla_tasa_final_est %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  filter(ESTRATO %in% c(1, 2, 3)) %>% 
+    flextable() %>%
+  # fontsize(size = 18) %>% 
+  # fontsize(size = 19, part = "header") %>% 
+  autofit() %>% 
+  set_caption(caption = "Tasas de capitalización para casas según estrato y años.")
+```
+
+```{r estnph2, warning=FALSE,message=FALSE,echo=FALSE}
+list_whole_tables_NPH$tabla_tasa_final_est %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  rename("AÑO" = A) %>%   
+  filter(ESTRATO %in% c(4, 5, 6)) %>% 
+    flextable() %>%
+  # fontsize(size = 18) %>% 
+  # fontsize(size = 19, part = "header") %>% 
+  autofit() %>% 
+  set_caption(caption = "Tasas de capitalización para casas según estrato y años.")
+```
+
+
+## Resultados - NPH
+
+```{r tasanphest, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según estratos y años.", fig.height = 4.4, fig.width = 10}
+list_whole_tables_NPH$tabla_tasa_final_est %>%  
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(ESTRATO,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.42, 0.62), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  labs(fill = "Año") +
+  xlab("Estrato") +
+  ylab("Tasa de renta en %")
+```
+
+## Resultados - NPH
+
+```{r tasanphloc, echo = FALSE, message = FALSE, warning = FALSE, fig.cap = "Tasas de capitalización para casas según localidades y años.", fig.height = 6, fig.width = 18}
+list_whole_tables_NPH$tabla_tasa_final_loc %>%  
+  left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
+  mutate(TASA_RENTA = round(1/TASA_RENTA, 5)*100) %>% 
+  dplyr::select(-"TASA_RENTA_2") %>% 
+  ggplot() + geom_col(aes(NOMBRE_LOCALIDAD,TASA_RENTA, fill = A), position = "dodge") +
+  scale_y_continuous(limits = c(0.5, 0.95), oob = rescale_none) +
+  theme_bw() +
+  scale_fill_brewer(palette = "Set1") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  labs(fill = "Año") +
+  xlab("Nombre de la localidad") +
+  ylab("Tasa de renta en %")
+```
+  
+
+
+## Conclusiones
+
+En este trabajo se realizó la estimación de la tasa de rentabilidad para predios residenciales a diferentes niveles de desagregación, a partir de métodos de regresión tradicionales, utilizando la información de ofertas de mercado que han sido capturadas en los últimos años por la UAECD, superando la limitación de trabajar con fuentes con precios de venta y arriendo para un mismo predio. En consecuencia, se constituye en una herramienta alternativa para obtener tasas de capitalización de rentas. 
+
+## Conclusiones
+
+Los resultados obtenidos son a nivel de sector, año, clase de predio, localidad y estrato. En este documento se omiten los resultados a nivel de sector, debido a su tamaño. Las tasas de rentabilidad obtenidas para casas (NPH) son menores que las calculadas para apartamentos (PH). Se observa una relación inversamente proporcional entre el estrato y las tasas. 
+
+Para el caso NPH, las localidades con una mayor tasa de rentabilidad en casas son Chapinero, Los Mártires y Santa Fé, mientras que las de menor tasa son Bosa y Puente Aranda, mientras que en el caso PH las localidades con mayores tasas de renta son Chapinero, La Candelaria y San Cristobal. Por otro lado, la localidad con menor tasa de rentabilidad es Puente Aranda.
+
+
+## Trabajo futuro
+
+* A partir de una depuración de la información, en futuros ejercicios se podría incluir la edad de los inmuebles como una variable independiente adicional en los modelos para obtener su tasa de rentabilidad asociada. 
+
+* Realizar estimaciones para usos diferentes al residencial.
+
+
+## Referencias
