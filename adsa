@@ -1,0 +1,110 @@
+[33mcommit 9a2b9c10879f0b683a16907a456814d3f7c848a2[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu Jul 15 14:57:32 2021 -0400
+
+    Se eliminaron los archivos pesados para el cargue
+
+[33mcommit 1dd6a6dc518b4d1dbdc3f90e8ad9c966bc8acaec[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu Jul 15 14:55:36 2021 -0400
+
+    Se eliminaron los archivos pesados para el cargue
+
+[33mcommit 7eb6e34baaec969defd9040b1dd63ba8dcfa4217[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu Jul 15 14:54:08 2021 -0400
+
+    Se eliminaron los archivos pesados para el cargue
+
+[33mcommit 3ae65e004ecb7f0d684f492050a62c458c24bc55[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu Jul 15 14:50:18 2021 -0400
+
+    Se incluyeron todos los cambios ps los cambios previos a la presentación
+
+[33mcommit c52167502bba6cf6943b04e0ba290b1d02b614fa[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Mon Jun 21 15:21:23 2021 -0500
+
+    Se creo la presentación del proyecto
+
+[33mcommit 9c33eebe7b59c82c6472dda20c74cf5bfa5b3fd3[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Wed Jun 16 19:59:04 2021 -0500
+
+    Se realizó la versión corregida del documento
+
+[33mcommit ae10eebfb8b6933812d4000fbcb36581ff196514[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Fri Jun 11 10:10:49 2021 -0500
+
+    Se cargo una nueva versión del documento
+
+[33mcommit d19caadb31eb2889dd4579ac17989cf432ead1bc[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Wed Jun 2 20:18:14 2021 -0500
+
+    Se complementó la documentación relacionada
+
+[33mcommit 1a39ff2e24b166865ddba124223f82d12106bd77[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Fri May 28 15:35:44 2021 -0500
+
+    Se actualizó el reporte
+
+[33mcommit 8713bb5a7707d9faa16ac2deaf9f69dec31e4958[m
+Merge: a046f45 8148817
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Fri May 28 14:42:55 2021 -0500
+
+    Se cargó una nueva versión del informe
+
+[33mcommit 8148817f3ae29e1fedc1bf86340635de82f61ce4[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Fri May 28 14:41:04 2021 -0500
+
+    Se cargó una nueva versión del informe
+
+[33mcommit a046f450a4b54b21e6de4f669da90f261312f337[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu May 27 14:47:56 2021 -0500
+
+    Se actualizó el archivo renv.doc
+
+[33mcommit db83858255016fa2e6dc83cfd58b4d40681110e6[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu May 27 10:07:27 2021 -0500
+
+    Se elaboró los modelos con sus respectivos su automatizacion
+
+[33mcommit d5cff2895674b958d6829b50c8eb51a881737322[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Thu May 13 21:48:05 2021 -0500
+
+    Se incluye el protocolo correspondiente a validación
+
+[33mcommit 69215bdfadb5911c09ee6b47799c44720566ee20[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Tue May 4 12:32:36 2021 -0500
+
+    Se agregó el cronograma a la fecha 04/05/2021
+
+[33mcommit a1f1481e8fb39f39f69520ec450bac7454046ea2[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Tue May 4 11:51:57 2021 -0500
+
+    Se incluye la primer versión de la propuesta
+
+[33mcommit e783744f71df0164c953a53bd468af34d2f4b431[m
+Author: Camilo Avellaneda <caavellanedag@unal.edu.co>
+Date:   Wed Apr 28 12:25:11 2021 -0500
+
+    Carga
+
+[33mcommit db68fbff4d8fba0afc5a84cf31d9d0e2ce3d7583[m
+Author: caavellanedag <caavellanedag@unal.edu.co>
+Date:   Thu Apr 22 20:33:26 2021 -0500
+
+    Create README.md
+    
+    Creación del readme

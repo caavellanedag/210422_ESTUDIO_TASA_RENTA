@@ -549,7 +549,9 @@ export_requirements <- function(df_clean, df_clean_final,
     dplyr::select(ANO, CODIGO_LOCALIDAD, ESTRATO, CODIGO_BARRIO, TASA_RENTA)
   
 
-  
+
+  write.csv(df_clean, paste0("output/", str_replace_all(Sys.Date(), c("2021" = "21", "-" = "")), "_BASE_PREDIOS_RESULTADO.csv"))
+
   wb <- createWorkbook("Camilo Avellaneda")
   Sheet(df_clean_final$bd_out, "SECTORES_OUT", wb)
   Sheet(df_clean_to_print, "PREDIOS_SECTORES_OUT", wb)

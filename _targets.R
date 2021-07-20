@@ -7,7 +7,7 @@ tar_option_set(packages = c("janitor", "tidyverse", "openxlsx", "here", "haven",
 source("src/Funciones.R")
 
 list(
-  tar_target(raw_data_file, "input/BASE_HIST_RENTAS.tab", format = "file"),
+  tar_target(raw_data_file, "input/BASE_HIST_RENTAS_AJUS.tab", format = "file"),
   tar_target(raw_bd_catastral, "input/base_predial_resumen_17_20.sas7bdat", format = "file"),
   tar_target(resumen_base_catastral, read_sas(raw_bd_catastral)),
   tar_target(base, fread(raw_data_file, header = T, sep = "\t")),
@@ -46,8 +46,3 @@ list(
                                          table_taxes_NPH_final,
                                          df_clean_resumen, df_clean_imputar))
 )
-
-
-
-
-
