@@ -26,13 +26,13 @@ Sheet<-function(.x, .y, wb){
 
 
 make_control_chart <- function(.x){
-  #if(unique(.x$CLASE_PREDIO) == "P"){
+  if(unique(.x$CLASE_PREDIO) == "P"){
     cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL",  #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "NUMERO_ALCOBAS", 
-                  "AREA_CONSTRUIDA")
-  
+                  "AREA_CONSTRUIDA") #, "VALOR_ADMIMINSTRACION"
+  }else{
     cols_all <- c("PRECIO", "VALOR_M2_INTEGRAL", #"MED_PUNTAJE", "ANTIGUEDAD_INMUEBLE", "AREA_DE_TERRENO","NUMERO_ALCOBAS", 
                   "AREA_CONSTRUIDA")
-  
+    }
   
   df <- .x %>% dplyr::select(cols_all)
   if(sum(map_lgl(df, check_all_equal)) > 0){
@@ -166,10 +166,10 @@ Encuentra_barrio <- function(.x, SECTORES, N){
 
 
 Fill_na <- function(.z){
-  .z %>% mutate_at(c("NUMERO_GARAJES", "NUMERO_ALCOBAS"), replace_na_zero) %>% 
-    mutate_at(c("AREA_DE_TERRENO","AREA_CONSTRUIDA", 
-                "MED_PUNTAJE", 
-                "ANTIGUEDAD_INMUEBLE"), replace_na_mean)
+  .z %>% #mutate_at(c("NUMERO_GARAJES", "NUMERO_ALCOBAS"), replace_na_zero) %>% 
+    mutate_at(c("AREA_CONSTRUIDA"),#, "MED_PUNTAJE", 
+                #"ANTIGUEDAD_INMUEBLE"), 
+              replace_na_mean)
 }
 
 replace_na_mean <- function(x){
@@ -184,12 +184,14 @@ depura_base <- function(base){
   base <- clean_names(base)
   names(base) <- toupper(names(base))
   base$PRECIO <- as.numeric(as.character(str_replace_all(base$PRECIO,c("\\$"="",","=""))))
-  base$IDENTIFICADOR <- as.character(base$IDENTIFICADOR)
-  
-  base <- base %>% mutate_at(c("IDENTIFICADOR","CODIGO_UPZ","NOMBRE_UPZ","CODIGO_BARRIO","NOMBRE_BARRIO",
+  #base$VALOR_ADMINISTRACION <- as.numeric(as.character(str_replace_all(base$VALOR_ADMINISTRACION,c("\\$"="",","=""))))
+  #base$IDENTIFICADOR <- as.character(base$IDENTIFICADOR)
+  base <- as.data.table(base)
+  base <- base %>% mutate_at(c("IDENTIFICADOR","CODIGO_BARRIO","NOMBRE_BARRIO",
                                "NOMBRE_LOCALIDAD","CODIGO_LOCALIDAD","BARMANPRE"),as.character) 
-  base$FECHA <- as.Date(base$FECHA,format="%d/%m/%Y")
-  base$CAT_EDAD <- cut(base$ANTIGUEDAD_INMUEBLE, breaks = c(0, 5, 10, 20, max(base$ANTIGUEDAD_INMUEBLE)), include.lowest = TRUE)
+  #base$FECHA <- as.Date(base$FECHA,format="%d/%m/%Y")
+  #base$CAT_EDAD <- cut(base$ANTIGUEDAD_INMUEBLE, breaks = c(0, 5, 10, 20, max(base$ANTIGUEDAD_INMUEBLE)), include.lowest = TRUE)
+  
   base_filtrada <- base[,CODIGO_BARRIO := str_pad(CODIGO_BARRIO, width = 6, side = "left", pad = "0")]
   base_filtrada <- base_filtrada[,BARMANPRE := str_pad(BARMANPRE, width = 10, side = "left", pad = "0")]
   base_filtrada <- base_filtrada[substring(base_filtrada$CODIGO_BARRIO,1,1) == "0", ]
@@ -211,7 +213,7 @@ clean_bd <- function(base){
   lista_2 <- map(lista_separada, ~Agrupa_barrios(.x, cutoff = 10))
   
   
-  df_clean <- map_dfr(lista_2,function(.x){
+  df_clean <- map_dfr(lista_2, function(.x){
     lista_3 <- .x  %>% split(.$CODIGO_BARRIO_NEW) 
     results <- map(lista_3, make_control_chart)
     df_clean <- map2_dfr(lista_3, results,
