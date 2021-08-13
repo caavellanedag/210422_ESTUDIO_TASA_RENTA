@@ -199,6 +199,51 @@ depura_base <- function(base){
   base_filtrada <- base_filtrada[!(base_filtrada$BARMANPRE=="" | is.na(base_filtrada$BARMANPRE)),]
   base_filtrada <- base_filtrada[ESTRATO > 0]
   base_filtrada[, key := paste0(ANO,"_",CLASE_PREDIO,"_", ESTRATO, "_", TIPO_OFERTA)]
+  
+  # En esta parte se incluye el valor de administración
+  
+  CENSO_EQUIPAMIENTOS <- read.xlsx("input/CECPH_SDP_ESTRATIFICACION.xlsx", sheet = "Sheet 1")
+  CENSO_EQUIPAMIENTOS <- as.data.table(CENSO_EQUIPAMIENTOS)
+  CENSO_EQUIPAMIENTOS[, CODIGO_BARRIO := substr(BARMANPRE_AJUSTADO, 1, 6)]
+  CENSO_EQUIPAMIENTOS[, "MEDIANA_ADMON" := median(VALOR_ADMINISTRACION_MODA), by = .(CODIGO_BARRIO, ESTRATO)]
+  CENSO_EQUIPAMIENTOS[, "MEDIANA_ADMON_2" := median(VALOR_ADMINISTRACION_MODA), by = .(CODIGO_BARRIO)]
+  VALORES_PH <- CENSO_EQUIPAMIENTOS[, c("BARMANPRE_AJUSTADO", "VALOR_ADMINISTRACION_MODA")]
+  VALORES_SECTORES <- unique(CENSO_EQUIPAMIENTOS[, c("CODIGO_BARRIO", "ESTRATO", "MEDIANA_ADMON")])
+  VALORES_SECTORES_2 <- unique(CENSO_EQUIPAMIENTOS[, c("CODIGO_BARRIO", "MEDIANA_ADMON_2")])
+  
+  
+  base_filtrada <- merge(base_filtrada,
+                         VALORES_PH,
+                         by.x = "BARMANPRE",
+                         by.y = "BARMANPRE_AJUSTADO",
+                         all.x = TRUE)
+  base_filtrada <- merge(base_filtrada, VALORES_SECTORES,
+                         by.x = c("CODIGO_BARRIO", "ESTRATO"),
+                         by.y = c("CODIGO_BARRIO", "ESTRATO"),
+                         all.x = TRUE)
+  
+  base_filtrada <- merge(base_filtrada, VALORES_SECTORES_2,
+                         by.x = c("CODIGO_BARRIO"),
+                         by.y = c("CODIGO_BARRIO"),
+                         all.x = TRUE)
+  
+  base_filtrada[, "MEDIANA_ADMON" := ifelse(is.na(MEDIANA_ADMON), MEDIANA_ADMON_2, MEDIANA_ADMON)]
+  base_filtrada[, "MEDIANA_ADMON" := ifelse(is.na(MEDIANA_ADMON), 0, MEDIANA_ADMON)]
+  base_filtrada[, VALOR_ADMINISTRACION := as.numeric(as.character(str_replace_all(VALOR_ADMINISTRACION, 
+                                                                                  c("\\$" = "", "," = "", "\\.00" = ""))))]
+  base_filtrada[, 
+                VALOR_ADMINISTRACION := ifelse(VALOR_ADMINISTRACION > 10000 & !is.na(VALOR_ADMINISTRACION),
+                                               VALOR_ADMINISTRACION, NA)]
+  
+  base_filtrada[, "VALOR_ADMON" := ifelse(!is.na(VALOR_ADMINISTRACION),
+                                          VALOR_ADMINISTRACION, 
+                                          ifelse(!is.na(VALOR_ADMINISTRACION_MODA),
+                                                 VALOR_ADMINISTRACION_MODA,
+                                                 MEDIANA_ADMON))]
+  base_filtrada[, "VALOR_ADMON" := ifelse(TIPO_INMUEBLE == "CASA", 0, VALOR_ADMON)]
+  base_filtrada <- base_filtrada[, "PRECIO" := ifelse(TIPO_OFERTA == "ARRIENDO", PRECIO - VALOR_ADMON, PRECIO)]
+  base_filtrada <- base_filtrada[PRECIO > 0]
+  
   return(base_filtrada)
 }
 

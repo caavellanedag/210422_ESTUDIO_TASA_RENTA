@@ -60,8 +60,8 @@ insertImage(wb, "Índice",
 #             startRow = 1,startCol = 1,units = "in",dpi = 300)
 # writeData(wb, "Diccionario", diccionario, startRow = 9, startCol= 3)
 
-wb_1 <- loadWorkbook("output/210809_BASE_OIC_ARRIENDO_VENTA.xlsx")
-Tablas <- getSheetNames("output/210809_BASE_OIC_ARRIENDO_VENTA.xlsx")
+wb_1 <- loadWorkbook("output/210812_BASE_OIC_ARRIENDO_VENTA.xlsx")
+Tablas <- getSheetNames("output/210812_BASE_OIC_ARRIENDO_VENTA.xlsx")
 labels <- paste0("Tabla ", 1:length(Tablas), ": ")
 labels <- paste0(labels, c("Base de ofertas utilizadas para la validación de la metodología de tasas de capitalización de renta en las vigencias 2019 y 2020.",
                            "Errores medianos de valores integrales y de tasas de capitalización, según estrato, clase de predio y localidad.",

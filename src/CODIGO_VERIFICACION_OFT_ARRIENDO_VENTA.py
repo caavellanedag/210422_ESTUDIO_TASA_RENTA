@@ -7,7 +7,7 @@
 #==============================================
 @author: cavellaneda
 """
-%reset -f
+#%reset -f
 # -*- coding: utf-8 -*-
 import os
 import matplotlib.pyplot as plt
@@ -36,18 +36,20 @@ path = os.getcwd()
 #print(path)
 #print(type(path))
 
-Tasas_sectores_PH = pd.read_excel("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA/output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
-              sheet_name = "PH_Sectores")
+Tasas_sectores_PH = pd.read_excel("output/210812_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
+              sheet_name = "PH_Sectores", engine = "openpyxl")
 
-Tasas_sectores_NPH = pd.read_excel("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA/output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
-              sheet_name = "NPH_Sectores")
+Tasas_sectores_NPH = pd.read_excel("output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
+              sheet_name = "NPH_Sectores", engine = "openpyxl")
 
-Tasas_loc_PH = pd.read_excel("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA/output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
-              sheet_name = "PH_Localidades")
+Tasas_loc_PH = pd.read_excel("output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
+              sheet_name = "PH_Localidades", engine = "openpyxl")
 
-Tasas_loc_NPH = pd.read_excel("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA/output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
-              sheet_name = "NPH_Localidades")
-
+Tasas_loc_NPH = pd.read_excel("output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
+              sheet_name = "NPH_Localidades", engine = "openpyxl")
+            
+            
+        
 Tasas_loc_NPH["OFT_TIPO_INMUEBLE"] = "CASA"
 Tasas_loc_PH["OFT_TIPO_INMUEBLE"] = "APARTAMENTO"
 
@@ -57,8 +59,8 @@ Tasas_sectores_PH["OFT_TIPO_INMUEBLE"] = "APARTAMENTO"
 Tasas_loc = pd.concat([Tasas_loc_NPH, Tasas_loc_PH], axis = 0)
 Tasas_sectores = pd.concat([Tasas_sectores_NPH, Tasas_sectores_PH], axis = 0)
 
-BASE_OFT = pd.read_excel("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA/input/Ofertas_OIC_2017_2020_vivienda.xlsx",
-              sheet_name="consolidado")
+BASE_OFT = pd.read_excel("input/Ofertas_OIC_2017_2020_vivienda.xlsx",
+              sheet_name="consolidado", engine = "openpyxl")
 
 BASE_OFT = BASE_OFT.drop(["no_loc_no_estrato", "TRC_OIC", "Venta_ estimado", "año_SC_estrato",
                "TRC_localidad", "año_localidad_estrato", "TCR_Sector", "año_localidad_estrato"], axis = 1)
@@ -67,9 +69,12 @@ BASE_OFT = COLUMNS_UPPERCASE(BASE_OFT)
 
 BASE_OFT["CODIGO_BARRIO"] = BASE_OFT.CODIGO_BARRIO.astype(str).apply(lambda x: x.zfill(6))
 
+
+
 Tasas_loc = Tasas_loc.rename(columns = {"TASA_RENTA": "TASA_LOCALIDAD"})
 Tasas_sectores = Tasas_sectores.rename(columns = {"TASA_RENTA": "TASA_SECTOR"})
-Tasas_sectores["CODIGO_BARRIO"] = Tasas_sectores.CODIGO_BARRIO.astype(str).apply(lambda x: x.zfill(6))
+Tasas_sectores["CODIGO_BARRIO"] = Tasas_sectores.CODIGO_BARRIO.astype(str).str.replace("\.0", "").apply(lambda x: x.zfill(6))
+ 
 
 BASE_OFT_2 = pd.merge(BASE_OFT, Tasas_sectores.drop(["CODIGO_LOCALIDAD"], axis = 1), how = "left",
          left_on = ["OFT_TIPO_INMUEBLE", "VIGENCIA", "CODIGO_BARRIO", "CODIGO_ESTRATO_SIIC"],
@@ -132,7 +137,7 @@ g = sns.scatterplot(x = 'TCR_OIC', y = 'TCR_ESTADISTICA',
               hue = "OFT_TIPO_INMUEBLE",
               data = BASE_OFT_5);
 
-writer = pd.ExcelWriter("Z:/Trabajo/Catastro/210422_ESTUDIO_TASA_RENTA//output/"+date+"_BASE_OIC_ARRIENDO_VENTA.xlsx", engine='xlsxwriter')
+writer = pd.ExcelWriter("output/"+date+"_BASE_OIC_ARRIENDO_VENTA.xlsx", engine='xlsxwriter')
 BASE_OFT_5.to_excel(writer, sheet_name='BASE_FINAL',index=False)
 SUMMARY.to_excel(writer, sheet_name = 'RESUMEN',index=False)
 SUMMARY_CP.to_excel(writer, sheet_name = 'RESUMEN_CP',index=False)
