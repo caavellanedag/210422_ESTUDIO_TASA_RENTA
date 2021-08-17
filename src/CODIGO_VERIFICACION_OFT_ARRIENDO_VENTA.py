@@ -47,8 +47,27 @@ Tasas_loc_PH = pd.read_excel("output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTO
 
 Tasas_loc_NPH = pd.read_excel("output/210714_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx",
               sheet_name = "NPH_Localidades", engine = "openpyxl")
-            
-            
+              
+CENSO_EQUIPAMIENTOS = pd.read_excel("input/CECPH_SDP_ESTRATIFICACION.xlsx",
+              sheet_name = "base", engine = "openpyxl")              
+
+CENSO_EQUIPAMIENTOS["CODIGO_BARRIO"] = CENSO_EQUIPAMIENTOS.BARMANPRE_AJUSTADO.astype(str).str[:4].apply(lambda x: x.zfill(6))
+CENSO_EQUIPAMIENTOS["BARMANPRE_AJUSTADO"] = CENSO_EQUIPAMIENTOS.BARMANPRE_AJUSTADO.astype(str).apply(lambda x: x.zfill(10))
+
+VALORES_SECTORES = CENSO_EQUIPAMIENTOS.\
+    groupby(["CODIGO_BARRIO", "ESTRATO"]).\
+    agg({"VALOR_ADMINISTRACION_MODA":[("MEDIANA_ADMON" , "median")]})
+VALORES_SECTORES.columns = VALORES_SECTORES.columns.droplevel(0)
+VALORES_SECTORES = VALORES_SECTORES.reset_index().drop_duplicates()
+
+VALORES_SECTORES_2 = CENSO_EQUIPAMIENTOS.\
+    groupby(["CODIGO_BARRIO"]).\
+    agg({"VALOR_ADMINISTRACION_MODA":[("MEDIANA_ADMON_2" , "median")]})
+VALORES_SECTORES_2.columns = VALORES_SECTORES_2.columns.droplevel(0)
+VALORES_SECTORES_2 = VALORES_SECTORES_2.reset_index().drop_duplicates()
+
+VALORES_PH = CENSO_EQUIPAMIENTOS[["BARMANPRE_AJUSTADO", "VALOR_ADMINISTRACION_MODA"]].drop_duplicates()
+
         
 Tasas_loc_NPH["OFT_TIPO_INMUEBLE"] = "CASA"
 Tasas_loc_PH["OFT_TIPO_INMUEBLE"] = "APARTAMENTO"
@@ -91,6 +110,42 @@ BASE_OFT_3.loc[BASE_OFT_3["TASA_SECTOR"].isna(), 'TCR_ESTADISTICA'] = BASE_OFT_3
                #["CODIGO_BARRIO", "CODIGO_LOCALIDAD", "CODIGO_ESTRATO_SIIC", "OFT_TIPO_INMUEBLE", "VIGENCIA"]]
                
 BASE_OFT_4 = BASE_OFT_3[(BASE_OFT_3.OFT_TIPO_INMUEBLE.isin(["CASA", "APARTAMENTO"])) & (~BASE_OFT_3.TCR_ESTADISTICA.isna())]
+
+
+BASE_OFT_4["CODIGO_MANZANA"] = BASE_OFT_4["CODIGO_MANZANA"].astype(str).apply(lambda x: x.zfill(2))
+BASE_OFT_4["CODIGO_PREDIO"] = BASE_OFT_4["CODIGO_PREDIO"].astype(str).apply(lambda x: x.zfill(2))
+BASE_OFT_4["BARMANPRE"] = BASE_OFT_4["CODIGO_BARRIO"] + BASE_OFT_4["CODIGO_MANZANA"] + BASE_OFT_4["CODIGO_PREDIO"]
+
+BASE_OFT_4 = pd.merge(BASE_OFT_4, VALORES_PH, 
+                    how = "left",
+                    left_on = "BARMANPRE", 
+                    right_on = "BARMANPRE_AJUSTADO")
+
+BASE_OFT_4 = pd.merge(BASE_OFT_4,
+                        VALORES_SECTORES,
+                        how = "left", 
+                        left_on = ["CODIGO_BARRIO", "CODIGO_ESTRATO_SIIC"],
+                        right_on = ["CODIGO_BARRIO", "ESTRATO"])
+                        
+BASE_OFT_4 = pd.merge(BASE_OFT_4,
+                        VALORES_SECTORES_2,
+                        how = "left", 
+                        left_on = ["CODIGO_BARRIO"],
+                        right_on = ["CODIGO_BARRIO"])
+np.where(BASE_OFT_4["MEDIANA_ADMON"].isna(), )
+BASE_OFT_4.loc[BASE_OFT_4["MEDIANA_ADMON"].isna(), "MEDIANA_ADMON"] = BASE_OFT_4["MEDIANA_ADMON_2"]
+BASE_OFT_4.loc[BASE_OFT_4["MEDIANA_ADMON"].isna(), "MEDIANA_ADMON"] = 0
+BASE_OFT_4["VALOR_ADMINISTRACION"] = BASE_OFT_4["VALOR_ADMINISTRACION_MODA"]
+BASE_OFT_4.loc[BASE_OFT_4["VALOR_ADMINISTRACION_MODA"].isna(), "VALOR_ADMINISTRACION"] = BASE_OFT_4["MEDIANA_ADMON"]
+BASE_OFT_4.loc[BASE_OFT_4["OFT_TIPO_INMUEBLE"] == "CASA", "VALOR_ADMINISTRACION"] = 0
+BASE_OFT_4["VALOR_ADMINISTRACION_IPC"] = 0
+BASE_OFT_4.loc[BASE_OFT_4["VIGENCIA"] == 2017, "VALOR_ADMINISTRACION_IPC"] = BASE_OFT_4["VALOR_ADMINISTRACION"] * (1 - 0.0463)
+BASE_OFT_4.loc[BASE_OFT_4["VIGENCIA"] == 2018, "VALOR_ADMINISTRACION_IPC"] = BASE_OFT_4["VALOR_ADMINISTRACION"] * (1)
+BASE_OFT_4.loc[BASE_OFT_4["VIGENCIA"] == 2019, "VALOR_ADMINISTRACION_IPC"] = BASE_OFT_4["VALOR_ADMINISTRACION"] * (1 + 0.0349)
+BASE_OFT_4.loc[BASE_OFT_4["VIGENCIA"] == 2020, "VALOR_ADMINISTRACION_IPC"] = BASE_OFT_4["VALOR_ADMINISTRACION"] * (1 + 0.0117)*(1 + 0.0349)
+BASE_OFT_4["VR_INICIAL_ARRIENDO"] = BASE_OFT_4["VR_INICIAL_ARRIENDO"] - BASE_OFT_4["VALOR_ADMINISTRACION_IPC"]
+
+
 BASE_OFT_4["TCR_OIC"] = BASE_OFT_4["VR_INICIAL_ARRIENDO"] / BASE_OFT_4["VR_INICIAL_VENTA"]
 #BASE_OFT.loc[BASE_OFT["TCR_Sector"].isna(), ]
 #BASE_OFT["TRC_localidad"]
@@ -133,9 +188,7 @@ SUMMARY_EST = BASE_OFT_5.groupby(["CODIGO_ESTRATO_SIIC"]).\
 SUMMARY_EST.columns = SUMMARY_EST.columns.droplevel(0)
 SUMMARY_EST = SUMMARY_EST.reset_index()
  
-g = sns.scatterplot(x = 'TCR_OIC', y = 'TCR_ESTADISTICA',
-              hue = "OFT_TIPO_INMUEBLE",
-              data = BASE_OFT_5);
+
 
 writer = pd.ExcelWriter("output/"+date+"_BASE_OIC_ARRIENDO_VENTA.xlsx", engine='xlsxwriter')
 BASE_OFT_5.to_excel(writer, sheet_name='BASE_FINAL',index=False)
@@ -145,6 +198,10 @@ SUMMARY_LOC.to_excel(writer, sheet_name = 'RESUMEN_LOC',index=False)
 SUMMARY_EST.to_excel(writer, sheet_name = 'RESUMEN_EST',index=False)
 #sample_25.to_excel(writer, sheet_name='MUESTRA_LOTES_25',index=False)
 writer.save()
+
+g = sns.scatterplot(x = 'TCR_OIC', y = 'TCR_ESTADISTICA',
+              hue = "OFT_TIPO_INMUEBLE",
+              data = BASE_OFT_5);
 
 g = sns.scatterplot(x = 'VR_FINAL_VENTA', y = 'Venta_ estimado',
               hue = "OFT_TIPO_INMUEBLE",
