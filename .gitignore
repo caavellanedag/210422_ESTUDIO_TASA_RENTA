@@ -6,7 +6,6 @@
 input/*.tab
 _targets/
 output/*.csv
-output/*.xlsx
 _targets/
 
 
