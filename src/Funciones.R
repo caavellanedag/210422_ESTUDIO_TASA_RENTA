@@ -248,7 +248,7 @@ depura_base <- function(base){
                           ANO == 2020 ~ (1 + 0.0117) * (1 + 0.0349) * VALOR_ADMON,
                           TRUE ~ VALOR_ADMON)) 
   
-  base_filtrada <- base_filtrada[, "PRECIO" := ifelse(TIPO_OFERTA == "ARRIENDO", PRECIO - VALOR_ADMON_IPC, PRECIO)]
+  base_filtrada <- base_filtrada[, "PRECIO" := ifelse(TIPO_OFERTA == "ARRIENDO", PRECIO - 0, PRECIO)] #PRECIO - VALOR_ADMON_IPC
   base_filtrada <- base_filtrada[PRECIO > 0]
   return(base_filtrada)
 }
@@ -606,10 +606,10 @@ export_requirements <- function(df_clean, df_clean_final,
   write.csv(df_clean, paste0("output/", str_replace_all(Sys.Date(), c("2021" = "21", "-" = "")), "_BASE_PREDIOS_RESULTADO.csv"))
 
   wb <- createWorkbook("Camilo Avellaneda")
-  Sheet(df_clean_final$bd_out, "SECTORES_OUT", wb)
-  Sheet(df_clean_to_print, "PREDIOS_SECTORES_OUT", wb)
-  Sheet(base_without_arriendo, "SECTORES_SIN_ARR", wb)
-  Sheet(df_clean_imputar, "BASE_MODELO", wb)
+  # Sheet(df_clean_final$bd_out, "SECTORES_OUT", wb)
+  # Sheet(df_clean_to_print, "PREDIOS_SECTORES_OUT", wb)
+  # Sheet(base_without_arriendo, "SECTORES_SIN_ARR", wb)
+  # Sheet(df_clean_imputar, "BASE_MODELO", wb)
   #Sheet(df_arriendo_to_print, "PREDIOS_SIN_ARR", wb)
   Sheet(table_taxes_PH_final, "PH_Sectores", wb)
   Sheet(table_taxes_NPH_final, "NPH_Sectores", wb)
@@ -617,5 +617,85 @@ export_requirements <- function(df_clean, df_clean_final,
   Sheet(Table_taxes_NPH, "NPH_Localidades", wb)
   
   saveWorkbook(wb, file = paste0("output/", str_replace_all(Sys.Date(), c("2021" = "21", "-" = "")), "_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx"), overwrite = TRUE)
+}
+
+
+
+
+Sheet<-function(.x, .y, wb){
+  style_number<-createStyle(numFmt = "#,##0")
+  style_body <- createStyle(fontSize = 9, fontName = "Arial",
+                            halign = "center", border= "TopBottomLeftRight",valign="center",wrapText = TRUE)
+  style_head<-createStyle(fontSize = 10, fontColour = "white",
+                          fontName = "Arial",textDecoration = "bold",fgFill = "red4",halign="center", border= "TopBottomLeftRight")
+  style_number <- createStyle(numFmt = "#,##0")
+  style_percentage <- createStyle(numFmt="PERCENTAGE")
+  
+  addWorksheet(wb,sheetName=.y)
+  writeData(wb,sheet=.y,x=.x, startRow = 3)
+  addStyle(wb, sheet = .y,style=style_body,stack=TRUE,rows = 4:(nrow(.x)+4), cols = 1:ncol(.x),gridExpand = TRUE)
+  addStyle(wb, sheet = .y,style=style_head,stack=TRUE,rows = 3, cols = 1:ncol(.x),gridExpand = TRUE)
+  width_vec <- apply(.x, 2, function(x) max(nchar(as.character(x)) + 2, na.rm = TRUE)) 
+  width_names<-nchar(as.character(colnames(.x)))+7
+  width<-apply(cbind(width_vec,width_names),1,max)
+  setColWidths(wb,  sheet = .y, cols=1:ncol(.x), widths = width)
+  
+  addStyle(wb, sheet = .y,
+           style=style_number,
+           stack=TRUE,
+           rows = 4:(nrow(.x)+5),
+           cols = str_which(names(.x), "^AREA|^N|^PREDIOS|^AV|^VALOR|^AVALUO|^MEDIA|^MEDIANA$|^P_"),
+           gridExpand = TRUE)
+  
+  addStyle(wb, sheet = .y,
+           style = style_percentage,
+           stack = TRUE,
+           rows = 4:(nrow(.x)+5),
+           cols = str_which(names(.x), "^VAR|^P2|^MEDIANA2"),
+           gridExpand = TRUE)
+  
+  
+}
+
+
+write_excel <- function(tabla, name, label, num){
+  tabla_2 <- read.xlsx(tabla)
+  Sheet(tabla_2, name, wb)
+  writeFormula(wb, "Índice", startRow = 9 + num, startCol = 3, 
+               x = makeHyperlinkString(sheet = name, row = 3, col = 1, text = label))
+}
+
+
+
+
+format_excel_file <- function(excel_input_file, excel_output_file,  sheet_names){
+  wb <- createWorkbook("Camilo Avellaneda")
+  addWorksheet(wb, "Índice")
+  #writeData(wb, "ndice", labels, startRow = 10, startCol = 3)
+  insertImage(wb, "Índice",
+              "input/logo.png", width = 3.5,height = 1.5,
+              startRow = 1,startCol = 1,units = "in",dpi = 300)
+  
+  
+  wb_1 <- loadWorkbook(excel_input_file)
+  Tablas <- getSheetNames(excel_input_file)
+  labels <- paste0("Tabla ", 1:length(Tablas), ": ")
+  labels <- paste0(labels, sheet_names)
+  names <- paste0("T.", 1:length(labels))
+  
+  pmap(list(Tablas, names, labels, 1:length(labels)), function(tabla, name, label, num){
+    #tabla_2 <- read.xlsx(tabla)
+    tabla_2 <- read.xlsx(wb_1, sheet = tabla)
+    Sheet(tabla_2, name, wb)
+    writeData(wb, name, label, startRow=2, startCol=1)
+    writeFormula(wb, "Índice", startRow = 9 + num, startCol = 3, 
+                 x = makeHyperlinkString(sheet = name, row = 3, col = 1, text = label))
+    
+  })
+  
+  saveWorkbook(wb,
+               paste0("output/",
+                      str_replace_all(Sys.Date(), c("-" = "", "2021" = "21")), "_", excel_output_file,".xlsx"),
+               overwrite = TRUE)  
 }
 

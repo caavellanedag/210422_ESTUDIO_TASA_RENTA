@@ -40,9 +40,22 @@ list(
   tar_target(table_taxes_NPH_final, Tabla_final_tasas(bd_pruned_to_model_NPH, df_fixed_coef_NPH, ranef_df_NPH)),
   tar_target(list_whole_tables_NPH, get_summary_tables(table_taxes_NPH_final)),
   tar_render(report, "reports/210428_PROGRAMA_DOCUMENTO_TASA_RENTA.Rmd"),
+  tar_render(word_report, "reports/DOCUMENTO_TASA_RENTA.Rmd"),
   tar_render(presentation, "reports/PRESENTACION_ESTUDIO_TASA_RENTA.Rmd"),
   tar_target(export, export_requirements(df_clean, df_clean_final, 
                                          table_taxes_PH_final, 
                                          table_taxes_NPH_final,
-                                         df_clean_resumen, df_clean_imputar))
+                                         df_clean_resumen, df_clean_imputar)),
+  tar_target(format_excel, format_excel_file(excel_input_file = paste0("output/", 
+                                                                       str_replace_all(Sys.Date(), c("-" = "", "2021" = "21")),
+                                                                       "_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES.xlsx"), 
+                                             excel_output_file = paste0("output/", 
+                                                                        str_replace_all(Sys.Date(), c("-" = "", "2021" = "21")),
+                                                                        "_RESULTADOS_PROGRAMA_TASA_RENTA_SECTORES"),  
+                                             sheet_names = c("Tasa de capitalización de renta, según sectores, estratos y años considerados dentro del grupo de ofertas de apartamentos incluidas en el ejercicio.",
+                                                             "Tasa de capitalización de renta, según sectores, estratos y años considerados dentro del grupo de ofertas de casas incluidas en el ejercicio.",
+                                                             "Tasa de capitalización de renta, según localidades, estratos y años considerados dentro del grupo de ofertas de apartamentos incluidas en el ejercicio.",
+                                                             "Tasa de capitalización de renta, según localidades, estratos y años considerados dentro del grupo de ofertas de casas incluidas en el ejercicio.")))
 )
+
+
