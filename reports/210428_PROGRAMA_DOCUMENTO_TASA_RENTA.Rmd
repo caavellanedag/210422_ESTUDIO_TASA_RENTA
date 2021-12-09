@@ -361,7 +361,6 @@ list_whole_tables_PH$tabla_tasa_final_est %>%
 list_whole_tables_PH$tabla_tasa_final_loc %>%  
   left_join(Localidad, by = "CODIGO_LOCALIDAD") %>% 
   mutate(TASA_RENTA = round(1/TASA_RENTA, 5)) %>% 
-  dplyr::select(-"TASA_RENTA_2") %>% 
   dplyr::select(A, CODIGO_LOCALIDAD, NOMBRE_LOCALIDAD, TASA_RENTA) %>% 
   rename("AÑO" = A) %>%   
   kbl(booktabs = TRUE, "latex", longtable = TRUE, caption = "Tasas de capitalización para apartamentos según localidades y años.") %>% 
